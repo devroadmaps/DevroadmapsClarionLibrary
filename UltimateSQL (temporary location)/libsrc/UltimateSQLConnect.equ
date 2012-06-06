@@ -1,0 +1,162 @@
+!*****************************************************************************************************************
+!Copyright (C) 2007-2011 Rick Martin, rick.martin@upperparksolutions.com
+!This software is provided 'as-is', without any express or implied warranty. In no event will the authors 
+!be held liable for any damages arising from the use of this software. 
+!Permission is granted to anyone to use this software for any purpose, 
+!including commercial applications, subject to the following restrictions:
+!1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. 
+!   If you use this software in a product, an acknowledgment in the product documentation would be appreciated 
+!   but is not required.
+!2. You may not use this software in a commerical product whose primary purpose is a SQL/ODBC Interface.
+!3. This notice may not be removed or altered from any source distribution.
+!*****************************************************************************************************************
+
+              Map
+                MODULE('ODBC32')
+                  usd_SQLAllocHandle  (SHORT,Long,*Long),SHORT,Pascal,Name('SQLAllocHandle')
+                  usd_SQLSetEnvAttr   (Long,Long,LONG,Long),SHORT,Pascal,Name('SQLSetEnvAttr')
+                  usd_SqlGetEnvAttr   (UNSIGNED,SHORT,*LONG,LONG,*LONG),SHORT,PASCAL,RAW,NAME('SqlGetEnvAttr')
+                  usd_SQLSetConnectAttr (Long,Long,LONG,Long),SHORT,Pascal,Name('SQLSetConnectAttr')
+
+                  usd_SQLSetStmtAttr  (Long,Long,LONG,Long),SHORT,Pascal,Name('SQLSetStmtAttr')
+                  usd_SQLCancel        (long),Short,PASCAL,RAW,Name('SQLCancel')
+                  usd_SQLCancelHandle (long HandleType, long Handle),Short,PASCAL,RAW,Name('SQLCancelHandle')
+                  usd_SQLExecDirect   (Long,*String,Long),Short,Pascal,RAW,Name('SQLExecDirect')
+                  usd_SQLDriverConnect (Long,Long,*String,Short,*String,Short,Short,Long),Short,Pascal,RAW,Name('SQLDriverConnect')
+                  usd_SQLConnect      (Long,*String,Short,*String,Short,*String,Short),Short,Pascal,RAW,Name('SQLConnect')
+                  usd_SQLFreeHandle   (Short,Long),Short,Pascal,Name('SQLFreeHandle')
+                  usd_SQLDisconnect   (Long),Short,Pascal,Name('SQLDisconnect'),proc
+                  usd_SQLGetDiagField(Short pHandleType,Long pHandle, Short RecNumber, Short DiagIdentifier,  Long pDiagInfoPtr, Short pBufferLength, Long pStringLengthPtr),Short,Pascal,Name('SQLGetDiagField')
+                  usd_SQLGetDiagRec   (Short,Long,Short,*CString,*Long,*CString,Short,*Short),Short,Pascal,proc,RAW,Name('SQLGetDiagRec')
+                  usd_SQLBrowseConnect(Long,*String,Short,*String,Short,*Short),Short,Pascal,RAW,Name('SQLBrowseConnectA')
+                  usd_SQLMoreResults(unsigned hstmt),short,pascal,proc,raw,Name('SQLMoreResults')
+                  usd_SQLRowCount(LONG pStatementHandle, *LONG pRowCountPtr),Short,Pascal,Name('SQLRowCount')
+                  usd_SQLNuMResultCols(LONG pStatementHandle, *LONG pColumnCountPtr),Short,Pascal,Name('SQLNuMResultCols')
+
+
+                  usd_sqlallocenv(*long phenv),long,pascal,Name('sqlallocenv'),proc
+                  usd_sqlallocconnect(long phenv,*long pHdbc),long,pascal,Name('sqlallocconnect'),proc
+                  usd_SqlFreeconnect(long),long,pascal,Name('SqlFreeconnect'),proc
+                  usd_sqlfreeEnv(long),long,pascal,Name('sqlfreeEnv'),proc
+                  usd_strlen(*cstring),long,pascal,raw,name('lstrlena')
+                  usd_sqlallocstmt(long phdbc, *long hstmt),short,pascal,Name('sqlallocstmt')
+                  usd_sqlprepare(long,*cstring, long),short,pascal,raw,name('sqlpreparea')
+                  usd_sqlexecute(long),short,pascal,short,Name('sqlprepare')
+                  usd_sqlbindcol(long,long,long,long,long,long),pascal,short,Name('sqlbindcol'),proc
+                  usd_SQLBindParameter(Unsigned hstmt,|
+                    ushort columnnumber,|
+                    short  Paramtype,|
+                    short  datatype,|
+                    short  sqltype,|
+                    ulong  cbBuffer,|
+                    short  ibScale,|
+                    long   idValue,|
+                    long   cbValueMax,|
+                    Long  lpcbBuffer|
+                    ),short,pascal,proc,raw,Name('SQLBindParameter')
+                  usd_SQLDescribeCol(     |
+                    Unsigned  StatementHandle,     |
+                    short     ColumnNumber,     |
+                    *cstring   ColumnName,     |
+                    short     BufferLength,     |
+                    *short    NameLengthPtr,     |
+                    *short    DataTypePtr,     |
+                    *LONG     ColumnSizePtr,     |
+                    *Short    DecimalDigitsPtr,     |
+                    *Short    NullablePtr),short,pascal,raw,Name('SQLDescribeCol'),proc
+                  usd_SQLGetData(     |
+                    Unsigned      StatementHandle,     |
+                    short         Col_or_Param_Num,     |
+                    short         TargetType,     |
+                    long          TargetValuePtr,     |
+                    long          BufferLength,     |
+                    *long         StrLen_or_IndPtr),short,pascal,raw,Name('SQLGetData'),proc
+                      
+                  usd_sqlfreestmt(long,long),pascal,short,Name('sqlfreestmt'),proc
+                  usd_sqlfetch(long),pascal,short,Name('sqlfetch'),proc
+
+                End
+              End
+
+
+UltimateSQL_HANDLE_ENV    Equate(1)
+UltimateSQL_HANDLE_DBC    Equate(2)
+UltimateSQL_COPT_SS_BASE  Equate(1200)
+UltimateSQL_COPT_SS_INTEGRATED_SECURITY   Equate(UltimateSQL_COPT_SS_BASE+3)
+UltimateSQL_IS_ON     Equate(1)
+UltimateSQL_IS_UINTEGER   Equate(-5)
+UltimateSQL_IS_INTEGER    Equate(-6)
+
+SqlReturn     equate(Short)
+SqlSmallInt   equate(Short)
+UltimateSQL_Success   equate(0)
+UltimateSQL_Success_with_Info equate(1)
+UltimateSQL_STILL_EXECUTING   equate(2)
+UltimateSQL_Error     equate(-1)
+UltimateSQL_No_Data   equate(100)
+UltimateSQL_Invalid_Handle    equate(-2)
+UltimateSQL_HANDLE_STMT   equate(3)
+UltimateSQL_NTS       equate(-3)
+UltimateSQL_NULL_DATA equate(-1)
+UltimateSQL_SQL_Param_Input   equate(1) 
+UltimateSQL_SQL_param_output  equate(2) 
+UltimateSQL_Need_Data equate(99)
+UltimateSQL_CLOSE     EQUATE(0)
+UltimateSQL_DROP      EQUATE(1)
+UltimateSQL_UNBIND    EQUATE(2)
+UltimateSQL_RESET_PARAMS  EQUATE(3)
+UltimateSQL_No_Total  equate(-4)
+UltimateSQL_DRIVER_NOPROMPT   equate(0)
+UltimateSQL_DRIVER_COMPLETE   equate(1)
+UltimateSQL_DRIVER_PROMPT equate(2)
+UltimateSQL_DRIVER_COMPLETE_REQUIRED  equate(3)
+UltimateSQL_Prompt    Equate(2)
+
+UltimateSQL_C_Binary  equate(-2)
+UltimateSQL_C_CHAR    EQUATE(1) !SQL_CHAR             !/* CHAR, VARCHAR, DECIMAL,NUMERIC */
+UltimateSQL_C_LONG    eQUATE(4) !SQL_INTEGER          !/* INTEGER*/
+UltimateSQL_C_SHORT   EQUATE(5) !SQL_SMALLINT         !/* SMALLINT*/
+UltimateSQL_C_FLOAT   EQUATE(7) !SQL_REAL             !/* REAL*/
+UltimateSQL_C_DOUBLE  EQUATE(8) !SQL_DOUBLE           !/* FLOAT, DOUBLE*/
+UltimateSQL_Varchar   equate(12)
+UltimateSQL_tinyInt   equate(-6)
+UltimateSQL_LongVarChar   equate(-1)
+UltimateSQL_C_UTinyInt    equate(-6)
+UltimateSQL_C_SShort  equate(5)
+UltimateSQL_TimeStamp equate(11)
+UltimateSQL_C_TimeStamp   equate(11)
+
+UltimateSQL_CHAR      equate(1)
+UltimateSQL_NUMERIC   equate(2)
+UltimateSQL_DECIMAL   equate(3)
+UltimateSQL_INTEGER   equate(4)
+UltimateSQL_SMALLINT  equate(5)
+UltimateSQL_FLOAT     equate(6)
+UltimateSQL_REAL      equate(7)
+UltimateSQL_DOUBLE    equate(8)
+UltimateSQL_LONGVARBINARY EQUATE(-4)
+UltimateSQL_ATTR_ODBC_VERSION EQUATE(200)
+UltimateSQL_ATTR_CONNECTION_POOLING   equate(201)
+UltimateSQL_ATTR_CP_MATCH equate(202)
+UltimateSQL_ATTR_ASYNC_ENABLE EQUATE(4)
+!  /* values for SQL_ATTR_ASYNC_ENABLE */
+UltimateSQL_ASYNC_ENABLE_OFF  EQUATE(0)
+UltimateSQL_ASYNC_ENABLE_ON   EQUATE(1)
+UltimateSQL_ASYNC_ENABLE_DEFAULT  EQUATE(UltimateSQL_ASYNC_ENABLE_OFF)
+
+
+UltimateSQL_OV_ODBC   equate(3)
+UltimateSQL_OV_ODBC2  equate(2)
+UltimateSQL_OV_ODBC3  equate(3)
+UltimateSQL_CP_OFF    equate(0)
+UltimateSQL_CP_ONE_PER_DRIVER equate(1)
+UltimateSQL_CP_ONE_PER_HENV   equate(2)
+!
+!Diag - values
+UltimateSQL_DIAG_CURSOR_ROW_COUNT EQUATE(-1249)
+UltimateSQL_DIAG_ROW_NUMBER   EQUATE(-1248)
+UltimateSQL_DIAG_COLUMN_NUMBER          EQUATE(-1247)	  
+
+SQL_COPT_SS_BASE          EQUATE(1200)
+SQL_COPT_SS_MARS_ENABLED  EQUATE(SQL_COPT_SS_BASE + 24)
+SQL_MARS_ENABLED_YES                    EQUATE(1)  !          1L

@@ -1,0 +1,318 @@
+#EXTENSION(UltimateSQL, 'Ultimate SQL (Global Extension)'),APPLICATION(ProcedureInfoExtension)
+#PREPARE
+  #INSERT(%CalcFamily, %CLSkelFamily)
+#ENDPREPARE
+#BOXED('Information')
+#INSERT(%CopyrightInfo)
+#ENDBOXED
+#DISPLAY
+#SHEET,HSCROLL
+#TAB('General')
+  #DISPLAY
+  #PROMPT('Global Class:',@S40),%CLSkelClass,AT(90,,95,10),REQ,DEFAULT('SQL')
+  #PROMPT('Multi DLL',CHECK),%CLSkelMultiDLL,AT(90),DEFAULT(0)
+  #ENABLE(%CLSkelMultiDLL=1),ClEAR
+    #PROMPT('Declaration:',DROP('Declared in another App[0]|Declared in this app[1]')),%CLSkelMultiDLLData,DEFAULT(0),AT(90,,95,10)
+  #ENDENABLE 
+  #DISPLAY
+  #PROMPT('Prompt For Connection',CHECK),%PromptToConnect,AT(90),DEFAULT(0)  
+  #DISPLAY
+  #PROMPT('Query Table Name',@S60),%QueryTable,AT(90),DEFAULT('Queries') 
+  #DISPLAY
+  #BOXED
+  #DISPLAY('Debug Settings')
+  #PROMPT('Prefix:',@S20),%CLDebugPrefix,AT(90),DEFAULT('!')
+  #PROMPT('Log File Name:',@S120),%CLLogFileName,AT(90),DEFAULT('DebugLog.txt') 
+  #ENDBOXED
+  #INSERT(%TabCopyright)
+  #ENDTAB
+  #TAB('Connection Info'),WHERE(%PromptToConnect)
+  #PROMPT('Connection (String/Var)',@S60),%ConnectionString
+  #PROMPT('Server (String/Var)',@S60),%ServerString
+  #PROMPT('UserName (String/Var)',@S60),%UserNameString
+  #PROMPT('Password (String/Var)',@S60),%PasswordString
+  #PROMPT('Database (String/Var)',@S60),%DatabaseString
+  #PROMPT('Trusted Connection (Byte/Var)',@S60),%TrustedByte
+#ENDTAB  
+#INSERT(%TabProcedureInfo)
+#INSERT(%TabDefaults)
+#INSERT(%TabInstructions)
+#INSERT(%TabContributors)
+#INSERT(%TabClarionVer)
+#ENDSHEET
+#DISPLAY
+#DISPLAY
+#PROMPT('Disable template',CHECK),%CLSkelAppDisable,AT(10),DEFAULT(0)
+
+#ATSTART          
+  #DECLARE(%ThisApplicationExtension)
+  #DECLARE(%CLSkelDataExternal)
+  #IF(%CLSkelMultiDLL=1 AND %CLSkelMultiDLLData=0)
+    #SET(%CLSkelDataExternal,',EXTERNAL,DLL(dll_mode)')
+  #ENDIF
+  
+#ENDAT
+
+#AT(%AfterGlobalIncludes),WHERE(~%CLSkelAppDisable)
+  INCLUDE('UltimateSQL.INC'),ONCE          
+#ENDAT
+
+#AT(%CustomGlobalDeclarations),WHERE(~%CLSkelAppDisable)
+  #INSERT(%CalcFamily, %CLSkelFamily)
+  #IF(%CLSkelFamily='LEGACY')
+  #PROJECT('UltimateSQL.CLW')
+  #ENDIF  
+  %#pragma link ("C%%V%%MSS%%X%%%%L%%.LIB")
+#ENDAT
+
+#AT(%GlobalData),WHERE(~%CLSkelAppDisable)
+UltimateSQL_TPLVersion      CSTRING('v%UltimateSQLTPLVersion')%CLSkelDataExternal
+us_ServerString             STRING(200)%CLSkelDataExternal
+us_UserNameString           STRING(200)%CLSkelDataExternal
+us_PasswordString           STRING(200)%CLSkelDataExternal
+us_DatabaseString           STRING(200)%CLSkelDataExternal
+us_TrustedByte              BYTE(0)%CLSkelDataExternal
+%CLSkelClass         CLASS(UltimateSQL)%CLSkelDataExternal
+                     END
+#ENDAT
+
+#AT(%DLLExportList),WHERE(%CLSkelMultiDLL=1 AND %CLSkelMultiDLLData=1 AND ~%CLSkelAppDisable)
+  $UltimateSQL_TPLVersion  @?
+  $%CLSkelClass            @? 
+  $us_ServerString         @?             
+  $us_UserNameString       @?           
+  $us_PasswordString       @?            
+  $us_DatabaseString       @?            
+  $us_TrustedByte          @? 
+#ENDAT
+
+#AT(%ProgramSetup),WHERE(~%CLSkelAppDisable) 
+ %CLSkelClass.DebugPrefix = '%CLDebugPrefix'
+ %CLSkelClass.ASCIIFileName = '%CLLogFileName' 
+ %CLSkelClass.Init()  
+ #IF(%PromptToConnect)                    
+ #IF(%ServerString)
+ us_ServerString = %ServerString
+ #ELSE
+ us_ServerString = ''
+ #ENDIF
+ #IF(%UserNameString)
+ us_UserNameString = %UserNameString
+ #ELSE
+ us_UserNameString = ''
+ #ENDIF
+ #IF(%PasswordString)
+ us_PasswordString = %PasswordString
+ #ELSE
+ us_PasswordString = ''
+ #ENDIF
+ #IF(%DatabaseString)
+ us_DatabaseString = %DatabaseString
+ #ELSE
+ us_DatabaseString = ''
+ #ENDIF
+ #IF(%TrustedByte)
+ us_TrustedByte = %TrustedByte
+ #ELSE
+ us_TrustedByte = ''
+ #ENDIF  
+ #EMBED(%us_BeforeConnection,'Before Ultimate SQL Connection')
+ %ConnectionString = %CLSkelClass.Connect(us_ServerString,us_UserNameString,us_PasswordString,us_DatabaseString,us_TrustedByte)
+ %CLSkelClass.SetQueryConnection(%ConnectionString,'%QueryTable') 
+ #EMBED(%us_AfterConnection,'After Ultimate SQL Connection')
+ #ENDIF
+#IF(%PromptToConnect) 
+ #IF(%MultipleActiveResultSets) 
+ %CLSkelClass.MultipleActiveResultSets(TRUE)
+ #ELSE
+ %CLSkelClass.MultipleActiveResultSets(FALSE)
+ #ENDIF    
+ #IF(%VerifyViaSelect) 
+ %CLSkelClass.VerifyViaSelect(TRUE)
+ #ELSE
+ %CLSkelClass.VerifyViaSelect(FALSE)
+ #ENDIF
+ #IF(%SaveStoredProcedure) 
+ %CLSkelClass.SaveStoredProcedure(TRUE)
+ #ELSE
+ %CLSkelClass.SaveStoredProcedure(FALSE)
+ #ENDIF
+ #IF(%GatherAtOpen) 
+ %CLSkelClass.GatherAtOpen(TRUE)
+ #ELSE
+ %CLSkelClass.GatherAtOpen(FALSE)
+ #ENDIF
+ #IF(%IgnoreTruncation) 
+ %CLSkelClass.IgnoreTruncation(TRUE)
+ #ELSE
+ %CLSkelClass.IgnoreTruncation(FALSE)
+ #ENDIF
+ #IF(%BusyHandling) 
+ %CLSkelClass.BusyHandling(%BusyHandlingOption)  
+ #ENDIF
+ #FOR(%AdditionalDriverStrings)
+ %CLSkelClass.SendDriverString(%AdditionalDriverString) 
+ #ENDFOR
+#ENDIF
+#ENDAT
+#!  
+#GROUP(%TabDefaults)  
+  #TAB('Driver Strings'),WHERE(%PromptToConnect)   
+  #PROMPT('MultipleActiveResultSets',CHECK),%MultipleActiveResultSets,AT(10)
+  #PROMPT('VerifyViaSelect',CHECK),%VerifyViaSelect,AT(10)
+  #PROMPT('SaveStoredProcedure',CHECK),%SaveStoredProcedure,AT(10)
+  #PROMPT('GatherAtOpen',CHECK),%GatherAtOpen,AT(10)
+  #PROMPT('IgnoreTruncation',CHECK),%IgnoreTruncation,AT(10)
+  #PROMPT('BusyHandling',CHECK),%BusyHandling,AT(10)
+  #ENABLE(%BusyHandling)
+  #PROMPT('Options',OPTION),%BusyHandlingOption,CHOICE
+  #PROMPT('Do Nothing (1)',RADIO)
+  #PROMPT('One Connection Per Thread (2)',RADIO)
+  #PROMPT('Retry On Busy (3)',RADIO)
+  #PROMPT('Connection Locking (4)',RADIO)
+  #ENDENABLE    
+  #BOXED('Additional Driver Strings')
+    #BUTTON('Driver Strings'),MULTI(%AdditionalDriverStrings,%AdditionalDriverString),INLINE
+    #PROMPT('Driver String:',@S100),%AdditionalDriverString,REQ 
+    #DISPLAY('Use Single Quotes if not using a Variable')
+    #ENDBUTTON
+  #ENDBOXED
+  #ENDTAB
+
+#!
+#GROUP(%TabInstructions) 
+  #TAB('Methods')
+  #DISPLAY('')
+  #DISPLAY('.Init(String pConnectionString,<String pQueryTableName>)')
+  #DISPLAY(' Initializes the Connection String')
+  #DISPLAY('  ex: SQL.Init(<39>Server<39>,<39>Database<39>,<39>User<39>,<39>Password<39>')
+  #DISPLAY('  NOTE: You can optionally specify the name of the')
+  #DISPLAY('    Query Table that will be created in your SQL database.')
+  #DISPLAY('    The default name is dbo.Queries .')
+  #DISPLAY('')
+  #DISPLAY('.Query(String pQuery)')
+  #DISPLAY(' Runs an SQL statement that does not return a result.')
+  #DISPLAY('  ex: SQL.Query(<39>EXEC myStoredProcedure<39>)')
+  #DISPLAY('')
+  #DISPLAY('.Query(String pQuery,,*? Result')
+  #DISPLAY(' Runs an SQL Statement that returns ONE value')
+  #DISPLAY('  ex: SQL.Query(<39>Select COUNT(*) From ATable<39>,,Result)')
+  #DISPLAY('')
+  #DISPLAY('.Query(String pQuery,*Queue pQ,*? Queue.Field(s)')
+  #DISPLAY(' Runs an SQL Statement that returns multiple results.')  
+  #DISPLAY('  ex: SQL.Query(<39>Select Name From Customers<39>,q,q.Name)')
+  #DISPLAY('')
+  #DISPLAY('See example app for more information.')  
+  #DISPLAY('')
+  #DISPLAY('')         
+  #ENDTAB
+  #TAB('Properties')  
+  #DISPLAY('.QueryTableName')
+  #DISPLAY('')
+  #DISPLAY('.ShowQueryInDebugView')
+  #DISPLAY(' Will display the Query you are using to DebugView.')
+  #DISPLAY('  Set to TRUE or FALSE.')
+  #DISPLAY('  ex: SQL.ShowQueryInDebugView(TRUE)')
+  #DISPLAY('')
+  #DISPLAY('.DebugPrefix')
+  #DISPLAY(' Sets the Prefix for your DebugView output (for filtering)')
+  #DISPLAY('  ex: SQL.DebugPrefix = <39>!<39>')
+  #DISPLAY('')
+  #DISPLAY('.AddQueryToClipboard')
+  #DISPLAY(' Adds the last Query to the Clipboard')
+  #DISPLAY('  ex: SQL.AddQueryToClipboard(TRUE)')
+  #DISPLAY('')
+  #DISPLAY('.AppendQueryToClipboard')
+  #DISPLAY(' Appends subsequent Queries to the Clipboard')
+  #DISPLAY('  ex: SQL.AppendQueryToClipboard(TRUE)')
+  #ENDTAB
+#!
+
+#!
+#GROUP(%TabCopyright)
+#BOXED,SECTION,AT(0,23,240,42)
+  #DISPLAY('Ultimate SQL'),AT(10,0),PROP(PROP:FontStyle,700),PROP(PROP:FontName,'Tahoma')
+  #DISPLAY('Version ' & %UltimateSQLTPLVersion),AT(10,10),PROP(PROP:FontStyle,700),PROP(PROP:FontName,'Tahoma')
+  #DISPLAY('http://www.clarionlive.com'),AT(10,30)
+  #DISPLAY('')
+#ENDBOXED
+#!
+#!
+#GROUP(%TabContributors)
+#TAB('Contributors')
+  #DISPLAY
+  #DISPLAY('Arnold Young + John Hickey = Clarion Live')
+  #DISPLAY('http://www.clarionlive.com')
+  #DISPLAY
+  #DISPLAY('Andy Wilton - Noyantis Software')
+  #DISPLAY('http://www.noyantis.com')   
+  #DISPLAY
+  #DISPLAY('Mike Hanson - BoxSoft')
+  #DISPLAY('http://www.boxsoft.net')
+  #DISPLAY
+  #DISPLAY('Mark Goldberg')
+  #DISPLAY('Contributing DebugEvent')
+  #DISPLAY
+#ENDTAB
+#!
+#!
+#GROUP(%TabClarionVer)
+#TAB('Template Set')
+  #DISPLAY
+  #DISPLAY('Current Template Set being used by this app.')
+  #DISPLAY
+  #DISPLAY('This will be set automatically for you once a compile has')
+  #DISPLAY('been performed.')
+  #DISPLAY
+  #ENABLE(%False)
+    #PROMPT('Template Set:',@S10),%CLSkelFamily,Default(''),AT(90,,95,10)
+  #ENDENABLE
+  #DISPLAY
+#ENDTAB
+#!
+#!
+#GROUP(%TabOOP)
+#TAB('OOP'),WHERE(%False)
+  #BOXED('Default prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%OOPHiddenPrompts(ABC))
+  #ENDBOXED
+#ENDTAB
+#!
+#!
+#GROUP(%TabClassesABC, %CLSkelFamily)
+#TAB('&Classes'),WHERE(%CLSkelFamily='ABC')
+  #WITH(%ClassItem, 'Default')
+    #INSERT(%ClassPrompts(ABC))
+  #ENDWITH
+#ENDTAB
+#!
+#!
+#GROUP(%TabClassesLEGACY, %CLSkelFamily)
+#TAB('&Classes'),WHERE(%CLSkelFamily='LEGACY')
+  #BOXED('')
+    #PROMPT('Object:',@S40),%ObjectID,AT(65,,115,10)
+  #ENDBOXED
+#ENDTAB
+#!
+#GROUP(%CalcFamily, * %CLSkelFamily)
+#IF(VarExists(%AppTemplateFamily))
+  #IF(%AppTemplateFamily='CLARION')
+    #SET(%CLSkelFamily,'LEGACY')
+  #ELSE
+    #SET(%CLSkelFamily,'ABC')
+  #ENDIF
+#ELSIF(VarExists(%cwtemplateversion))
+  #IF(%cwtemplateversion = 'v5.5')
+    #IF(VarExists(%ABCVersion))
+      #SET(%CLSkelFamily,'ABC')
+    #ELSE
+      #SET(%CLSkelFamily,'LEGACY')
+    #ENDIF
+  #ELSE
+    #IF(%cwtemplateversion = 'v2.003')
+      #SET(%CLSkelFamily,'LEGACY')
+    #ELSE
+      #SET(%CLSkelFamily,'ABC')
+    #ENDIF
+  #ENDIF
+#ENDIF
