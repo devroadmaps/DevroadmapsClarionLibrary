@@ -1,0 +1,4 @@
+ <Configuration Version="1.00">
+  <SMTPSettings FOLDERTOMONITOR="D:\dev-Clarion\ClarionTest 2.0\DemoDLL" MONITORMODE="1" AUTORUNTEST="1" DOMAIN="" SMTPSERVER="" SMTPPORT="" SMTPUSER="" SMTPPASSWORD="" SENDERADDRESS="" FROMHEADERADDRESS="" FROMHEADERNAME="">
+  </SMTPSettings>
+ </Configuration>

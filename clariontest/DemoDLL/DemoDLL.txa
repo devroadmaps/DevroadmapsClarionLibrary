@@ -1,0 +1,719 @@
+[APPLICATION]
+VERSION 33
+TODO ABC ToDo
+PROCEDURE Main
+[COMMON]
+FROM ABC
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('ErrorManager', 'ErrorStatusManager', 'FileManager:', |
+  'FuzzyMatcher', 'INIManager', 'RelationManager:', 'Translator')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 5
+WHEN  ('ErrorManager') ('ErrorClass')
+WHEN  ('ErrorStatusManager') ('ErrorStatusClass')
+WHEN  ('FuzzyMatcher') ('FuzzyClass')
+WHEN  ('INIManager') ('INIClass')
+WHEN  ('Translator') ('TranslatorClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 5
+WHEN  ('ErrorManager') ('')
+WHEN  ('ErrorStatusManager') ('')
+WHEN  ('FuzzyMatcher') ('')
+WHEN  ('INIManager') ('')
+WHEN  ('Translator') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 0
+
+%ProgramAuthor DEFAULT  ('')
+%ProgramIcon DEFAULT  ('')
+%MessageDescription LONG  (1)
+%GlobalExternal LONG  (0)
+%ExternalSource DEFAULT  ('Dynamic Link Library (DLL)')
+%GenerateEmbedComments LONG  (0)
+%INIType DEFAULT  ('NVD_INI')
+%INIFile DEFAULT  ('Program Name.INI')
+%ININame DEFAULT  ('')
+%INIInAppDirectory LONG  (1)
+%REGRoot DEFAULT  ('REG_CLASSES_ROOT')
+%DisableINISaveWindow LONG  (0)
+%PreserveVars MULTI LONG  ()
+%PreserveVar DEPEND %PreserveVars DEFAULT TIMES 0
+
+%EnableRunTimeTranslator LONG  (0)
+%FuzzyMatchingEnabled LONG  (1)
+%IgnoreCase LONG  (1)
+%WordOnly LONG  (0)
+%WindowFrameDragging LONG  (0)
+%UseDefaultXPManifest LONG  (0)
+%GenerateXPManifest LONG  (0)
+%LinkGenerateXPManifest LONG  (0)
+%AddVistaXPManifest LONG  (0)
+%VistaManifestExecutionLevel DEFAULT  ('asInvoker')
+%VistaManifestUIAccess LONG  (0)
+%ForceMakeTransparentXPManifest LONG  (0)
+%ExtUIXPMenuEnableGlobal LONG  (0)
+%ExtUIXPMenuColorTypeGlobal DEFAULT  ('XPLunaSilver')
+%ExtUIXPMenuColorLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorRightGlobal LONG  (12560039)
+%ExtUIXPMenuColorSelectionBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectionBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectionBorderGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedRightGlobal LONG  (15920364)
+%ExtUIXPMenuFlat LONG  (1)
+%ExtUIMDITabGlobal DEFAULT  ('DISABLE')
+%ExtUIMDITabStyleGlobal DEFAULT  ('Default')
+%ExtUITabStyleGlobal DEFAULT  ('Default')
+%WindowEnableEnhanceFocus LONG  (0)
+%SelectedText LONG  (1)
+%SelectedRadio LONG  (1)
+%SelectedSpin LONG  (1)
+%SelectedCheck LONG  (1)
+%SelectedDropList LONG  (1)
+%SelectedList LONG  (1)
+%SelectedDisplayChangeColor LONG  (1)
+%SelectedColor LONG  (65535)
+%SelectedStyle LONG  (1)
+%SelectedRequired LONG  (0)
+%SelectedRequiredColor LONG  (65535)
+%SelectedDisplayBox LONG  (1)
+%SelectedDisplayBoxFillColor LONG  (65535)
+%SelectedDisplayBoxBorderColor LONG  (0)
+%SelectedDisplayBoxBorderSize DEFAULT  ('2')
+%SelectedRequiredBox LONG  (0)
+%SelectedRequiredDisplayBoxFillColor LONG  (255)
+%SelectedRequiredDisplayBoxBorderColor LONG  (0)
+%SelectedCaret LONG  (1)
+%SelectedCaretColor LONG  (8421504)
+%SelectedCaretCharacter DEFAULT  ('<187>')
+%SelectedCaretCharacterSeparation DEFAULT  ('8')
+%ExcludeSelectedDropList LONG  (0)
+%GlobalUseEnterInsteadTab LONG  (0)
+%GlobalUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalUseEnterInsteadTabEnable DEFAULT  ('Enable')
+%GlobalUseEnterInsteadTabEnableValue DEFAULT  ('True')
+%GlobalEnableAutoSizeColumn LONG  (0)
+%GlobalEnableListFormatManager LONG  (0)
+%GlobalUserFieldListFormatManager DEFAULT  ('1')
+%TableOrigin DEFAULT  ('Application')
+%FileEquate DEFAULT  ('LFM_CFile')
+%ConfigFilePRE DEFAULT  ('CFG')
+%ConfigFileOEM LONG  (0)
+%ConfigFileTHREAD LONG  (1)
+%ConfigFileENCRYPT LONG  (0)
+%ConfigFilePASSWORD DEFAULT  ('')
+%FormatNameSize DEFAULT  ('30')
+%FormatBufferSize DEFAULT  ('5120')
+%VariableBufferSize DEFAULT  ('2048')
+%ConfigFilePath DEFAULT  ('')
+%UseConfigFileName DEFAULT  ('Default')
+%ConfigFileNAME DEFAULT  ('Formats.FDB')
+%ColonCounter DEFAULT  ('')
+%WrongSymbol DEFAULT  ('')
+%DictionaryTableOrigin FILE  ()
+%GlobalLFMSortOrderMenuText DEFAULT  ('SortOrder')
+%GlobalEnableRebase LONG  (0)
+%RBDMethod DEFAULT  ('Specify manually')
+%RBDImageBase DEFAULT  ('10000000')
+%DefaultGenerate LONG  (0)
+%DefaultRILogout LONG  (1)
+%LockRecoverTime DEFAULT  ('10')
+%DefaultThreaded DEFAULT  ('Use File Setting')
+%DefaultCreate DEFAULT  ('Use File Setting')
+%DefaultExternal DEFAULT  ('None External')
+%DefaultLocalExternal LONG  (0)
+%DefaultExternalSource DEFAULT  ('')
+%DefaultExternalAPP LONG  (0)
+%DefaultExport LONG  (0)
+%DefaultOpenMode DEFAULT  ('Share')
+%DefaultUserAccess DEFAULT  ('Read/Write')
+%DefaultOtherAccess DEFAULT  ('Deny None')
+%DefaultLazyOpen LONG  (1)
+%OverrideGenerate DEPEND %File LONG TIMES 0
+
+%OverrideRILogout DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 5
+WHEN  ('ErrorManager') ('YES')
+WHEN  ('ErrorStatusManager') ('YES')
+WHEN  ('FuzzyMatcher') ('YES')
+WHEN  ('INIManager') ('YES')
+WHEN  ('Translator') ('YES')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 5
+WHEN  ('ErrorManager') ('GlobalErrors')
+WHEN  ('ErrorStatusManager') ('GlobalErrorsStatus')
+WHEN  ('FuzzyMatcher') ('FuzzyMatcher')
+WHEN  ('INIManager') ('INIMgr')
+WHEN  ('Translator') ('Translator')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 5
+WHEN  ('ErrorManager') (1)
+WHEN  ('ErrorStatusManager') (1)
+WHEN  ('FuzzyMatcher') (1)
+WHEN  ('INIManager') (1)
+WHEN  ('Translator') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 5
+WHEN  ('ErrorManager') (1)
+WHEN  ('ErrorStatusManager') (1)
+WHEN  ('FuzzyMatcher') (1)
+WHEN  ('INIManager') (1)
+WHEN  ('Translator') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 5
+WHEN  ('ErrorManager') ('')
+WHEN  ('ErrorStatusManager') ('')
+WHEN  ('FuzzyMatcher') ('')
+WHEN  ('INIManager') ('')
+WHEN  ('Translator') ('')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 5
+WHEN  ('ErrorManager') (0)
+WHEN  ('ErrorStatusManager') (0)
+WHEN  ('FuzzyMatcher') (0)
+WHEN  ('INIManager') (0)
+WHEN  ('Translator') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('FuzzyMatcher')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('FuzzyMatcher')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%OverrideThreaded DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideCreate DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideExternal DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideLocalExternal DEPEND %File LONG TIMES 0
+
+%OverrideExternalSource DEPEND %File DEFAULT TIMES 0
+
+%OverrideExternalAPP DEPEND %File LONG TIMES 0
+
+%OverrideExport DEPEND %File LONG TIMES 0
+
+%FileDeclarationMode DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use User Options')
+
+%FileDeclarationType DEPEND %File LONG TIMES 1
+WHEN  ('') (0)
+
+%FileDeclarationThread DEPEND %File LONG TIMES 1
+WHEN  ('') (0)
+
+%FileDeclarationBindable DEPEND %File LONG TIMES 1
+WHEN  ('') (1)
+
+%FileDeclarationName DEPEND %File DEFAULT TIMES 0
+
+%FileDeclarationOver DEPEND %File DEFAULT TIMES 0
+
+%OverrideOpenMode DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideUserAccess DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideOtherAccess DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%OverrideLazyOpen DEPEND %File DEFAULT TIMES 1
+WHEN  ('') ('Use Default')
+
+%StandardExternalModule DEPEND %Module LONG TIMES 6
+WHEN  ('') (1)
+WHEN  ('DemoDLL.clw') (1)
+WHEN  ('DemoDLL001.clw') (1)
+WHEN  ('DemoDLL002.clw') (1)
+WHEN  ('DemoDLL003.clw') (1)
+WHEN  ('DemoDLL004.clw') (1)
+
+%NoGenerateGlobals LONG  (0)
+%WindowManagerType DEFAULT  ('WindowManager')
+%ResetOnGainFocus LONG  (0)
+%AutoToolbar LONG  (1)
+%AutoRefresh LONG  (1)
+%ImageClass DEFAULT  ('ImageManager')
+%ErrorStatusManagerType DEFAULT  ('ErrorStatusClass')
+%ErrorManagerType DEFAULT  ('ErrorClass')
+%DefaultErrorCategory DEFAULT  ('ABC')
+%AllowSelectCopy LONG  (0)
+%StoreErrorHistory LONG  (0)
+%LimitStoredHistory LONG  (0)
+%ErrorHistoryThreshold DEFAULT  ('300')
+%HistoryViewTrigger DEFAULT  ('Level:Fatal')
+%PopupClass DEFAULT  ('PopupClass')
+%SelectFileClass DEFAULT  ('SelectFileClass')
+%ResizerType DEFAULT  ('WindowResizeClass')
+%ResizerDeFaultFindParents LONG  (1)
+%ResizerDefaultOptimizeMoves LONG  (1)
+%ResizerDefaultOptimizeRedraws LONG  (1)
+%INIClass DEFAULT  ('INIClass')
+%RunTimeTranslatorType DEFAULT  ('TranslatorClass')
+%ExtractionFilename DEFAULT  ('')
+%TranslationGroups MULTI LONG  ()
+%TranslationFile DEPEND %TranslationGroups DEFAULT TIMES 0
+
+%TranslationGroup DEPEND %TranslationGroups DEFAULT TIMES 0
+
+%CalendarManagerType DEFAULT  ('CalendarClass')
+%GlobalChangeColor LONG  (0)
+%GlobalColorSunday LONG  (255)
+%GlobalColorSaturday LONG  (255)
+%GlobalColorHoliday LONG  (32768)
+%GlobalColorOther LONG  (0)
+%GlobalSelectOnClose DEFAULT  ('Select')
+%GlobalUseABCClasess LONG  (1)
+%FileManagerType DEFAULT  ('FileManager')
+%ViewManagerType DEFAULT  ('ViewManager')
+%RelationManagerType DEFAULT  ('RelationManager')
+%BrowserType DEFAULT  ('BrowseClass')
+%ActiveInvisible LONG  (0)
+%AllowUnfilled LONG  (0)
+%RetainRow LONG  (1)
+%FileDropManagerType DEFAULT  ('FileDropClass')
+%FileDropComboManagerType DEFAULT  ('FileDropComboClass')
+%FormVCRManagerType DEFAULT  ('FormVCRClass')
+%BrowseEIPManagerType DEFAULT  ('BrowseEIPManager')
+%EditInPlaceInterface DEFAULT  ('Original')
+%EditInPlaceType DEFAULT  ('EditEntryClass')
+%EditInPlaceEntryType DEFAULT  ('EditEntryClass')
+%EditInPlaceTextType DEFAULT  ('EditTextClass')
+%EditInPlaceCheckType DEFAULT  ('EditCheckClass')
+%EditInPlaceSpinType DEFAULT  ('EditSpinClass')
+%EditInPlaceDropListType DEFAULT  ('EditDropListClass')
+%EditInPlaceDropComboType DEFAULT  ('EditDropComboClass')
+%EditInPlaceColorType DEFAULT  ('EditColorClass')
+%EditInPlaceFileType DEFAULT  ('EditFileClass')
+%EditInPlaceFontType DEFAULT  ('EditFontClass')
+%EditInPlaceMultiSelectType DEFAULT  ('EditMultiSelectClass')
+%EditInPlaceCalendarType DEFAULT  ('EditCalendarClass')
+%EditInPlaceLookupType DEFAULT  ('EditLookupClass')
+%EditInPlaceOtherType DEFAULT  ('EditEntryClass')
+%QBEFormType DEFAULT  ('QueryFormClass')
+%QBEFormVisualType DEFAULT  ('QueryFormVisual')
+%QBEListType DEFAULT  ('QueryListClass')
+%QBEListVisualType DEFAULT  ('QueryListVisual')
+%StepManagerType DEFAULT  ('StepClass')
+%StepManagerLongType DEFAULT  ('StepLongClass')
+%StepManagerRealType DEFAULT  ('StepRealClass')
+%StepManagerStringType DEFAULT  ('StepStringClass')
+%StepManagerCustomType DEFAULT  ('StepCustomClass')
+%StepLocatorType DEFAULT  ('StepLocatorClass')
+%EntryLocatorType DEFAULT  ('EntryLocatorClass')
+%IncrementalLocatorType DEFAULT  ('IncrementalLocatorClass')
+%FilteredLocatorType DEFAULT  ('FilterLocatorClass')
+%FuzzyMatcherClass DEFAULT  ('FuzzyClass')
+%GridClass DEFAULT  ('GridClass')
+%SidebarClass DEFAULT  ('SidebarClass')
+%ProcessType DEFAULT  ('ProcessClass')
+%PrintPreviewType DEFAULT  ('PrintPreviewClass')
+%ReportManagerType DEFAULT  ('ReportManager')
+%ReportTargetSelectorManagerType DEFAULT  ('ReportTargetSelectorClass')
+%BreakManagerType DEFAULT  ('BreakManagerClass')
+%AsciiViewerClass DEFAULT  ('AsciiViewerClass')
+%AsciiSearchClass DEFAULT  ('AsciiSearchClass')
+%AsciiPrintClass DEFAULT  ('AsciiPrintClass')
+%AsciiFileManagerType DEFAULT  ('AsciiFileClass')
+%ToolbarClass DEFAULT  ('ToolbarClass')
+%ToolbarListBoxType DEFAULT  ('ToolbarListboxClass')
+%ToolbarRelTreeType DEFAULT  ('ToolbarReltreeClass')
+%ToolbarUpdateClassType DEFAULT  ('ToolbarUpdateClass')
+%ToolbarFormVCRType DEFAULT  ('ToolbarFormVCRClass')
+%OverrideAbcSettings LONG  (0)
+%AbcSourceLocation DEFAULT  ('LINK')
+%AbcLibraryName DEFAULT  ('')
+%AppTemplateFamily DEFAULT  ('ABC')
+%CWTemplateVersion DEFAULT  ('v7.3')
+%ABCVersion DEFAULT  ('7300')
+%W7ManifestVista LONG  (0)
+%W7ManifestW7 LONG  (0)
+%INIProgramIniLocation DEFAULT  ('APPDIR')
+%INICSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%CSIDLCompanyDir DEFAULT  ('')
+%CSIDLProductDir DEFAULT  ('')
+%CSIDLCreate LONG  (0)
+%EnableExceptionMessage LONG  (0)
+%ExtUIXPMenuDisableImageBar LONG  (1)
+%ExtUIXPMenuEnableRuntime LONG  (0)
+%ExtUIXPMenuRuntimeVar DEFAULT  ('')
+%ExtUIXPMenuSelVertical LONG  (1)
+%ExtUIXPMenuColorNormalBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorNormalBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorItemBackgroundGlobal LONG  (-2147483644)
+%ExtUIXPMenuColorNormalText LONG  (0)
+%ExtUIXPMenuColorSelectedText LONG  (0)
+%ExtUIXPMenuColorHotText LONG  (0)
+%ExtUIXPMenuShowImageBar LONG  (0)
+%ExtUIXPMenuSeparator3D LONG  (1)
+%ExtUIXPMenuSeparatorFull LONG  (0)
+%ExtUIXPMenuVerticalLine LONG  (1)
+%GlobalInterLine DEFAULT  ('0')
+%GeneratePropDataPath LONG  (0)
+%PropDataPathLocation DEFAULT  ('CSIDLLIKEINI')
+%DataPathCSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%DataPathCSIDLCompanyDir DEFAULT  ('')
+%DataPathCSIDLProductDir DEFAULT  ('')
+%DataPathCSIDLCreate LONG  (0)
+%DataPathOtherDirectory DEFAULT  ('')
+%DataPathOtherDirectoryCreate LONG  (0)
+[ADDITION]
+NAME ClarionTest TestSupportIncludes
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%TestProcedures MULTI DEFAULT  ('Test_Deliberate_Failure_For_Demo_Purposes', 'Test_String_Comparison', |
+  'Test_Integer_Comparison', 'Test_Group_Comparison', 'Test_String_Comparison', |
+  'Test_Integer_Comparison', 'Test_String_Comparison', 'Test_Integer_Comparison', |
+  'Test_Group_Comparison', 'Test_Integer_Comparison', 'Test_String_Comparison', |
+  'Test_Integer_Comparison', 'Test_Group_Comparison', 'Test_Deliberate_Failure_For_Demo_Purposes', |
+  'Test_Integer_Comparison', 'CompareTruetoFalse_DeliberateTestFailure', 'CompareTwoStrings_Verify', |
+  'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', 'CompareTwoStrings_Verify', |
+  'CompareTwoIntegers_Verify', 'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', |
+  'CompareTwoGroups_Verify', 'CompareTruetoFalse_DeliberateTestFailure', 'CompareTwoStrings_Verify', |
+  'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', 'CompareTruetoFalse_DeliberateTestFailure', |
+  'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', |
+  'CompareTwoStrings_Verify', 'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', |
+  'CompareTwoGroups_Verify', 'CompareTwoStrings_Verify', 'CompareTruetoFalse_DeliberateTestFailure', |
+  'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', |
+  'CompareTwoStrings_Verify', 'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', |
+  'CompareTwoGroups_Verify', 'CompareTwoStrings_Verify', 'CompareTwoStrings_Verify', |
+  'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', 'CompareTruetoFalse_DeliberateTestFailure', |
+  'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify', |
+  'CompareTwoStrings_Verify', 'CompareTwoStrings_Verify', 'CompareTwoIntegers_Verify', |
+  'CompareTwoGroups_Verify', 'CompareTruetoFalse_DeliberateTestFailure', 'CompareTwoStrings_Verify', |
+  'CompareTwoIntegers_Verify', 'CompareTwoGroups_Verify')
+[PERSIST]
+%SaveCreateLocalMap DEFAULT  ('1')
+%GenerationCompleted DEPEND %Module DEFAULT TIMES 5
+WHEN  ('DemoDLL.clw') ('1')
+WHEN  ('DemoDLL001.clw') ('1')
+WHEN  ('DemoDLL002.clw') ('1')
+WHEN  ('DemoDLL003.clw') ('')
+WHEN  ('DemoDLL004.clw') ('1')
+
+%LastTarget32 DEFAULT  ('1')
+%LastProgramExtension DEFAULT  ('DLL')
+%LastApplicationDebug DEFAULT  ('')
+%LastApplicationLocalLibrary DEFAULT  ('')
+[PROJECT]
+-- NAMESPACE DemoDLL
+#system win32 dll
+#model clarion dll
+#pragma define(_ABCDllMode_=>0) -- GENERATED
+#pragma define(_ABCLinkMode_=>1) -- GENERATED
+#compile "DemoDLL.clw" -- GENERATED
+#compile "DemoDLL001.clw" -- GENERATED
+#compile "DemoDLL002.clw" -- GENERATED
+#compile "DemoDLL004.clw" -- GENERATED
+#compile "DemoDLL_BC0.CLW" -- GENERATED
+#compile "DEMODLL_BC.CLW" -- GENERATED
+#pragma link("C%V%asc%X%%L%.lib") -- GENERATED
+#link "DemoDLL.DLL"
+[PROGRAM]
+[COMMON]
+FROM ABC ABC
+MODIFIED '2010/12/08' '19:16:01'
+[END]
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[PROCEDURE]
+NAME Main
+GLOBAL
+[COMMON]
+[END]
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[PROCEDURE]
+NAME CompareTruetoFalse_DeliberateTestFailure
+PROTOTYPE '(*long addr),long,pascal'
+GLOBAL
+[COMMON]
+FROM ABC Source
+MODIFIED '2010/12/08' '19:40:29'
+[PROMPTS]
+%ProcedureParameters MULTI LONG  (1)
+%ProcedureParameterName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+%ProcedureParameterType DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('long')
+
+%ProcedureParameterDefault DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('')
+
+%ProcedureParameterOmitted DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (0)
+
+%ProcedureParameterByReference DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (1)
+
+%Parameters DEFAULT  ('(*long addr)')
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+%ProcedureParameterOrigName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+[EMBED]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+    AssertThat(true,IsEqualTo(false))
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+!TestResult  &TestResultT
+[END]
+[END]
+[ADDITION]
+NAME ClarionTest TestSupport
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%AddressVar DEFAULT  ('addr')
+%TestCode DEFAULT  ('')
+[END]
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[PROCEDURE]
+NAME CompareTwoStrings_Verify
+PROTOTYPE '(*long addr),long,pascal'
+GLOBAL
+[COMMON]
+FROM ClarionTest TestProcedure
+CATEGORY 'Test procedures'
+MODIFIED '2011/01/18' '17:21:49'
+[PROMPTS]
+%Parameters DEFAULT  ('(*long addr)')
+%ProcedureParameters MULTI LONG  (1)
+%ProcedureParameterName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+%ProcedureParameterType DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('long')
+
+%ProcedureParameterDefault DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('')
+
+%ProcedureParameterOmitted DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (0)
+
+%ProcedureParameterByReference DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (1)
+
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+%ProcedureParameterOrigName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+[EMBED]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 2600
+PROPERTY:END
+
+	AssertThat('ad',IsEqualTo('ad'))!,,'This is a custom "success" message')
+[END]
+[END]
+[ADDITION]
+NAME ClarionTest TestSupport
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%AddressVar DEFAULT  ('addr')
+%TestCode DEFAULT  ('')
+[WINDOW]
+Window  WINDOW('dummy ')
+        END
+
+[PROCEDURE]
+NAME CompareTwoIntegers_Verify
+PROTOTYPE '(*long addr),long,pascal'
+GLOBAL
+[COMMON]
+FROM ClarionTest TestProcedure
+CATEGORY 'Test procedures'
+MODIFIED '2010/12/31' '11:34:37'
+[PROMPTS]
+%Parameters DEFAULT  ('(*long addr)')
+%ProcedureParameters MULTI LONG  (1)
+%ProcedureParameterName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+%ProcedureParameterType DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('long')
+
+%ProcedureParameterDefault DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('')
+
+%ProcedureParameterOmitted DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (0)
+
+%ProcedureParameterByReference DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (1)
+
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+%ProcedureParameterOrigName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+[EMBED]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 2600
+PROPERTY:END
+	AssertThat(123,IsNotEqualTo(1234),'Wrong number')
+	AssertThat(123,IsEqualTo(123))
+[END]
+[END]
+[ADDITION]
+NAME ClarionTest TestSupport
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%AddressVar DEFAULT  ('addr')
+%TestCode DEFAULT  ('')
+[WINDOW]
+Window  WINDOW('dummy ')
+        END
+
+[PROCEDURE]
+NAME CompareTwoGroups_Verify
+PROTOTYPE '(*long addr),long,pascal'
+GLOBAL
+[COMMON]
+FROM ClarionTest TestProcedure
+CATEGORY 'Test procedures'
+MODIFIED '2010/12/08' '20:02:19'
+[PROMPTS]
+%Parameters DEFAULT  ('(*long addr)')
+%ProcedureParameters MULTI LONG  (1)
+%ProcedureParameterName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+%ProcedureParameterType DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('long')
+
+%ProcedureParameterDefault DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('')
+
+%ProcedureParameterOmitted DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (0)
+
+%ProcedureParameterByReference DEPEND %ProcedureParameters LONG TIMES 1
+WHEN  (1) (1)
+
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+%ProcedureParameterOrigName DEPEND %ProcedureParameters DEFAULT TIMES 1
+WHEN  (1) ('addr')
+
+[EMBED]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 2600
+PROPERTY:END
+	AssertThat(Group1,IsNotEqualTo(Group2))
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8500
+PROPERTY:END
+Group1	GROUP
+s1	string('abc')
+	end
+Group2	GROUP
+s1	string('abcd')
+	end
+[END]
+[END]
+[ADDITION]
+NAME ClarionTest TestSupport
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%AddressVar DEFAULT  ('addr')
+%TestCode DEFAULT  ('')
+[WINDOW]
+Window  WINDOW('dummy ')
+        END
+
+[END]

@@ -1,0 +1,51 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{8B10F585-B959-4809-AF70-AB88B7166EFE}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ClarionTest_Tests</AssemblyName>
+    <OutputName>ClarionTest_Tests</OutputName>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+    <Model>Dll</Model>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ClarionTest_Tests.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ClarionTest_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ClarionTest_Tests002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CLARIONTEST_TESTS_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ClarionTest_Tests_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>..\ClarionTest.exe ClarionTest_Tests.dll /run</PostBuildEvent>
+  </PropertyGroup>
+</Project>

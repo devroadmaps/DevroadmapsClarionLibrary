@@ -1,0 +1,6 @@
+Error: Corrupt block/Unknown block type freed.  This is probably caused by freeing a static variable or a bad pointer.
+06CE8893  0001:00077893 C70RUN.dll
+06D11813  0001:000A0813 C70RUN.dll
+777B9D42  0001:00029D42 ntdll.dll
+777B9D15  0001:00029D15 ntdll.dll
+----------------------------------

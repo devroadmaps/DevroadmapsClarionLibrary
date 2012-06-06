@@ -1,0 +1,13 @@
+#!--------------------------------------------------------------------------!
+#! Include this template at the end of your template chain (TPL) file using
+#! the following statement:
+#!
+#! #INCLUDE('DCL_TemplateLogger.tpw')
+#!
+#! To use the logger you insert a call to the group:
+#!
+#!  #INSERT(%CMLog,'Some debug message')
+#!
+#!--------------------------------------------------------------------------!
+#Group(%CMLog,%Msg)
+#RUNDLL('DCL_TemplateLogger.DLL','ODS',%Msg),WIN32

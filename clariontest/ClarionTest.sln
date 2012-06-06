@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
+EndProject
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "ClarionTest", "ClarionTest.cwproj", "{C887B0A3-2C01-4ADE-8791-0067E6233FB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{36D512AB-3B6C-4E9C-A60A-731123E13119}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc = ..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc
+		..\libsrc\DCL_ClarionTest_SQLPlugin.clw = ..\libsrc\DCL_ClarionTest_SQLPlugin.clw
+		..\libsrc\DCL_ClarionTest_SQLPlugin.inc = ..\libsrc\DCL_ClarionTest_SQLPlugin.inc
+		..\libsrc\DCL_ClarionTest_TestResult.clw = ..\libsrc\DCL_ClarionTest_TestResult.clw
+		..\libsrc\DCL_ClarionTest_TestResult.inc = ..\libsrc\DCL_ClarionTest_TestResult.inc
+		..\libsrc\DCL_ClarionTest_TestRunner.clw = ..\libsrc\DCL_ClarionTest_TestRunner.clw
+		..\libsrc\DCL_ClarionTest_TestRunner.inc = ..\libsrc\DCL_ClarionTest_TestRunner.inc
+		..\libsrc\DCL_IncludeInAllClassHeaderFiles.inc = ..\libsrc\DCL_IncludeInAllClassHeaderFiles.inc
+		..\libsrc\DCL_System_Diagnostics_Logger.clw = ..\libsrc\DCL_System_Diagnostics_Logger.clw
+		..\libsrc\DCL_System_Diagnostics_Logger.inc = ..\libsrc\DCL_System_Diagnostics_Logger.inc
+		..\libsrc\DCL_System_Runtime_DirectoryWatcher.clw = ..\libsrc\DCL_System_Runtime_DirectoryWatcher.clw
+		..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc = ..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc
+		..\libsrc\DCL_System_Runtime_DLL.clw = ..\libsrc\DCL_System_Runtime_DLL.clw
+		..\libsrc\DCL_System_Runtime_DLL.inc = ..\libsrc\DCL_System_Runtime_DLL.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17FB33F7-C194-4438-BE33-781E73E022AE}.Debug|Win32.Build.0 = Debug|Win32
+		{17FB33F7-C194-4438-BE33-781E73E022AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{17FB33F7-C194-4438-BE33-781E73E022AE}.Release|Win32.Build.0 = Release|Win32
+		{17FB33F7-C194-4438-BE33-781E73E022AE}.Release|Win32.ActiveCfg = Release|Win32
+		{695A9F4A-DEB3-406B-8509-27F627DA68E0}.Debug|Win32.Build.0 = Debug|Win32
+		{695A9F4A-DEB3-406B-8509-27F627DA68E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{695A9F4A-DEB3-406B-8509-27F627DA68E0}.Release|Win32.Build.0 = Release|Win32
+		{695A9F4A-DEB3-406B-8509-27F627DA68E0}.Release|Win32.ActiveCfg = Release|Win32
+		{63954AFD-3977-4114-9629-9A9AAB31DBD0}.Debug|Win32.Build.0 = Debug|Win32
+		{63954AFD-3977-4114-9629-9A9AAB31DBD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{63954AFD-3977-4114-9629-9A9AAB31DBD0}.Release|Win32.Build.0 = Release|Win32
+		{63954AFD-3977-4114-9629-9A9AAB31DBD0}.Release|Win32.ActiveCfg = Release|Win32
+		{C887B0A3-2C01-4ADE-8791-0067E6233FB7}.Debug|Win32.Build.0 = Debug|Win32
+		{C887B0A3-2C01-4ADE-8791-0067E6233FB7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C887B0A3-2C01-4ADE-8791-0067E6233FB7}.Release|Win32.Build.0 = Release|Win32
+		{C887B0A3-2C01-4ADE-8791-0067E6233FB7}.Release|Win32.ActiveCfg = Release|Win32
+		{50C24EC2-2747-4BA9-8AF6-EBAEEE755667}.Debug|Win32.Build.0 = Debug|Win32
+		{50C24EC2-2747-4BA9-8AF6-EBAEEE755667}.Debug|Win32.ActiveCfg = Debug|Win32
+		{50C24EC2-2747-4BA9-8AF6-EBAEEE755667}.Release|Win32.Build.0 = Release|Win32
+		{50C24EC2-2747-4BA9-8AF6-EBAEEE755667}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

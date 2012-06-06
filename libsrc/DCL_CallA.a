@@ -1,0 +1,17 @@
+segment CallA_Text('CODE',29H)
+public CallA:
+    jmp  eax
+public FIXSTACK:
+    pop  ecx  
+    add	 esp,ebx
+    jmp	 ecx
+    
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{695A9F4A-DEB3-406B-8509-27F627DA68E0}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DemoDLL</RootNamespace>
+    <AssemblyName>DemoDLL</AssemblyName>
+    <OutputName>DemoDLL</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+    <Model>Dll</Model>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <Compile Include="DemoDLL.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DemoDLL001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DemoDLL002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DemoDLL004.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DEMODLL_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DemoDLL_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>..\..\ClarionTest.exe DemoDll.dll /run</PostBuildEvent>
+  </PropertyGroup>
+</Project>

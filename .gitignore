@@ -1,0 +1,13 @@
+UnitTests/*/map
+UnitTests/*/obj
+cla*.dll
+build/map
+build/obj
+build/Scratchpad
+ClarionTest/map
+ClarionTest/obj
+ClarionTest/*/map
+ClarionTest/*/obj
+
+
+

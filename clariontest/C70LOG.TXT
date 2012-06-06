@@ -1,0 +1,12 @@
+Error: Corrupt block/Unknown block type freed.  This is probably caused by freeing a static variable or a bad pointer.
+01075AB3  0001:00074AB3 C70RUN.dll
+00F45CEA  0001:00094CEA TxaParserTest.dll
+00F47B88  0001:00096B88 TxaParserTest.dll
+004097EE  0001:000087EE CTest.exe
+00409F00  0001:00008F00 CTest.exe
+0040A225  0001:00009225 CTest.exe
+004081DE  0001:000071DE CTest.exe
+00409452  0001:00008452 CTest.exe
+00408A69  0001:00007A69 CTest.exe
+0040A982  0001:00009982 CTest.exe
+----------------------------------

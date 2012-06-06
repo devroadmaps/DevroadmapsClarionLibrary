@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "DCL_System_Class_Tests", "DCL_System_Class_Tests.cwproj", "{4904D1F3-E305-4C04-BEB1-55911F9841B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		DCL_System_Class_Tests.app = DCL_System_Class_Tests.app
+		DCL_System_String.inc.test = DCL_System_String.inc.test
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{9F3C2152-F3FE-4586-B667-B4F5EF7B3AFE}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\template\DCL_ClarionTest.tpw = ..\..\template\DCL_ClarionTest.tpw
+		..\..\template\DCL_ClarionTest_ABC.tpl = ..\..\template\DCL_ClarionTest_ABC.tpl
+		..\..\template\DCL_ClarionTest_Clarion.tpl = ..\..\template\DCL_ClarionTest_Clarion.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{C1597636-9A93-4A15-A3F3-AB62765C0D50}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\DCL_System_Class.clw = ..\..\libsrc\DCL_System_Class.clw
+		..\..\libsrc\DCL_System_Class.inc = ..\..\libsrc\DCL_System_Class.inc
+		..\..\libsrc\DCL_IncludeInAllClassHeaderFiles.inc = ..\..\libsrc\DCL_IncludeInAllClassHeaderFiles.inc
+		..\..\libsrc\DCL_System_IO_AsciiFile.clw = ..\..\libsrc\DCL_System_IO_AsciiFile.clw
+		..\..\libsrc\DCL_System_IO_AsciiFile.inc = ..\..\libsrc\DCL_System_IO_AsciiFile.inc
+		..\..\libsrc\DCL_System_Diagnostics_Logger.clw = ..\..\libsrc\DCL_System_Diagnostics_Logger.clw
+		..\..\libsrc\DCL_System_Diagnostics_Logger.inc = ..\..\libsrc\DCL_System_Diagnostics_Logger.inc
+		..\..\libsrc\DCL_System_String.clw = ..\..\libsrc\DCL_System_String.clw
+		..\..\libsrc\DCL_System_String.inc = ..\..\libsrc\DCL_System_String.inc
+		..\..\libsrc\DCL_System_ClassParser.clw = ..\..\libsrc\DCL_System_ClassParser.clw
+		..\..\libsrc\DCL_System_ClassParser.inc = ..\..\libsrc\DCL_System_ClassParser.inc
+		..\..\libsrc\DCL_BaseClass.clw = ..\..\libsrc\DCL_BaseClass.clw
+		..\..\libsrc\DCL_BaseClass.inc = ..\..\libsrc\DCL_BaseClass.inc
+		..\..\libsrc\DCL_System_Mangle.clw = ..\..\libsrc\DCL_System_Mangle.clw
+		..\..\libsrc\DCL_System_Mangle.inc = ..\..\libsrc\DCL_System_Mangle.inc
+		..\..\libsrc\DCL_System_ExpFileWriter.clw = ..\..\libsrc\DCL_System_ExpFileWriter.clw
+		..\..\libsrc\DCL_System_ExpFileWriter.inc = ..\..\libsrc\DCL_System_ExpFileWriter.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4904D1F3-E305-4C04-BEB1-55911F9841B6}.Debug|Win32.Build.0 = Debug|Win32
+		{4904D1F3-E305-4C04-BEB1-55911F9841B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4904D1F3-E305-4C04-BEB1-55911F9841B6}.Release|Win32.Build.0 = Release|Win32
+		{4904D1F3-E305-4C04-BEB1-55911F9841B6}.Release|Win32.ActiveCfg = Release|Win32
+		00207A3A-7784-4F2D-AB14-EBAB37BD7486.Debug|Win32.Build.0 = Debug|Win32
+		00207A3A-7784-4F2D-AB14-EBAB37BD7486.Debug|Win32.ActiveCfg = Debug|Win32
+		00207A3A-7784-4F2D-AB14-EBAB37BD7486.Release|Win32.Build.0 = Release|Win32
+		00207A3A-7784-4F2D-AB14-EBAB37BD7486.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

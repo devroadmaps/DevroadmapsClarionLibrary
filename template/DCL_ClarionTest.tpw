@@ -1,0 +1,483 @@
+#!*****************************************************************************
+#!*****************************************************************************
+#EXTENSION(TestSupport,'Support Testing Protocol'),PROCEDURE,DESCRIPTION('[ClarionTest] Support testing protocol')
+#PREPARE
+  #CALL(%Debug,'TestSupport PREPARE for procedure ' & %Procedure)
+  #CALL(%ValidateTestProcParameters,%AddressVar)
+#ENDPREPARE    
+#PROMPT('Address var',@s50),%AddressVar,Default('lpTestResults')
+#DISPLAY('You can enter an expression to be tested here, or you can use the embeditor.'),AT(10,,180,20)
+#DISPLAY('You should probably review the embeditor view first as it contains instructions on the test syntax'),AT(10,,180,32)
+#PROMPT('Test Code',EDIT),%TestCode
+#!**********
+#ATEND
+  #CALL(%Debug,'TestSupport ATSTART for procedure ' & %Procedure)
+  #CALL(%ValidateTestProcParameters,%AddressVar)
+#ENDAT    
+#!**********
+#AT(%DataSection),DESCRIPTION(%ActiveTemplateInstanceDescription)
+#CALL(%Debug,'TestSupport, generating data')
+#ENDAT
+#!**********
+#AT(%ProcessedCode),PRIORITY(1),FIRST,DESCRIPTION(%ActiveTemplateInstanceDescription)
+  %AddressVar = address(UnitTestResult)
+  BeginUnitTest('%Procedure')
+      #IF(%ShowHelpComments)
+!-------------------------------------------------------------------
+! Write your code to test for a result, using the AssertThat syntax.
+! At present there are two different assertions you can use, IsEqualto
+! and IsNotEqualTo. You can pass in any data type that Clarion can
+! automatically convert to a string. 
+! 
+!   AssertThat('a',IsEqualTo('a'),'this is an optional extra message')
+!	  AssertThat(1,IsNotEqualTo(2))
+!
+! As soon as an Assert statement fails there remaining tests will
+! not be executed. 
+!-------------------------------------------------------------------
+      #ENDIF
+      #IF(%TestCode)
+
+  %TestCode
+
+      #ENDIF
+#ENDAT
+#!**********
+#AT(%ProcessedCode),PRIORITY(10000),LAST,DESCRIPTION(%ActiveTemplateInstanceDescription)
+  DO ProcedureReturn ! dgh
+#ENDAT    
+#!*****************************************************************************
+#!*****************************************************************************
+#EXTENSION(TestSupportIncludes,'Add global includes for test support'),APPLICATION,DESCRIPTION('[ClarionTest] Global Includes for Test Support')
+#DISPLAY
+#PROMPT('Generate help comments',CHECK),%ShowHelpComments,Default(%False),At(10,,180)
+#DISPLAY('You can add the name of your Class .INC files below.  The INCLUDE directive will be added for you.'),AT(10,,180,24)
+#BOXED('Class .INC Files')
+  #PROMPT('Class .INC File:',@S200),%TestClasses,MULTI('Class .INC File')
+#ENDBOXED
+#!**********
+#ATSTART
+  #IF(VAREXISTS(%TestGroups) AND ITEMS(%TestGroups) = 0)
+    #ADD(%TestGroups,'Default')
+  #ENDIF
+#ENDAT
+#!**********
+#AT(%CustomGlobalDeclarations)
+  #FOR(%TestClasses)
+    #ADD(%GlobalIncludeList, %TestClasses)
+  #ENDFOR
+#ENDAT
+#!**********
+#AT(%GlobalData),DESCRIPTION(%ApplicationTemplateInstanceDescription)
+  include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
+ClarionTest_ctpl    DCL_ClarionTest_Procedures
+#ENDAT
+#!**********
+#AT(%GlobalMap),DESCRIPTION(%ApplicationTemplateInstanceDescription)
+  include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
+#ENDAT
+#!**********
+#AT(%ProcedureDeclarationsInsideGlobalMap),DESCRIPTION(%ApplicationTemplateInstanceDescription)
+ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr),LONG,PASCAL
+#ENDAT
+#!**********
+#AT(%DllExportList),DESCRIPTION(%ApplicationTemplateInstanceDescription)
+  CLARIONTEST_GETLISTOFTESTPROCEDURES  @?
+#ENDAT
+#!**********
+#AT(%ProgramProcedures),PRIORITY(1000),DESCRIPTION(%ApplicationTemplateInstanceDescription)
+  INCLUDE('DCL_ClarionTest_GlobalCodeAndData.inc','ProgramProcedures')
+      #DECLARE(%OrderNumber)
+      #DECLARE(%GroupedProcedures),MULTI
+      #DECLARE(%GroupTemplateName)
+      #FREE(%GroupedProcedures)
+ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
+    CODE
+    Addr = ADDRESS(ClarionTest_ctpl)
+    FREE(ClarionTest_ctpl.List)
+      #FOR(%Procedure)
+        #IF(%ProcedureTemplate = 'GroupProcedure') 
+          #SET(%GroupTemplateName,%Procedure)
+          #FOR(%ProcedureCalled)
+            #ADD(%GroupedProcedures,%ProcedureCalled)
+    #INSERT(%CreateTestQueueEntry,%ProcedureCalled,%GroupTemplateName)
+          #ENDFOR
+        #ENDIF
+      #ENDFOR
+      #FOR(%Procedure)
+        #IF(%ProcedureTemplate = 'TestProcedure') 
+          #FIX(%GroupedProcedures,%Procedure)
+          #IF(%GroupedProcedures <> '')
+            #CYCLE
+          #ENDIF
+    #INSERT(%CreateTestQueueEntry,%Procedure,'_000_Default')
+        #ENDIF
+      #ENDFOR
+    #Embed(%EndOfClarionTest_GetListOfTestProcedures),Hide 
+    RETURN 0
+#ENDAT
+#!**********
+#AT(%ProcedureRoutines),WHERE(%ProcedureTemplate = 'TestProcedure'),DESCRIPTION(%ActiveTemplateInstanceDescription)
+ProcedureReturn   ROUTINE
+#EMBED(%BeginningOfProcedureReturn,'Beginning of ProcedureReturn ROUTINE')
+  RETURN 0
+#ENDAT
+#!*****************************************************************************
+#GROUP(%CreateTestQueueEntry,%PassedProcedure,%PassedGroup)
+    #FIX(%Procedure,%PassedProcedure)
+    #IF(%Procedure)
+      #IF(SUB(%Procedure,1,1) <> '_')
+ClarionTest_ctpl.List.Priority       = 10
+      #ELSIF(SUB(%Procedure,1,1) = '_')
+ClarionTest_ctpl.List.Priority       = %(SUB(%Procedure,2,3)+0)
+      #ENDIF
+ClarionTest_ctpl.List.testname       = '%Procedure'
+    #Else
+ClarionTest_ctpl.List.Priority       = 10
+ClarionTest_ctpl.List.testname       = '%PassedProcedure'
+    #EndIf
+ClarionTest_ctpl.List.TestGroup      = '%PassedGroup'
+ClarionTest_ctpl.List.TestGroupOrder = %(SUB(%PassedGroup,2,3)+0)
+ADD(ClarionTest_ctpl.List)
+    
+#!*****************************************************************************
+#! The following code could probably be handled nicely with a couple of
+#! RegEx expressions - anybody want to tackle that?
+#! Here's one regex, but it's not Clarion compatible:
+#! [ \t]*\([ \t]*\*[ \t]*LONG[ \t]+[A-Z_][A-Z_:]*[ \t]*\)([ \t]*,[ \t]*LONG[ \t]*,[ \t]*PASCAL|[ \t]*,[ \t]*PASCAL[ \t]*,[ \t]*LONG)
+#!-----
+#GROUP(%ValidateTestProcParameters,* %AddressVar)
+  #DECLARE(%StartPos)
+  #DECLARE(%EndPos)
+  #DECLARE(%Param1)
+  #DECLARE(%Param1Type)
+  #DECLARE(%RetType)
+  #CALL(%Trace,'ValidateTestProcParameters')
+  #! Make sure the procedure name begins with TEST_
+  #CALL(%Trace,'ValidateTestProcParameters - checking procedure name ' & %Procedure)
+  #! #IF( len(%Procedure) < 6 or lower(sub(%Procedure,1,5)) <> 'test_')
+  #!     #Error('Procedure "' & %Procedure & '" is misnamed. Test procedure names must begin with Test_')
+  #!     #! #Abort
+  #! #ENDIF    
+  #! Make sure there's a (
+  #CALL(%Trace,'ValidateTestProcParameters - checking for (')
+  #SET(%StartPos,instring('(',%Prototype,1,1))
+  #IF(%StartPos = 0)
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF    
+  #SET(%StartPos,%StartPos+1)
+  #! Get the contents inside the ()
+  #CALL(%Trace,'ValidateTestProcParameters, getting parameters')
+  #SET(%EndPos,instring(')',%Prototype,1,1))
+  #IF(%EndPos = 0 or %EndPos =< %StartPos)
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF    
+  #SET(%Param1,sub(%Prototype,%StartPos,%EndPos - %StartPos))
+  #CALL(%Debug,'TempParam: ' & %Param1)
+  #! #! Make sure there's no , - i.e. only one parameter
+  #CALL(%Trace,'ValidateTestProcParameters - making sure there''s only one parameter')
+  #CALL(%Debug,'TempParam: ' & %Param1)
+  #SET(%StartPos,instring(',',%Param1,1,1))
+  #IF(%StartPos > 0)
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF
+  #! Get the type and the label
+  #CALL(%Trace,'ValidateTestProcParameters - verifying both type and name are present')
+  #SET(%StartPos,instring(' ',%Param1,1,1))
+  #IF(%StartPos = 0)
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF
+  #CALL(%Trace,'ValidateTestProcParameters - verifying the type is *long')
+  #SET(%Param1Type,sub(%Param1,1,%StartPos-1))
+  #CALL(%Debug,'Type is ' & upper(%Param1Type))
+  #IF(lower(%Param1Type) <> '*long')
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF
+  #SET(%AddressVar,sub(%Param1,%StartPos+1,%len(%Param1)-%StartPos))
+  #CALL(%Debug,'Set addressvar to ' & %AddressVar)
+  #! Make sure there's a return type of long
+  #SET(%RetType,lower(sub(%Prototype,%EndPos+1,len(%Prototype)-%EndPos)))
+  #CALL(%Debug,'Set RetType to ' & %RetType)
+  #IF(instring(',long',%RetType,1,1) > 0 and instring(',pascal',%RetType,1,1) > 0)
+    #CALL(%Debug,'both ,long and ,pascal found')
+  #ELSE
+    #CALL(%Debug,',long and ,pascal NOT both found')
+    #CALL(%ValidateTestProcParametersCriticalError)
+    #RETURN
+  #ENDIF
+#!*****************************************************************************
+#GROUP(%ValidateTestProcParametersCriticalError)
+  #Error('The procedure ' & %Procedure & ' must have a prototype of (*long AnyVariableNameHere),long,pascal')
+  #! #Abort
+#!*****************************************************************************
+#GROUP(%Trace,%Msg)
+#! #Message(%Msg,2)
+#! #RUNDLL('TplDebug.DLL','ODS',%Msg),WIN32
+#!*****************************************************************************
+#GROUP(%Debug,%Msg)
+#! #Message('*** ' & %Msg,2)
+#!-----------------------------------------------------------------------------
+#! #RUNDLL('TplDebug.DLL','ODS','[dbg] ' & %Msg),WIN32
+#!-----------------------------------------------------------------------------
+#!*****************************************************************************
+#!*****************************************************************************
+#EXTENSION(AddSampleData,'Add Sample Data to File'),PRIMARY(%AddSampleDataDescription()),DESCRIPTION(%AddSampleDataDescription())
+#RESTRICT
+  #IF(%AppTemplateFamily='CLARION')
+    #ACCEPT
+  #ELSE
+    #REJECT  #!TODO
+  #ENDIF
+#ENDRESTRICT
+#!**********
+#BOXED('')
+  #DISPLAY('Creates local procedure CTAdd:'& %PrimaryName() &', which returns TRUE on success, or FALSE on failure.'),AT(10,,180,28)
+  #PROMPT('SetUnitTestFailed on errors',CHECK),%SetUnitTestFailedOnError,DEFAULT(%True),AT(10,,180)
+  #BUTTON('Assign Foreign Key Fields'),MULTI(%ParentFiles,%ParentFile),AT(10,,180)
+    #DISPLAY('Parent file:')
+    #PROMPT('',FILE),%ParentFile,REQ,AT(10,,180)
+  #ENDBUTTON
+#ENDBOXED
+#DISPLAY
+#BOXED('Shortcut to Files Window')
+  #DISPLAY('The following setting is purely a shortcut to the Files Window, and has no impact on the generated code.'),AT(10,,180,20)
+  #PROMPT('',FILE),%DummyFile,AT(10,,180)
+#ENDBOXED         
+#!**********                           
+#ATSTART
+  #CALL(%AddSampleDataHasAutoIncSymbols)
+#ENDAT
+#!**********
+#AT(%DataSection),PRIORITY(100),DESCRIPTION(%ActiveTemplateInstanceDescription)
+                    MAP
+%[22]('CTAdd:'& %Primary) PROCEDURE,BOOL,PROC
+                    END
+#ENDAT
+#!**********
+#AT(%AddSampleDataAutoIncReadError, %ActiveTemplateInstance),WHERE(%SetUnitTestFailedOnError),DESCRIPTION('SetUnitTestFailed')
+SetUnitTestFailed('%Primary auto-inc failed during read: '& ERRORCODE() &'-'& ERROR())
+#ENDAT
+#!**********
+#AT(%AddSampleDataAddFailed, %ActiveTemplateInstance),WHERE(%SetUnitTestFailedOnError),DESCRIPTION('SetUnitTestFailed')
+SetUnitTestFailed('%Primary cannot be added: '& ERRORCODE() &'-'& ERROR())
+#ENDAT
+#!**********
+#AT(%AddSampleDataPrimeFields, %ActiveTemplateInstance),DESCRIPTION('Assign foreign key field(s)')
+    #FOR(%ParentFiles)
+#INSERT(%AssignFKFields, %ParentFile, %Primary)
+    #ENDFOR
+#ENDAT
+#!**********
+#AT(%LocalProcedures),PRIORITY(2000),DESCRIPTION(%ActiveTemplateInstanceDescription)
+
+      #FIX(%File, %Primary)
+%[20]('CTAdd:'& %Primary) PROCEDURE!,BOOL
+      #IF(%AppTemplateFamily='CLARION' AND %AddSampleDataHasAutoInc())
+#INSERT(%AddSampleDataAutoIncrementData)
+      #ENDIF
+  CODE
+      #IF(%AppTemplateFamily='CLARION')
+  CLEAR(%File)
+  #INSERT(%AddSampleDataPrimeFieldsEmbed)
+        #IF(%AddSampleDataHasAutoInc())
+  #INSERT(%AddSampleDataAddWithAutoIncrement)
+        #ELSE
+  #INSERT(%AddSampleDataAddWithoutAutoIncrement)
+        #ENDIF
+      #ELSE
+  RETURN FALSE  #!TODO
+      #ENDIF
+
+#ENDAT
+#!*****************************************************************************
+#GROUP(%AddSampleDataAutoIncrementData),AUTO,PRESERVE
+#INSERT(%SaveButtonRecordHandler(Clarion),'DECLARE',%Primary)
+Auto::Attempts       LONG,AUTO
+    #FOR(%Key),WHERE(%KeyAuto)
+      #FOR(%KeyField)
+        #FIX(%SavedField,%KeyField)
+        #IF(%SavedField <> %KeyField)
+          #ADD(%SavedField,%KeyField)
+          #FIX(%Field,%KeyField)
+          #IF(%FieldType='GROUP')
+Auto::Save:%[12]Field LIKE(%Field),PRE(SV)
+          #ELSE
+Auto::Save:%[12]Field LIKE(%Field)
+          #ENDIF
+        #ENDIF
+      #ENDFOR
+    #ENDFOR
+#!*****************************************************************************
+#GROUP(%AddSampleDataAddWithAutoIncrement)
+      #SUSPEND
+#INSERT(%SaveButtonRecordHandler(Clarion),'SET',%Primary)
+      #RESUME
+Auto::Attempts = 0
+LOOP
+      #FOR(%Key),WHERE(%KeyAuto)
+        #IF(ITEMS(%KeyField)>1)
+          #FOR(%KeyField)
+            #IF(%KeyField=%KeyAuto)
+              #IF(%KeyFieldSequence = 'ASCENDING')
+                #SET(%ClearValue,'1')
+              #ELSE
+                #SET(%Clearvalue,'-1')
+              #ENDIF
+            #ENDIF
+          #ENDFOR
+          #FOR(%KeyField),WHERE(%KeyField <> %KeyAuto)
+  Auto::Save:%KeyField = %KeyField
+          #ENDFOR
+  CLEAR(%KeyAuto,%ClearValue)
+  SET(%Key,%Key)
+          #IF(%ClearValue=1)
+  PREVIOUS(%File)
+          #ELSE
+  NEXT(%File)
+          #ENDIF
+          #FOR(%KeyField)
+            #IF(%KeyField=%KeyAuto)
+              #BREAK
+            #ENDIF
+          #ENDFOR
+  IF ERRORCODE() AND ERRORCODE() <> BadRecErr
+    #INSERT(%AddSampleDataAutoIncReadErrorEmbed)
+    RETURN FALSE
+  END
+          #IF(ITEMS(%KeyField) = 1)
+  IF ERRORCODE()
+          #ELSE
+  IF ERRORCODE() |
+          #ENDIF
+          #FOR(%KeyField),WHERE(%KeyField <> %KeyAuto)
+            #IF(INSTANCE(%KeyField) = ITEMS(%KeyField) - 1)
+  OR Auto::Save:%KeyField <> %KeyField
+            #ELSE
+  OR Auto::Save:%KeyField <> %KeyField |
+            #ENDIF
+          #ENDFOR
+    Auto::Save:%KeyAuto = 1
+  ELSE
+    Auto::Save:%KeyAuto = %KeyAuto + 1
+  END
+        #ELSE
+  SET(%Key)
+          #FOR(%KeyField)
+            #IF(%KeyFieldSequence = 'ASCENDING')
+  PREVIOUS(%File)
+            #ELSE
+  NEXT(%File)
+            #ENDIF
+          #ENDFOR
+  IF ERRORCODE() AND ERRORCODE() <> BadRecErr
+    #INSERT(%AddSampleDataAutoIncReadErrorEmbed)
+    RETURN FALSE
+  END
+  IF ERRORCODE()
+    Auto::Save:%KeyAuto = 1
+  ELSE
+    Auto::Save:%KeyAuto = %KeyAuto + 1
+  END
+        #ENDIF
+  #INSERT(%SaveButtonRecordHandler(Clarion),'RESET',%Primary)
+  %KeyAuto = Auto::Save:%KeyAuto
+  #INSERT(%SaveButtonRecordHandler(Clarion),'SET',%Primary)
+      #ENDFOR
+  #INSERT(%AddSampleDataBeforeAddEmbed)
+  ADD(%Primary)
+  IF ERRORCODE()
+    Auto::Attempts += 1
+    IF Auto::Attempts = 3
+      #INSERT(%AddSampleDataAddFailedEmbed)
+      RETURN FALSE
+    END
+    CYCLE
+  END
+  BREAK
+END
+#INSERT(%AddSampleDataAddSucceededEmbed)
+RETURN TRUE
+#!*****************************************************************************
+#GROUP(%AddSampleDataAddWithoutAutoIncrement)
+#INSERT(%AddSampleDataBeforeAddEmbed)
+ADD(%File)
+IF ERRORCODE() = NoError
+  #INSERT(%AddSampleDataAddSucceededEmbed)
+  RETURN TRUE
+ELSE
+  #INSERT(%AddSampleDataAddFailedEmbed)
+  RETURN FALSE
+END
+#!*****************************************************************************
+#GROUP(%AddSampleDataHasAutoIncSymbols)
+  #DECLARE(%HandledFile),UNIQUE
+  #DECLARE(%InsertAction,%HandledFile)
+  #DECLARE(%FirstHandledValue)
+  #DECLARE(%LastHandledValue)
+  #INSERT(%SaveButtonRecordHandlingGather(Clarion),%Primary)
+  #DECLARE(%AutoIncrementOnAdd)
+  #DECLARE(%ClearValue)
+  #DECLARE(%ElementCount)
+  #DECLARE(%SavedField),UNIQUE
+#!*****************************************************************************
+#GROUP(%AddSampleDataHasAutoInc)
+  #FOR(%Key),WHERE(%KeyAuto)
+    #RETURN(%True)
+  #ENDFOR
+  #RETURN(%False)
+#!*****************************************************************************
+#GROUP(%AddSampleDataPrimeFieldsEmbed)
+#EMBED(%AddSampleDataPrimeFields,'Prime Fields'),%ActiveTemplateInstance,TREE(%AddSampleDataDescriptionRoot() &'|'& %Primary &'|Prime Fields{{PRIORITY(100)}')
+#!*****************************************************************************
+#GROUP(%AddSampleDataAutoIncReadErrorEmbed)
+#EMBED(%AddSampleDataAutoIncReadError,'Error reading during auto-increment'),%ActiveTemplateInstance,TREE(%AddSampleDataDescriptionRoot() &'|'& %Primary &'|Error reading during auto-increment{{PRIORITY(200)}')
+#!*****************************************************************************
+#GROUP(%AddSampleDataBeforeAddEmbed)
+#EMBED(%AddSampleDataBeforeAdd,'Before ADD'),%ActiveTemplateInstance,TREE(%AddSampleDataDescriptionRoot() &'|'& %Primary &'|Before ADD{{PRIORITY(900)}')
+#!*****************************************************************************
+#GROUP(%AddSampleDataAddSucceededEmbed)
+#EMBED(%AddSampleDataAddSucceeded,'ADD Succeeded'),%ActiveTemplateInstance,TREE(%AddSampleDataDescriptionRoot() &'|'& %Primary &'|ADD Succeeded{{PRIORITY(980)}')
+#!*****************************************************************************
+#GROUP(%AddSampleDataAddFailedEmbed)
+#EMBED(%AddSampleDataAddFailed,'ADD Failed'),%ActiveTemplateInstance,TREE(%AddSampleDataDescriptionRoot() &'|'& %Primary &'|ADD Failed{{PRIORITY(990)}')
+#!*****************************************************************************
+#GROUP(%AddSampleDataDescription)
+  #RETURN(%AddSampleDataDescriptionRoot() &' to '& %PrimaryName())
+#!*****************************************************************************
+#GROUP(%AddSampleDataDescriptionRoot)
+  #RETURN('[ClarionTest] Add Sample Data')
+#!*****************************************************************************
+#GROUP(%PrimaryName)
+  #RETURN(CHOOSE(~%Primary, 'File', %Primary))
+#!*****************************************************************************
+#!*****************************************************************************
+#CODE(AssignForeignKeyFields,'Assign Foreign Key Fields'),DESCRIPTION('Assign Foreign Key Fields from '& %FKParentFile &' to '& %FKChildFile)
+#BOXED('')
+  #DISPLAY('Assigns the current values from the parent fields to the linked child fields.'),AT(10,,180,16)
+  #DISPLAY
+  #DISPLAY('Parent File:')
+  #PROMPT('',FILE),%FKParentFile,REQ,AT(10,,180)
+  #DISPLAY
+  #DISPLAY('Child File:')
+  #PROMPT('',FILE),%FKChildFile,REQ,AT(10,,180)
+#ENDBOXED
+#!********** 
+#INSERT(%AssignFKFields, %FKParentFile, %FKChildFile)
+#!*****************************************************************************
+#GROUP(%AssignFKFields,%pParent,%pChild),PRESERVE
+    #FIX(%File,%pParent)
+    #FIX(%Relation,%pChild)
+    #IF(%FileRelationType <> '1:MANY')
+      #ERROR(%Procedure &': '& %pChild &' is not a child of '& %pParent)
+    #ELSE
+!--- Assign foreign key field(s) from %File
+      #FOR(%RelationKeyField),WHERE(%RelationKeyFieldLink)
+%RelationKeyField = %RelationKeyFieldLink
+      #ENDFOR
+    #ENDIF
+#!*****************************************************************************

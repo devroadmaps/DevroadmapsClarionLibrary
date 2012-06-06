@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "ClarionTest_Tests", "ClarionTest_Tests.cwproj", "{8B10F585-B959-4809-AF70-AB88B7166EFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		ClarionTest_Tests.app = ClarionTest_Tests.app
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{DDE2CB2A-9FF4-4A82-A285-19FAEC3A9510}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\template\DCL_ClarionTest.tpw = ..\..\template\DCL_ClarionTest.tpw
+		..\..\template\DCL_ClarionTest_ABC.tpl = ..\..\template\DCL_ClarionTest_ABC.tpl
+		..\..\template\DCL_ClarionTest_Clarion.tpl = ..\..\template\DCL_ClarionTest_Clarion.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{D0AD5C62-5E84-4155-90B7-C5AA9A742DCF}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\DCL_ClarionTest_TestResult.clw = ..\..\libsrc\DCL_ClarionTest_TestResult.clw
+		..\..\libsrc\DCL_ClarionTest_TestResult.inc = ..\..\libsrc\DCL_ClarionTest_TestResult.inc
+		..\..\libsrc\DCL_ClarionTest_TestRunner.clw = ..\..\libsrc\DCL_ClarionTest_TestRunner.clw
+		..\..\libsrc\DCL_ClarionTest_TestRunner.inc = ..\..\libsrc\DCL_ClarionTest_TestRunner.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B10F585-B959-4809-AF70-AB88B7166EFE}.Debug|Win32.Build.0 = Debug|Win32
+		{8B10F585-B959-4809-AF70-AB88B7166EFE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B10F585-B959-4809-AF70-AB88B7166EFE}.Release|Win32.Build.0 = Release|Win32
+		{8B10F585-B959-4809-AF70-AB88B7166EFE}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

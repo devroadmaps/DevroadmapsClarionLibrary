@@ -1,0 +1,16 @@
+ <Configuration Version="1.00">
+  <Settings PATHTOSAVECLASS="D:\dev-Clarion\DevroadmapsClarionLibrary\libsrc" RECENTOPEN="C:\Users\Dave\AppData\Roaming\SoftVelocity\Clarion\8.0\RecentOpen.xml" DEFAULTSOLUTIONFOLDER="Classes" TEXTEDITOR="" OPENTEXTEDITORAFTERCREATE="1" USEADVANCEDMODE="0">
+  </Settings>
+ </Configuration>
+ <Solutions Version="1.00">
+ </Solutions>
+ <Classes Version="1.00">
+ </Classes>
+ <ClassSkeletons Version="1.00">
+  <ClassSkeletons MQS_CLASSDESCRIPTION="Basic Class Template" MQS_CLASSINC="BasicClass.inc">
+  </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="Basic Class Template With Queues" MQS_CLASSINC="BasicClassWithQueue.inc">
+  </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="DevRoadmaps Clarion" MQS_CLASSINC="D:\dev-Clarion\DevroadmapsClarionLibrary\libsrc\DCL_BaseClass.inc">
+  </ClassSkeletons>
+ </ClassSkeletons>

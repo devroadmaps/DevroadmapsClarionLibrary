@@ -1,0 +1,23 @@
+  MEMBER('DemoDLL.clw')
+
+
+  MAP
+DemoDLL_BC0:DctInit    PROCEDURE
+DemoDLL_BC0:DctKill    PROCEDURE
+DemoDLL_BC0:FilesInit  PROCEDURE
+  END
+
+
+
+
+DemoDLL_BC0:DctInit PROCEDURE
+  CODE
+
+
+DemoDLL_BC0:FilesInit PROCEDURE
+  CODE
+
+
+DemoDLL_BC0:DctKill PROCEDURE
+  CODE
+

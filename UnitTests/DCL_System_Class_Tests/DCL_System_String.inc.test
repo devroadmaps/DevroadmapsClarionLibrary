@@ -1,0 +1,51 @@
+    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+
+
+	! Generic string handling class definition.
+                    
+                    
+SplitStringQType    Queue,TYPE
+Line                    &STRING
+					END
+
+
+DCL_System_String    CLASS,TYPE,MODULE('DCL_System_String.CLW'),LINK('DCL_System_String.CLW',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
+Value                   &STRING,PRIVATE
+Lines                   &SplitStringQType,PRIVATE
+						!Public Methods
+Append                  PROCEDURE(STRING pNewValue)
+AppendLine              PROCEDURE()
+AppendLine              PROCEDURE(STRING pNewValue)
+Assign                  PROCEDURE(STRING pNewValue)
+AssignToLine            PROCEDURE(STRING pNewValue,long lineNumber)
+BeginsWith              procedure(string s),byte
+Contains                PROCEDURE(STRING pTestValue, LONG pNoCase=0),LONG
+Count                   PROCEDURE(STRING pSearchValue, <LONG pStartPos>, <LONG pEndPos>, BYTE pNoCase=0),LONG
+Destruct                PROCEDURE()
+EndsWith                procedure(string s),byte
+Get                     PROCEDURE(),STRING
+GetAllLines             PROCEDURE(<string delimiter>),STRING
+GetLine                 PROCEDURE(LONG pLineNumber),STRING
+IndexOf                 Procedure(string s,long startPos=1),long
+InsertAt                Procedure(string s, long pos)
+IsAlpha                 procedure(string),bool,virtual
+LastIndexOf             Procedure(string s),long
+Length                  PROCEDURE(),LONG
+PreAppend               PROCEDURE(STRING pNewValue)
+Prepend                 PROCEDURE(STRING pNewValue)
+Records                 PROCEDURE(),LONG
+Replace                 PROCEDURE(STRING pOldValue, STRING pNewValue,<LONG pCount>,<bool wholeWord>)
+ReplaceWord                 PROCEDURE(STRING pOldValue, STRING pNewValue,<LONG pCount>)
+Reset                   procedure()
+Split                   PROCEDURE(STRING pSplitStr)
+Split                   PROCEDURE(Queue pSplitStrq)
+SubString               PROCEDURE(LONG pStart, LONG pStop),STRING
+Trim                    procedure()
+
+						!Private Methods
+DisposeLines            PROCEDURE(),PRIVATE
+DisposeStr              PROCEDURE(),PRIVATE
+   
+					END
+
+
