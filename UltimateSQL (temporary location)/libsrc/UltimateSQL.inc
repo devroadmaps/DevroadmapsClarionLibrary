@@ -48,42 +48,11 @@ Name                                        STRING(512)
 
 DatabaseConnectionString                STRING(200)  
 
+QueryMethodDummyFile                    EQUATE(1)
+QueryMethodODBC                         EQUATE(2)
 
 
-QueryResults                            FILE,DRIVER('MSSQL','/LOGONSCREEN=FALSE /SAVESTOREDPROC=FALSE /IGNORETRUNCATION = TRUE /TURBOSQL=TRUE'),OWNER(DatabaseConnectionString),PRE(QueryResults),CREATE,BINDABLE,THREAD
-Record                                      RECORD,PRE()
-C01                                             CSTRING(256)
-C02                                             CSTRING(256)
-C03                                             CSTRING(256)
-C04                                             CSTRING(256)
-C05                                             CSTRING(256)
-C06                                             CSTRING(256)
-C07                                             CSTRING(256)
-C08                                             CSTRING(256)
-C09                                             CSTRING(256)
-C10                                             CSTRING(256)
-C11                                             CSTRING(256)
-C12                                             CSTRING(256)
-C13                                             CSTRING(256)
-C14                                             CSTRING(256)
-C15                                             CSTRING(256)
-C16                                             CSTRING(256)
-C17                                             CSTRING(256)
-C18                                             CSTRING(256)
-C19                                             CSTRING(256)
-C20                                             CSTRING(256)
-C21                                             CSTRING(256)
-C22                                             CSTRING(256)
-C23                                             CSTRING(256)
-C24                                             CSTRING(256)
-C25                                             CSTRING(256)
-C26                                             CSTRING(256)
-C27                                             CSTRING(256)
-C28                                             CSTRING(256)
-C29                                             CSTRING(256)
-C30                                             CSTRING(256)
-                                            END
-                                        END    
+   
 !
 !--------------------------
 !ClarionLive Debug Class
@@ -95,7 +64,6 @@ C30                                             CSTRING(256)
 ! The OMIT at the top is used to load the class only once, so you do not have to use the "once" statement when you INCLUDE the class in your global includes
 !
 !--------------------------------------------------------------------------------
-!UltimateSQL                             CLASS(UltimateSQLConnect),TYPE,MODULE('UltimateSQL.CLW'),LINK('UltimateSQL.CLW')     !,_ABCLinkMode_),DLL(_ABCDllMode_)
 UltimateSQL                             CLASS(UltimateSQLDirect),TYPE,MODULE('UltimateSQL.CLW'),LINK('UltimateSQL.CLW')     !,_ABCLinkMode_),DLL(_ABCDllMode_)
 !
 !--------------------------------------------------------------------------------
@@ -113,6 +81,9 @@ Catalog                                     STRING(200),PRIVATE
 _Driver                                     LONG,PROTECTED            ! 0 = Sybase, 1 = MS SQL 
 LoginConnections                            &LoginConnections,PROTECTED  
 QueryResultsShowInPopUp                     BYTE(FALSE) ! Set to TRUE to view your Query Results in a Pop-Up, FALSE to turn it off
+ShowQueryInDebugView                        BYTE(FALSE) ! Set to TRUE to send your Query to DebugView, FALSE to turn it off
+AddQueryToClipboard                         BYTE(FALSE) ! Set to TRUE to send your Query to the Clipboard, FALSE to turn it off
+AppendQueryToClipboard                      BYTE(FALSE) ! Set to TRUE to send your Query to the Clipboard, FALSE to turn it off 
 
 
 HINT                                        STRING(220)
@@ -144,7 +115,10 @@ TURBOSQL                                    BYTE(FALSE)
 USEINNERJOIN                                BYTE(TRUE)
 VERIFYVIASELECT                             BYTE(FALSE)
 WHERE                                       STRING(220)
-ZEROISNULL                                  BYTE(TRUE)
+ZEROISNULL                                  BYTE(TRUE)      
+
+QueryMethod                                 BYTE(1)
+
 
 !
 !--------------------------------------------------------------------------------
@@ -160,13 +134,14 @@ Connect                                     PROCEDURE(*STRING pServer,*STRING pU
 CreateDatabase                              FUNCTION (String Server, String USR, String PWD, String Database, <Byte Trusted>),BYTE,PROC
 DatabaseExists                              PROCEDURE(STRING pDatabase),BYTE
 DropColumn                                  PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
+DropDatabase                                PROCEDURE(STRING pDatabase),LONG,PROC 
 DropDependencies                            PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
 DropTable                                   PROCEDURE(FILE pFile),LONG,PROC 
-DropDatabase                                PROCEDURE(STRING pDatabase),LONG,PROC 
+Empty                                       PROCEDURE(FILE pFile),LONG,PROC 
 ExecuteScript                               PROCEDURE(STRING pFileName),BYTE,PROC
 ExecuteScriptFromBlob                       PROCEDURE(*BLOB pBlob),BYTE,PROC  
-Get                                         PROCEDURE(*KEY pKey, <STRING pSelect>), BYTE, PROC
 Get                                         PROCEDURE(*FILE pFile, *KEY pKey, <STRING pSelect>), BYTE, PROC
+Get                                         PROCEDURE(*KEY pKey, <STRING pSelect>), BYTE, PROC
 GetColumnLength                             PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
 GetConnectionInformation                    PROCEDURE(STRING pConnectStr,*LoginConnections pConnectionList,BYTE pTrusted=0),LONG,PROC,PRIVATE 
 HandleError                                 PROCEDURE(LONG pErrorCode,STRING pError,LONG pFileErrorCode,STRING pFileError)
@@ -176,11 +151,11 @@ RemoveIllegalCharacters                     PROCEDURE(String pString),STRING
 SendDriverString                            PROCEDURE(STRING pMessage),STRING,PROC 
 Set                                         PROCEDURE(*KEY pKey, <STRING pSelect>, BYTE pReverse=False)
 Set                                         PROCEDURE(*KEY pKeyIgnored, *KEY pKey, <STRING pSelect>, BYTE pReverse=False)
-SetQueryConnection                          PROCEDURE(STRING pOwnerName,<STRING pQueryTableName>)
 SetCatalog                                  PROCEDURE(STRING pCatalog)
-TestConnection                              PROCEDURE(STRING Server, STRING USR, STRING PWD, <Byte Trusted>, <*STRING ErrorOut>),BYTE 
-TableExists                                 PROCEDURE(STRING pTable,<STRING pCatalog>,<STRING pSchema>),BYTE
+SetQueryConnection                          PROCEDURE(STRING pOwnerName,<STRING pQueryTableName>)
 TableExists                                 PROCEDURE(FILE pFile,<STRING pCatalog>,<STRING pSchema>),BYTE
+TableExists                                 PROCEDURE(STRING pTable,<STRING pCatalog>,<STRING pSchema>),BYTE
+TestConnection                              PROCEDURE(STRING Server, STRING USR, STRING PWD, <Byte Trusted>, <*STRING ErrorOut>),BYTE 
 Trace                                       PROCEDURE(*FILE pTbl, <STRING pLogfile>)  
 Truncate                                    PROCEDURE(FILE pFile),LONG,PROC 
 
@@ -195,6 +170,8 @@ Init                                        PROCEDURE()
 Kill                                        PROCEDURE()
 
 Query                                       FUNCTION (STRING pQuery, <*QUEUE pQ>, <*? pC1>, <*? pC2>, <*? pC3>, <*? pC4>, <*? pC5>, <*? pC6>, <*? pC7>, <*? pC8>, <*? pC9>, <*? pC10>, <*? pC11>, <*? pC12>, <*? pC13>, <*? pC14>, <*? pC15>, <*? pC16>, <*? pC17>,<*? pC18>, <*? pC19>, <*? pC20>, <*? pC21>, <*? pC22>, <*? pC23>, <*? pC24>, <*? pC25>, <*? pC26>, <*? pC27>, <*? pC28>, <*? pC29>, <*? pC30>),BYTE,PROC
+QueryDummy                                  FUNCTION (STRING pQuery, <*QUEUE pQ>, <*? pC1>, <*? pC2>, <*? pC3>, <*? pC4>, <*? pC5>, <*? pC6>, <*? pC7>, <*? pC8>, <*? pC9>, <*? pC10>, <*? pC11>, <*? pC12>, <*? pC13>, <*? pC14>, <*? pC15>, <*? pC16>, <*? pC17>,<*? pC18>, <*? pC19>, <*? pC20>, <*? pC21>, <*? pC22>, <*? pC23>, <*? pC24>, <*? pC25>, <*? pC26>, <*? pC27>, <*? pC28>, <*? pC29>, <*? pC30>),BYTE,PROC
+QueryODBC                                   FUNCTION (STRING pQuery, <*QUEUE pQ>, <*? pC1>, <*? pC2>, <*? pC3>, <*? pC4>, <*? pC5>, <*? pC6>, <*? pC7>, <*? pC8>, <*? pC9>, <*? pC10>, <*? pC11>, <*? pC12>, <*? pC13>, <*? pC14>, <*? pC15>, <*? pC16>, <*? pC17>,<*? pC18>, <*? pC19>, <*? pC20>, <*? pC21>, <*? pC22>, <*? pC23>, <*? pC24>, <*? pC25>, <*? pC26>, <*? pC27>, <*? pC28>, <*? pC29>, <*? pC30>),BYTE,PROC
 QueryResult                                 FUNCTION (STRING pQuery),STRING
 
 ExtendedProperty_Insert                     PROCEDURE(STRING pObjectName,STRING pPropertyName,STRING pPropertyValue), LONG, PROC
@@ -214,4 +191,4 @@ VerifyViaSelect                             PROCEDURE(BYTE pTrueFalse),STRING,PR
                                         END    
 
 
-	_EndOfInclude_
+    _EndOfInclude_
