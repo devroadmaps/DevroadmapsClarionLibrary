@@ -25,8 +25,8 @@
                                             End
                                         END
 
-TestConnectionString                    STRING(200) 
 DatabaseCheckOwnerString                STRING(200)
+TestConnectionString                    STRING(200) 
 
 
 QueryResults                            FILE,DRIVER('MSSQL','/LOGONSCREEN=FALSE,/SAVESTOREDPROC=FALSE,/IGNORETRUNCATION = TRUE'),OWNER(DatabaseConnectionString),PRE(QueryResults),CREATE,BINDABLE,THREAD
