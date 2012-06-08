@@ -59,8 +59,8 @@ AddMethod                                       procedure(string declaration)
 Debug                                           procedure
 GetExports                                      procedure(*queue q,BOOL freeQueue=true)
 MethodCount                                     procedure,long
-Name                                            cstring(100)
 Reset                                           procedure
+Name                                            cstring(100)
                                             End
 
 
