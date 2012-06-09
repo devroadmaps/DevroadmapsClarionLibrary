@@ -679,7 +679,58 @@ UltimateSQLScripts.DropAllDependencies          PROCEDURE()  !,STRING
             '                    INTO @dep_name, @type; <13,10>' & |
             '                END <13,10>' & |
             'DEALLOCATE dep_cursor <13,10>' & |
-            'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = #dependencies) DROP TABLE #dependencies'       
+            'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = #dependencies) DROP TABLE #dependencies'  
+        
+        
+        
+        
+        
+UltimateSQLScripts.CreateQueryTable     PROCEDURE()  !,STRING
+
+    CODE
+        
+    RETURN     '/****** Object:  Table [dbo].[Queries]    Script Date: 06/08/2012 17:22:14 ******/ <13,10>' & |
+        'SET ANSI_NULLS ON <13,10>' & |
+        ' <13,10>' & |
+        'SET QUOTED_IDENTIFIER ON <13,10>' & |
+        ' <13,10>' & |
+        'SET ANSI_PADDING ON <13,10>' & |
+        ' <13,10>' & |
+        'CREATE TABLE [dbo].[Queries]( <13,10>' & |
+        '	[C01] [varchar](max) NULL, <13,10>' & |
+        '	[C02] [varchar](max) NULL, <13,10>' & |
+        '	[C03] [varchar](max) NULL, <13,10>' & |
+        '	[C04] [varchar](255) NULL, <13,10>' & |
+        '	[C05] [varchar](255) NULL, <13,10>' & |
+        '	[C06] [varchar](255) NULL, <13,10>' & |
+        '	[C07] [varchar](255) NULL, <13,10>' & |
+        '	[C08] [varchar](255) NULL, <13,10>' & |
+        '	[C09] [varchar](255) NULL, <13,10>' & |
+        '	[C10] [varchar](255) NULL, <13,10>' & |
+        '	[C11] [varchar](255) NULL, <13,10>' & |
+        '	[C12] [varchar](255) NULL, <13,10>' & |
+        '	[C13] [varchar](255) NULL, <13,10>' & |
+        '	[C14] [varchar](255) NULL, <13,10>' & |
+        '	[C15] [varchar](255) NULL, <13,10>' & |
+        '	[C16] [varchar](255) NULL, <13,10>' & |
+        '	[C17] [varchar](255) NULL, <13,10>' & |
+        '	[C18] [varchar](255) NULL, <13,10>' & |
+        '	[C19] [varchar](255) NULL, <13,10>' & |
+        '	[C20] [varchar](255) NULL, <13,10>' & |
+        '	[C21] [varchar](255) NULL, <13,10>' & |
+        '	[C22] [varchar](255) NULL, <13,10>' & |
+        '	[C23] [varchar](255) NULL, <13,10>' & |
+        '	[C24] [varchar](255) NULL, <13,10>' & |
+        '	[C25] [varchar](255) NULL, <13,10>' & |
+        '	[C26] [varchar](255) NULL, <13,10>' & |
+        '	[C27] [varchar](255) NULL, <13,10>' & |
+        '	[C28] [varchar](255) NULL, <13,10>' & |
+        '	[C29] [varchar](255) NULL, <13,10>' & |
+        '	[C30] [varchar](255) NULL <13,10>' & |
+        ') ON [PRIMARY] <13,10>' & |
+        ' <13,10>' & |
+        'SET ANSI_PADDING OFF <13,10>'
+         
 !---------------------------------------------------------
 UltimateSQLScripts.RaiseError    PROCEDURE(STRING pErrorMsg)
 !---------------------------------------------------------

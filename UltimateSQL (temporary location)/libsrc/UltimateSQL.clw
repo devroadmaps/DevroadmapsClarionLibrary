@@ -31,9 +31,9 @@ TestConnectionString                    STRING(200)
 
 QueryResults                            FILE,DRIVER('MSSQL','/LOGONSCREEN=FALSE,/SAVESTOREDPROC=FALSE,/IGNORETRUNCATION = TRUE'),OWNER(DatabaseConnectionString),PRE(QueryResults),CREATE,BINDABLE,THREAD
 Record                                      RECORD,PRE()
-C01                                             CSTRING(10256)
-C02                                             CSTRING(10256)
-C03                                             CSTRING(10256)
+C01                                             CSTRING(18000)
+C02                                             CSTRING(18000)
+C03                                             CSTRING(18000)
 C04                                             CSTRING(256)
 C05                                             CSTRING(256)
 C06                                             CSTRING(256)
@@ -101,6 +101,8 @@ Name                                            STRING(512)
 SQLDatabases                                QUEUE,PRE(SQLDatabases)               
 Name                                            STRING(512)                           
                                             END
+                                                  
+Scripts                                     UltimateSQLScripts
 
 Window                                      WINDOW('Connect'),AT(,,364,165),CENTER,GRAY,FONT('MS Sans Serif',8)
                                                 PANEL,AT(18,14,322,105),USE(?PANEL1),BEVEL(1)
@@ -134,8 +136,7 @@ Window                                      WINDOW('Connect'),AT(,,364,165),CENT
             IF pTrusted
                 TheResult = CLIP(TheServer) & ',' & CLIP(TheDatabase) & ';TRUSTED_CONNECTION=Yes'   
             END    
-            SELF.Catalog = TheDatabase
-            RETURN TheResult
+            DO ProcedureReturn
         END
     END
         
@@ -187,7 +188,6 @@ Window                                      WINDOW('Connect'),AT(,,364,165),CENT
                 IF ?LISTAuthentication{PROP:Selected}=1
                     TheResult = CLIP(TheServer) & ',' & CLIP(TheDatabase) & ';TRUSTED_CONNECTION=Yes'   
                 END
-                SELF.Catalog = TheDatabase
                 BREAK
             END
             
@@ -200,11 +200,22 @@ Window                                      WINDOW('Connect'),AT(,,364,165),CENT
             
         END
     END
+    
+ProcedureReturn                         ROUTINE
+    
+    SELF.Catalog = TheDatabase 
         
     pServer = TheServer
     pDatabase = TheDatabase
     pUserName = TheUserName
-    pPassword = ThePassword
+    pPassword = ThePassword  
+                      
+    IF ~SELF.TableExists(QueryResults)
+        SELF.SetQueryConnection(TheResult) 
+        SELF.QueryODBC(Scripts.CreateQueryTable())
+         
+    END
+    
         
     RETURN TheResult
  
@@ -462,7 +473,8 @@ UltimateSQL.Init                        PROCEDURE()
 
         SELF._Driver = MS_SQL 
     END
-    DebugInitted = TRUE
+    DebugInitted = TRUE  
+    
                                             
 !-----------------------------------
 UltimateSQL.Kill                        PROCEDURE()
@@ -641,7 +653,9 @@ SendToDebug                                 BYTE(0)
             END
 
             BindVars = RECORDS(BindVarQ)
-        END
+        END   
+        SELF.MULTIPLEACTIVERESULTSETS(TRUE)
+        
         IF ~STATUS(QueryResults)
             OPEN(QueryResults) 
             IF ERROR()
@@ -677,7 +691,7 @@ SendToDebug                                 BYTE(0)
                     QueryView{PROP:SQL} = CLIP(pQuery)
                 ELSE
                     QueryResults{PROP:SQL} = CLIP(pQuery)
-                END
+                END 
                 ErrCode# = ERRORCODE()
                 IF ERRORCODE() = 90 AND FILEERRORCODE() = 37000
                     ErrCode# = 0
@@ -840,12 +854,11 @@ ViewResults                                 UltimateSQLResultsViewClass
             SETCLIPBOARD(CLIP(pQuery)      )
         END
     END
-        
+    
     IF SELF.QueryTableName = ''
         SELF.QueryTableName = 'dbo.Queries'
     END                       
         
-    SELF.MULTIPLEACTIVERESULTSETS(TRUE)
         
     ExecOK = False                           
     QueryResults{PROP:Name} = SELF.QueryTableName        

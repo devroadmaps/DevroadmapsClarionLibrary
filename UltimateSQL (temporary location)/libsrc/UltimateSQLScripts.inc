@@ -33,7 +33,8 @@ InsertExtendedProperty  PROCEDURE(),STRING
 UpdateExtendedProperty  PROCEDURE(),STRING
 RemoveExtendedProperty  PROCEDURE(),STRING 
 GetExtendedProperty     PROCEDURE(),STRING 
-DropAllDependencies     PROCEDURE(),STRING
+DropAllDependencies     PROCEDURE(),STRING    
+CreateQueryTable        PROCEDURE(),STRING
 RaiseError          PROCEDURE(STRING pErrorMsg)
                END
 
