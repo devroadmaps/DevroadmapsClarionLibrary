@@ -8,6 +8,9 @@ ClarionTest/map
 ClarionTest/obj
 ClarionTest/*/map
 ClarionTest/*/obj
-
+*.obj
+*.rsc
+*.RSC
+CL_SQL_*
 
 

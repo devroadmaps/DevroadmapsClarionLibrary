@@ -33,24 +33,22 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-                                        PROGRAM
-
-                                        MAP
-                                        END
+                                            member()
+                                            MAP
+                                            END
 
     INCLUDE('DCL_System_Stack.inc'),ONCE
 
-StackNodeQ                              QUEUE,TYPE
-NodeVal                                     ULONG
-prevNode                                    &DCL_System_StackNode
-                                        END
+StackNodeQ                                  QUEUE,TYPE
+NodeVal                                         ULONG
+prevNode                                        &DCL_System_StackNode
+                                            END
 
 
 
-    CODE
 
 !----------------------------------------------------
-DCL_System_Stack.Construct               PROCEDURE()
+DCL_System_Stack.Construct                  PROCEDURE()
 !----------------------------------------------------
 
     CODE
@@ -59,7 +57,7 @@ DCL_System_Stack.Construct               PROCEDURE()
 
 
 !----------------------------------------------------
-DCL_System_Stack.Destruct                PROCEDURE()
+DCL_System_Stack.Destruct                   PROCEDURE()
 !----------------------------------------------------
 
     CODE
@@ -68,7 +66,7 @@ DCL_System_Stack.Destruct                PROCEDURE()
 
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.Init                    PROCEDURE()
+DCL_System_Stack.Init                       PROCEDURE()
 !-----------------------------------------------------------------------------
 
     CODE
@@ -76,101 +74,84 @@ DCL_System_Stack.Init                    PROCEDURE()
     self.StackNode &= NULL
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.Kill                    PROCEDURE()
+DCL_System_Stack.Kill                       PROCEDURE()
 !-----------------------------------------------------------------------------
 
     CODE
-
     LOOP UNTIL SELF.isEmpty()
         SELF.pop()
     END
 
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.IsEmpty                 PROCEDURE()
+DCL_System_Stack.IsEmpty                    PROCEDURE()
 !-----------------------------------------------------------------------------
 
     CODE
-
     RETURN CHOOSE(self.StackNode &= NULL,TRUE,FALSE)
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.OutOfMemory             PROCEDURE(DCL_System_StackNode t)
+DCL_System_Stack.OutOfMemory                PROCEDURE(DCL_System_StackNode t)
 !-----------------------------------------------------------------------------
 
     CODE
-
     RETURN CHOOSE(t &= NULL,TRUE,FALSE)
 
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.Push                              PROCEDURE(ANY nodeVal)
+DCL_System_Stack.Push                       PROCEDURE(ANY nodeVal)
 !-----------------------------------------------------------------------------
 
-t                                           &DCL_System_StackNode
+t                                               &DCL_System_StackNode
 
     CODE
-
     t &= self.StackNode
-
     self.StackNode &= NEW(DCL_System_StackNode)
 ?   ASSERT(~SELF.OutOfMemory(self.StackNode))
-
     self.StackNode.nodeVal = nodeVal
     self.StackNode.prevNode &= t
-
     RETURN TRUE
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.Pop                               PROCEDURE()
+DCL_System_Stack.Pop                        PROCEDURE()
 !-----------------------------------------------------------------------------
 
-t                                           &DCL_System_StackNode
+t                                               &DCL_System_StackNode
 
     CODE
 
 ?   ASSERT(~SELF.isEmpty())
-
     t &= self.StackNode
-
     self.StackNode &= t.prevNode
-
     DISPOSE(t)
-
     RETURN TRUE
 
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.Top                               PROCEDURE()
+DCL_System_Stack.Top                        PROCEDURE()
 !-----------------------------------------------------------------------------
 
     CODE
 
 
 ?   ASSERT(~SELF.isEmpty())
-
     RETURN self.StackNode.nodeVal
 
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.StackSum                          PROCEDURE()
+DCL_System_Stack.StackSum                   PROCEDURE()
 !-----------------------------------------------------------------------------
 
-t                                           &DCL_System_StackNode
+t                                               &DCL_System_StackNode
 
     CODE
-
     t &= self.StackNode
-
     RETURN self.StackSum(t)
 
 !-----------------------------------------------------------------------------
-DCL_System_Stack.StackSum                          PROCEDURE(DCL_System_StackNode t)
+DCL_System_Stack.StackSum                   PROCEDURE(DCL_System_StackNode t)
 !-----------------------------------------------------------------------------
 
     CODE
-
     IF t &= NULL THEN RETURN 0.
-
     RETURN t.NodeVal + self.StackSum(t.prevNode)
-

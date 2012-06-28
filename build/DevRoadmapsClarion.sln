@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "DevRoadmapsClarion", "DevRoadmapsClarion.cwproj", "{631666FC-E116-4DBD-AA21-53367CBC6EA0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}"
+	ProjectSection(SolutionItems) = postProject
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D7D-429A-4BB2-9972-DDE3063A11C0}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_System_Class.inc = ..\libsrc\DCL_System_Class.inc
+		..\libsrc\DCL_System_String.clw = ..\libsrc\DCL_System_String.clw
+		..\libsrc\DCL_System_String.inc = ..\libsrc\DCL_System_String.inc
+		..\libsrc\DCL_System_Diagnostics_Profiler.clw = ..\libsrc\DCL_System_Diagnostics_Profiler.clw
+		..\libsrc\DCL_System_Diagnostics_Profiler.inc = ..\libsrc\DCL_System_Diagnostics_Profiler.inc
+		..\libsrc\DCL_System_Stack.clw = ..\libsrc\DCL_System_Stack.clw
+		..\libsrc\DCL_System_Stack.inc = ..\libsrc\DCL_System_Stack.inc
+		..\libsrc\DCL_System_StackNode.inc = ..\libsrc\DCL_System_StackNode.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{54368A34-3D8A-4615-AA64-385BFAE0EF2B}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\CL_SQL_Database.clw = ..\libsrc\CL_SQL_Database.clw
+		..\libsrc\CL_SQL_Database.inc = ..\libsrc\CL_SQL_Database.inc
+		..\libsrc\CL_SQL_Table.clw = ..\libsrc\CL_SQL_Table.clw
+		..\libsrc\CL_SQL_Table.inc = ..\libsrc\CL_SQL_Table.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Debug|Win32.Build.0 = Debug|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Release|Win32.Build.0 = Release|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54368A34-3D8A-4615-AA64-385BFAE0EF2B} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{2D4C3D7D-429A-4BB2-9972-DDE3063A11C0} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+	EndGlobalSection
+EndGlobal
