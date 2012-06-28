@@ -586,10 +586,14 @@ UltimateString.Left PROCEDURE(LONG pLength) !,STRING
 !!! <summary>Return the length of the existing string value.</summary>
 !!! <remarks>If no string has been assigned zero is returned.</remarks>
 ! -----------------------------------------------------------------------
-UltimateString.Length PROCEDURE()
+UltimateString.Length PROCEDURE(BYTE pClipIt=0)
   CODE
-  IF NOT SELF.Value &= NULL
-    RETURN LEN(SELF.Value)
+    IF NOT SELF.Value &= NULL 
+        IF pClipIt
+            RETURN LEN(CLIP(SELF.Value))
+        ELSE
+            RETURN LEN(SELF.Value)
+        END
   ELSE
     RETURN 0
   END
@@ -648,8 +652,13 @@ lStartPos           LONG(1)
   IF NOT SELF.Value &= NULL
     LOOP
       lStrPos = INSTRING(pOldValue,SELF.Value,1,lStartPos)
-      IF lStrPos
-        SELF.Assign(SELF.Value[1 : lStrPos-1 ] & pNewValue & SELF.Value[ (lStrPos + LEN(pOldValue)) : LEN(SELF.Value) ])
+        IF lStrPos 
+            IF (lStrPos + LEN(pOldValue)) > LEN(SELF.Value)
+                SELF.Assign(SELF.Value[1 : lStrPos-1 ] & pNewValue)
+            ELSE
+                SELF.Assign(SELF.Value[1 : lStrPos-1 ] & pNewValue & SELF.Value[ (lStrPos + LEN(pOldValue)) : LEN(SELF.Value) ])
+            END
+            
         lStartPos = lStrPos + LEN(pNewValue)
         lCount += 1
         IF NOT OMITTED(pCount) AND lCount = pCount

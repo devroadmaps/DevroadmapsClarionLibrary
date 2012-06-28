@@ -48,7 +48,7 @@ Get                   PROCEDURE(), STRING
 Get                   PROCEDURE(*BLOB pNewValue)
 GetLine               PROCEDURE(LONG pLineNumber), STRING
 Left                  PROCEDURE(LONG pLength), STRING
-Length                PROCEDURE(), LONG
+Length                PROCEDURE(BYTE pClipIt = 0), LONG
 PreAppend             PROCEDURE(STRING pNewValue)
 PreAppend             PROCEDURE(UltimateString pSource)
 Records               PROCEDURE(), LONG

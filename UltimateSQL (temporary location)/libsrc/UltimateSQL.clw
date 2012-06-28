@@ -73,6 +73,26 @@ C30                                             CSTRING(256)
 DebugInitted                            BYTE(FALSE) 
 
 
+
+UltimateSQL.CheckQueryTableExists       PROCEDURE(STRING pConnectionString)
+
+SavedQueryMethod                            BYTE()
+Scripts                                     UltimateSQLScripts
+
+    CODE
+    
+    SavedQueryMethod = SELF.QueryMethod
+    SELF.QueryMethod = 2
+    IF ~SELF.TableExists(QueryResults)  
+         
+!        SELF.SetQueryConnection(pConnectionString) 
+        SELF.QueryODBC(Scripts.CreateQueryTable())
+         
+    END
+    SELF.QueryMethod = SavedQueryMethod
+
+
+
 ! -----------------------------------------------------------------------
 !!! <summary>Prompts for SQL Connection Information. Note that ALL Parameters are required, even if blank.</summary>           
 !!! <param name="Server">Server Name</param>
@@ -199,26 +219,22 @@ Window                                      WINDOW('Connect'),AT(,,364,165),CENT
             END
             
         END
-    END
+    END    
+    DO ProcedureReturn
     
-ProcedureReturn                         ROUTINE
-    
+ProcedureReturn                         ROUTINE    
+
     SELF.Catalog = TheDatabase 
         
     pServer = TheServer
     pDatabase = TheDatabase
     pUserName = TheUserName
     pPassword = ThePassword  
-                      
-    IF ~SELF.TableExists(QueryResults)
-        SELF.SetQueryConnection(TheResult) 
-        SELF.QueryODBC(Scripts.CreateQueryTable())
-         
-    END
     
+    SELF.SetQueryConnection(TheResult)
         
     RETURN TheResult
- 
+    
 SetUserPasswordFields                   ROUTINE
     
     ?TheUserName{PROP:Disable}    = CHOOSE(?LISTAuthentication{PROP:Selected}=1,1,0)
@@ -456,7 +472,9 @@ szSQL                                       CSTRING(501)
     IF pQueryTableName = ''
         pQueryTableName = 'dbo.Queries'
     END
-    SELF.QueryTableName = pQueryTableName  
+    SELF.QueryTableName = pQueryTableName          
+    
+    SELF.CheckQueryTableExists(DatabaseConnectionString)
          
     QueryResults{PROP:LogonScreen}=FALSE   
          
@@ -511,7 +529,6 @@ Result                                      STRING(500)
 UltimateSQL.Query                       FUNCTION (STRING pQuery, <*QUEUE pQ>, <*? pC1>, <*? pC2>, <*? pC3>, <*? pC4>, <*? pC5>, <*? pC6>, <*? pC7>, <*? pC8>, <*? pC9>, <*? pC10>, <*? pC11>, <*? pC12>, <*? pC13>, <*? pC14>, <*? pC15>, <*? pC16>, <*? pC17>,<*? pC18>, <*? pC19>, <*? pC20>, <*? pC21>, <*? pC22>, <*? pC23>, <*? pC24>, <*? pC25>, <*? pC26>, <*? pC27>, <*? pC28>, <*? pC29>, <*? pC30>)  !,BYTE,PROC
 
     CODE
-    SELF.Debug('querymethod ' & SELF.QueryMethod)    
     Execute SELF.QueryMethod
         RETURN SELF.QueryDummy(pQuery,pQ,pC1,pC2,pC3,pC4,pC5,pC6,pC7,pC8,pC9,pC10,pC11,pC12,pC13,pC14,pC15,pC16,pC17,pC18,pC19,pC20,pC21,pC22,pC23,pC24,pC25,pC26,pC27,pC28,pC29,pC30)  !,BYTE,PROC
         RETURN SELF.QueryODBC(pQuery,pQ,pC1,pC2,pC3,pC4,pC5,pC6,pC7,pC8,pC9,pC10,pC11,pC12,pC13,pC14,pC15,pC16,pC17,pC18,pC19,pC20,pC21,pC22,pC23,pC24,pC25,pC26,pC27,pC28,pC29,pC30)  !,BYTE,PROC
@@ -962,7 +979,6 @@ VarDefinition                               UltimateSQLString
     IF pOptions
         VarDefinition.Append(' ' & CLIP(pOptions))
     END
-        
     RETURN SELF.QUERY('IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ' & SELF.Quote(pTable) & |
         ' AND COLUMN_NAME = ' & SELF.Quote(pColumn) & ') ALTER TABLE ' & CLIP(pTable) & ' ADD ' & CLIP(VarDefinition.Get()))        
 
@@ -990,8 +1006,13 @@ VarDefinition                               UltimateSQLString
     IF pOptions
         VarDefinition.Append(' ' & CLIP(pOptions))
     END
-        
-    RETURN SELF.QUERY('ALTER TABLE ' & CLIP(pTable) & ' ALTER COLUMN ' & CLIP(VarDefinition.Get()))        
+    
+    IF SELF.DropDependencies(pTable,pColumn)
+        RETURN SELF.QUERY('ALTER TABLE ' & CLIP(pTable) & ' ALTER COLUMN ' & CLIP(VarDefinition.Get()))        
+    ELSE
+        RETURN Level:Fatal
+    END
+    
                          
         
 ! -----------------------------------------------------------------------
@@ -1066,7 +1087,7 @@ ScriptToRun                                 UltimateSQLString
         
     ScriptToRun.Assign(Scripts.DropAllDependencies())
     ScriptToRun.Replace('[PASSEDTABLE]',CLIP(SELF.RemoveIllegalCharacters(pTable)))
-    ScriptToRun.Replace('[PASSEDCOLUMN]',CLIP(SELF.RemoveIllegalCharacters(pColumn)))
+    ScriptToRun.Replace('[PASSEDCOLUMN]',CLIP(SELF.RemoveIllegalCharacters(pColumn)))   
     RETURN  SELF.Query(ScriptToRun.Get())    
         
         
@@ -1081,10 +1102,73 @@ Result                                      LONG
     CODE
         
     RETURN SELF.QUERY('IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ' & SELF.Quote(NAME(pFile)) & ') DROP TABLE ' & CLIP(NAME(pFile)))   
-        
-
 
     
+! -----------------------------------------------------------------------
+!!! <summary>Drops a Table from the Database</summary>           
+!!! <param name="Table">Table Name</param>
+! ----------------------------------------------------------------------- 
+UltimateSQL.DropTable                   PROCEDURE(STRING pFile)  !,LONG  !,PROC 
+
+Result                                      LONG
+
+    CODE
+        
+    RETURN SELF.QUERY('IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ' & SELF.Quote(pFile) & ') DROP TABLE ' & CLIP(pFile)) 
+    
+             
+! -----------------------------------------------------------------------
+!!! <summary>Drops a View from the Database</summary>           
+!!! <param name="View">View Name</param>
+! ----------------------------------------------------------------------- 
+UltimateSQL.DropView                 PROCEDURE(STRING pView)  !,LONG  !,PROC 
+
+Result                                      LONG
+
+    CODE
+        
+    RETURN SELF.QUERY('IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = ' & SELF.Quote(pView) & ') DROP VIEW ' & CLIP(pView))   
+    
+    
+! -----------------------------------------------------------------------
+!!! <summary>Drops a Procedure from the Database</summary>           
+!!! <param name="View">Procedure Name</param>
+! ----------------------------------------------------------------------- 
+UltimateSQL.DropProcedure                    PROCEDURE(STRING pProcedure)  !,LONG  !,PROC 
+
+Result                                      LONG
+
+    CODE
+        
+    RETURN SELF.QUERY('*IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE UPPER(ROUTINE_NAME) = ' & UPPER(SELF.Quote(pProcedure)) & ') DROP PROCEDURE ' & CLIP(pProcedure))  
+     
+    
+! -----------------------------------------------------------------------
+!!! <summary>Drops a Routine from the Database</summary>           
+!!! <param name="View">Routine Name</param>
+! ----------------------------------------------------------------------- 
+UltimateSQL.DropFunction               PROCEDURE(STRING pFunction)  !,LONG  !,PROC 
+
+Result                                      LONG
+
+    CODE
+        
+    RETURN SELF.QUERY('IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE UPPER(ROUTINE_NAME) = ' & UPPER(SELF.Quote(pFunction)) & ') DROP FUNCTION ' & CLIP(pFunction))  
+    
+    
+! -----------------------------------------------------------------------
+!!! <summary>Drops a Routine from the Database</summary>           
+!!! <param name="View">Routine Name</param>
+! ----------------------------------------------------------------------- 
+UltimateSQL.DropTrigger                 PROCEDURE(STRING pTrigger)  !,LONG  !,PROC 
+
+Result                                      LONG
+
+    CODE
+        
+    RETURN SELF.QUERY('IF EXISTS(SELECT Name FROM sysobjects WHERE UPPER(Name) = ' & UPPER(SELF.Quote(pTrigger)) & ' AND Type = <39>TR<39>) DROP FUNCTION ' & CLIP(pTrigger))  
+    
+     
 ! -----------------------------------------------------------------------
 !!! <summary>Truncates a Table</summary>           
 !!! <param name="Table">Table Name</param>
@@ -1442,11 +1526,8 @@ QueryStatement                              UltimateSQLString
     CODE
         
     QueryStatement.Assign(CLIP(FetchScript.ReadFile(pFileName))) 
-    QueryStatement.Replace('GO<13,10>','')                   
-    QueryStatement.Replace('<13,10>GO','')                   
-    SELF.Query(QueryStatement.Get())
          
-    RETURN TRUE  
+    RETURN SELF.ProcessScript(QueryStatement.Get())  
         
     
 ! -----------------------------------------------------------------------
@@ -1461,11 +1542,49 @@ BlobSize                                    LONG
 
 
     CODE
+    
     BlobSize = pBlob{PROP:Size}
-        
+    
+    IF BLOBSIZE = 0
+        RETURN Level:Cancel
+    END
+    
     QueryStatement.Assign(pBlob[0:BlobSize])  
-    RETURN SELF.Query(QueryStatement.Get())
-                                                  
+    
+    RETURN SELF.ProcessScript(QueryStatement.Get())
+                        
+    
+UltimateSQL.ProcessScript               PROCEDURE(STRING pScript) !,BYTE,PROC
+
+QueryStatement                              UltimateSQLString    
+ScriptToExecute                             UltimateSQLString
+Count                                       LONG
+QueryRecords                                LONG
+
+    CODE               
+    
+    QueryStatement.Assign(pScript)
+    QueryStatement.Split()
+    QueryRecords = QueryStatement.Records()
+    
+    LOOP Count = 1 TO QueryRecords
+        IF  CLIP(LEFT(QueryStatement.GetLine(Count))) = 'GO'
+            IF ScriptToExecute.Length()
+                SELF.Query(ScriptToExecute.Get()) 
+            END
+            ScriptToExecute.Assign()    
+            CYCLE
+        END 
+        IF Count = QueryRecords AND ScriptToExecute.Contains('GO');BREAK.
+        ScriptToExecute.Append(QueryStatement.GetLine(Count) & '<13,10>')
+    END
+    IF ScriptToExecute.Length(TRUE)
+        SELF.Query(ScriptToExecute.Get()) 
+    END
+    ScriptToExecute.Assign()        
+
+    RETURN TRUE
+
 
 ! -----------------------------------------------------------------------
 !!! <summary>Inserts an Extended Property with a Value into an SQL object</summary>           

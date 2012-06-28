@@ -128,15 +128,21 @@ QueryMethod                                 BYTE(1)
 !-------
       
 AddColumn                                   PROCEDURE(STRING pTable,STRING pColumn,STRING pType,<STRING pLength>,<STRING pOptions>),LONG,PROC
-AlterColumn                                 PROCEDURE(STRING pTable,STRING pColumn,STRING pType,<STRING pLength>,<STRING pOptions>),LONG,PROC
+AlterColumn                                 PROCEDURE(STRING pTable,STRING pColumn,STRING pType,<STRING pLength>,<STRING pOptions>),LONG,PROC    
+CheckQueryTableExists                       PROCEDURE(STRING pConnectionString)
 ColumnExists                                PROCEDURE(STRING pTable,STRING pColumn,<STRING pCatalog>,<STRING pSchema>),LONG
 Connect                                     PROCEDURE(*STRING pServer,*STRING pUser,*STRING pPassword,*STRING pDatabase,*BYTE pTrusted,<BYTE pLoginNamePasswordOnly>),STRING,PROC  
 CreateDatabase                              FUNCTION (String Server, String USR, String PWD, String Database, <Byte Trusted>),BYTE,PROC
 DatabaseExists                              PROCEDURE(STRING pDatabase),BYTE
 DropColumn                                  PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
 DropDatabase                                PROCEDURE(STRING pDatabase),LONG,PROC 
-DropDependencies                            PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
+DropDependencies                            PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC  
+DropFunction                                PROCEDURE(STRING pFunction),LONG  !,PROC 
+DropProcedure                               PROCEDURE(STRING pProcedure),LONG  !,PROC 
 DropTable                                   PROCEDURE(FILE pFile),LONG,PROC 
+DropTable                                   PROCEDURE(STRING pFile),LONG,PROC 
+DropTrigger                                 PROCEDURE(STRING pTrigger),LONG  !,PROC 
+DropView                                    PROCEDURE(STRING pView),LONG,PROC 
 Empty                                       PROCEDURE(FILE pFile),LONG,PROC 
 ExecuteScript                               PROCEDURE(STRING pFileName),BYTE,PROC
 ExecuteScriptFromBlob                       PROCEDURE(*BLOB pBlob),BYTE,PROC  
@@ -144,7 +150,8 @@ Get                                         PROCEDURE(*FILE pFile, *KEY pKey, <S
 Get                                         PROCEDURE(*KEY pKey, <STRING pSelect>), BYTE, PROC
 GetColumnLength                             PROCEDURE(STRING pTable,STRING pColumn),LONG,PROC
 GetConnectionInformation                    PROCEDURE(STRING pConnectStr,*LoginConnections pConnectionList,BYTE pTrusted=0),LONG,PROC,PRIVATE 
-HandleError                                 PROCEDURE(LONG pErrorCode,STRING pError,LONG pFileErrorCode,STRING pFileError)
+HandleError                                 PROCEDURE(LONG pErrorCode,STRING pError,LONG pFileErrorCode,STRING pFileError)  
+ProcessScript                               PROCEDURE(STRING pScript),BYTE,PROC
 Quote                                       PROCEDURE(STRING pText), STRING     
 Records                                     PROCEDURE(*FILE pFile,<STRING pFilter>),LONG
 RemoveIllegalCharacters                     PROCEDURE(String pString),STRING

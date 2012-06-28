@@ -679,7 +679,7 @@ UltimateSQLScripts.DropAllDependencies          PROCEDURE()  !,STRING
             '                    INTO @dep_name, @type; <13,10>' & |
             '                END <13,10>' & |
             'DEALLOCATE dep_cursor <13,10>' & |
-            'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = #dependencies) DROP TABLE #dependencies'  
+            'DROP TABLE #dependencies'  
         
         
         
