@@ -122,7 +122,7 @@ Count                                       long
 	END
 	return Count
 	
-DCL_Clarion_TXAParser.GetEmbedData      procedure(*Queue q,*cstring qField)
+DCL_Clarion_TXAParser.GetFormattedEmbedData     procedure(*Queue q,*cstring qField)
 x                                           LONG
 y                                           long
 z                                           long
@@ -133,14 +133,46 @@ str                                         DCL_System_String
 	if self.ProcedureQ &= null then return.
 	loop x = 1 to records(self.ProcedureQ)
 		get(self.ProcedureQ,x)
-		qField = '** Procedure: ' & self.ProcedureQ.ProcedureName
+		if x > 1 then do AddBlankLine.
+		qField = 'PROCEDURE: ' & self.ProcedureQ.ProcedureName
 		add(q)
 		Count += records(self.ProcedureQ.EmbedQ)
 		loop y = 1 to records(self.ProcedureQ.EmbedQ)
 			get(self.ProcedureQ.EmbedQ,y)
-			qField = '* Embed: ' & clip(self.ProcedureQ.EmbedQ.embedname)
+			do AddBlankLine
+			qField = '  EMBED: ' & clip(self.ProcedureQ.EmbedQ.embedname)
 			add(q)
-			qField = '------------------------------------------------------------------------------------------'
+			do AddBlankLine
+			loop z = 1 to records(self.ProcedureQ.EmbedQ.EmbedLinesQ)
+				get(self.ProcedureQ.EmbedQ.EmbedLinesQ,z)
+				StringUtility.ReplaceSingleQuoteWithTilde(self.ProcedureQ.EmbedQ.EmbedLinesQ.line)
+				qField = '    ' & clip(self.ProcedureQ.EmbedQ.EmbedLinesQ.line)
+				add(q)
+			END
+		END
+	END
+	
+AddBlankLine                            routine
+	clear(qField)
+	add(q)
+
+DCL_Clarion_TXAParser.GetRawEmbedData        procedure(*Queue q,*cstring qField)
+x                                           LONG
+y                                           long
+z                                           long
+Count                                       long
+str                                         DCL_System_String
+	CODE
+	free(q)
+	if self.ProcedureQ &= null then return.
+	loop x = 1 to records(self.ProcedureQ)
+		get(self.ProcedureQ,x)
+		qField = self.ProcedureQ.ProcedureName
+		add(q)
+		Count += records(self.ProcedureQ.EmbedQ)
+		loop y = 1 to records(self.ProcedureQ.EmbedQ)
+			get(self.ProcedureQ.EmbedQ,y)
+			qField = clip(self.ProcedureQ.EmbedQ.embedname)
 			add(q)
 			loop z = 1 to records(self.ProcedureQ.EmbedQ.EmbedLinesQ)
 				get(self.ProcedureQ.EmbedQ.EmbedLinesQ,z)
@@ -148,10 +180,10 @@ str                                         DCL_System_String
 				qField = clip(self.ProcedureQ.EmbedQ.EmbedLinesQ.line)
 				add(q)
 			END
-			qField = '------------------------------------------------------------------------------------------'
-			add(q)
 		END
 	END
+
+
 	
 DCL_Clarion_TXAParser.GetProcedureCount procedure!,long
 	CODE

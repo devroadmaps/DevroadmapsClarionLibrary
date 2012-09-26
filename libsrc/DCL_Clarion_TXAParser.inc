@@ -49,7 +49,8 @@ AddNewEmbed                                 procedure(string embed,string embedp
 AddNewProcedure                             procedure(string pname),private
 CheckForMissedEmbed                         procedure(string s,long lineno,long state),private
 GetEmbedCount                               procedure,long
-GetEmbedData                                procedure(*Queue q,*cstring qField)
+GetFormattedEmbedData                       procedure(*Queue q,*cstring qField)
+GetRawEmbedData                             procedure(*Queue q,*cstring qField)
 GetProcedureCount                           procedure,long
 Parse                                       PROCEDURE(string filename),bool,proc
 RemoveCurrentProcedureFromQueue             procedure,private
