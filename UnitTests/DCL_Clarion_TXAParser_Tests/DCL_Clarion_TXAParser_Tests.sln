@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "DCL_Clarion_TXAParser_Tests", "DCL_Clarion_TXAParser_Tests.cwproj", "{C49C9961-F0CD-4AB6-A589-2A9364E755D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		DCL_Clarion_TXAParser_Tests.app = DCL_Clarion_TXAParser_Tests.app
+		embeds.txa = embeds.txa
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{0435478A-AB42-4E89-A022-68B071ED85DA}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\DCL_Clarion_TXAParser.clw = ..\..\libsrc\DCL_Clarion_TXAParser.clw
+		..\..\libsrc\DCL_Clarion_TXAParser.inc = ..\..\libsrc\DCL_Clarion_TXAParser.inc
+		..\..\libsrc\DCL_System_IO_AsciiFile.inc = ..\..\libsrc\DCL_System_IO_AsciiFile.inc
+		..\..\libsrc\DCL_System_IO_AsciiFile.clw = ..\..\libsrc\DCL_System_IO_AsciiFile.clw
+		..\..\libsrc\DCL_System_Diagnostics_Logger.clw = ..\..\libsrc\DCL_System_Diagnostics_Logger.clw
+		..\..\libsrc\DCL_System_Diagnostics_Logger.inc = ..\..\libsrc\DCL_System_Diagnostics_Logger.inc
+		..\..\libsrc\DCL_System_StringUtility.clw = ..\..\libsrc\DCL_System_StringUtility.clw
+		..\..\libsrc\DCL_System_StringUtility.inc = ..\..\libsrc\DCL_System_StringUtility.inc
+	EndProjectSection
+EndProject
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "DevRoadmapsClarion", "..\..\build\DevRoadmapsClarion.cwproj", "{631666FC-E116-4DBD-AA21-53367CBC6EA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C49C9961-F0CD-4AB6-A589-2A9364E755D7}.Debug|Win32.Build.0 = Debug|Win32
+		{C49C9961-F0CD-4AB6-A589-2A9364E755D7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C49C9961-F0CD-4AB6-A589-2A9364E755D7}.Release|Win32.Build.0 = Release|Win32
+		{C49C9961-F0CD-4AB6-A589-2A9364E755D7}.Release|Win32.ActiveCfg = Release|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Debug|Win32.Build.0 = Debug|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Release|Win32.Build.0 = Release|Win32
+		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Release|Win32.ActiveCfg = Release|Win32
+		{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}.Debug|Win32.Build.0 = Debug|Win32
+		{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}.Release|Win32.Build.0 = Release|Win32
+		{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

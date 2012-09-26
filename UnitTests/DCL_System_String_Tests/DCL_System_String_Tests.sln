@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DCL_System_String_Tests.app = DCL_System_String_Tests.app
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{5FF35685-49BF-4B98-81F7-A5270E041903}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\DCL_System_String.clw = ..\..\libsrc\DCL_System_String.clw
+		..\..\libsrc\DCL_System_String.inc = ..\..\libsrc\DCL_System_String.inc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

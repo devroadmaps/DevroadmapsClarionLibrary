@@ -33,76 +33,89 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-                                            Member
-                                            Map
-                                            End
+										Member
+										Map
+										End
 
 
 
-    Include('DCL_System_ExpFileWriter.inc'),Once
-    include('DCL_System_String.inc'),once
-    include('DCL_System_Class.inc'),once
-    include('DCL_System_ClassParser.inc'),once
-    INCLUDE('DCL_System_IO_AsciiFile.inc'),ONCE
-    !include('DCL_System_Diagnostics_Logger.inc'),once
+	Include('DCL_System_ExpFileWriter.inc'),Once
+	include('DCL_System_String.inc'),once
+	include('DCL_System_Class.inc'),once
+	include('DCL_System_ClassParser.inc'),once
+	INCLUDE('DCL_System_IO_AsciiFile.inc'),ONCE
+	!include('DCL_System_Diagnostics_Logger.inc'),once
 
 !dbg                                     DCL_System_Diagnostics_Logger
 
-DCL_System_ExpFileWriter.Construct          Procedure()
-    code
-    !self.Errors &= new DCL_System_ErrorManager
-    self.ClassHeaderQ &= new DCL_System_ExpFileWriter_HeaderFileQueue
+DCL_System_ExpFileWriter.Construct      Procedure()
+	code
+	!self.Errors &= new DCL_System_ErrorManager
+	self.ClassHeaderQ &= new DCL_System_ExpFileWriter_HeaderFileQueue
+	self.CustomExportStatementQ &= new DCL_System_ExpFileWriter_ExportStatementQueue
 
 
-DCL_System_ExpFileWriter.Destruct           Procedure()
-    code
-    !dispose(self.Errors)
-    FREE(self.ClassHeaderQ)
-    dispose(self.ClassHeaderQ)
+DCL_System_ExpFileWriter.Destruct       Procedure()
+	code
+	!dispose(self.Errors)
+	FREE(self.ClassHeaderQ)
+	dispose(self.ClassHeaderQ)
+	FREE(self.CustomExportStatementQ)
+	dispose(self.CustomExportStatementQ)
 
-DCL_System_ExpFileWriter.AddClassHeaderFile procedure(string filename)
-    code
-    CLEAR(self.ClassHeaderQ)
-    self.ClassHeaderQ.Filename = filename
-    ADD(self.ClassHeaderQ)
+DCL_System_ExpFileWriter.AddClassHeaderFile     procedure(string filename)
+	code
+	CLEAR(self.ClassHeaderQ)
+	self.ClassHeaderQ.Filename = filename
+	ADD(self.ClassHeaderQ)
 
-DCL_System_ExpFileWriter.WriteExpFile       procedure(string appname,<string directoryname>)
-ExportsQ                                        queue
-Txt                                                 cstring(500)
-                                                end
-cls                                             &DCL_System_Class
-parser                                          DCL_System_ClassParser
-x                                               long
-y                                               long
-str                                             DCL_System_String
-FileMgr                                         DCL_System_IO_AsciiFileManager
-ExpFile                                       &DCL_System_IO_AsciiFile
-    code
-    loop x = 1 to RECORDS(self.classheaderq)
-        GET(self.classheaderq,x)
-        parser.Reset()
-        parser.Parse(self.ClassHeaderQ.Filename)
-        loop y = 1 to parser.ClassCount()
-            cls &= parser.GetClass(y)
-            if not cls &= null
-                cls.GetExports(ExportsQ,FALSE)
-            end
-        end
-    end
-    if not omitted(directoryname)
-        str.Assign(directoryname)
-    else
-        str.Assign(LONGPATH())
-    end
-    if ~str.EndsWith('\') then str.Append('\').
-    str.Append(CLIP(appname) & '.EXP')
-    ExpFile &= FileMgr.GetAsciiFileInstance(1)
-    if ExpFile.CreateFile(str.Get()) = Level:Benign
-        ExpFile.Write('LIBRARY ''' & CLIP(appname) & ''' GUI')
-        Expfile.Write('EXPORTS')
-        loop x = 1 to RECORDS(ExportsQ)
-            GET(exportsq,x)
-            ExpFile.Write(ExportsQ.Txt)
-        end
-    end
-    ExpFile.CloseFile()   
+DCL_System_ExpFileWriter.AddCustomExportStatement     procedure(string statement)
+	code
+	CLEAR(self.CustomExportStatementQ)
+	self.CustomExportStatementQ.ExportStatement = statement
+	ADD(self.CustomExportStatementQ)
+	
+DCL_System_ExpFileWriter.WriteExpFile   procedure(string appname,<string directoryname>)
+ExportsQ                                    queue
+Txt                                             cstring(500)
+											end
+cls                                         &DCL_System_Class
+parser                                      DCL_System_ClassParser
+x                                           long
+y                                           long
+str                                         DCL_System_String
+FileMgr                                     DCL_System_IO_AsciiFileManager
+ExpFile                                     &DCL_System_IO_AsciiFile
+	code
+	loop x = 1 to RECORDS(self.classheaderq)
+		GET(self.classheaderq,x)
+		parser.Reset()
+		parser.Parse(self.ClassHeaderQ.Filename)
+		loop y = 1 to parser.ClassCount()
+			cls &= parser.GetClass(y)
+			if not cls &= null
+				cls.GetExports(ExportsQ,FALSE)
+			end
+		end
+	end
+	if not omitted(directoryname)
+		str.Assign(directoryname)
+	else
+		str.Assign(LONGPATH())
+	end
+	if ~str.EndsWith('\') then str.Append('\').
+	str.Append(CLIP(appname) & '.EXP')
+	ExpFile &= FileMgr.GetAsciiFileInstance(1)
+	if ExpFile.CreateFile(str.Get()) = Level:Benign
+		ExpFile.Write('LIBRARY ''' & CLIP(appname) & ''' GUI')
+		Expfile.Write('EXPORTS')
+		loop x = 1 to RECORDS(ExportsQ)
+			GET(exportsq,x)
+			ExpFile.Write(ExportsQ.Txt)
+		end
+	end
+	loop x = 1 to records(self.CustomExportStatementQ)
+		get(self.CustomExportStatementQ,x)
+		ExpFile.Write(self.CustomExportStatementQ.ExportStatement)
+	END
+	ExpFile.CloseFile()   

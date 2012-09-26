@@ -126,17 +126,19 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE 
         self.Errors.AddError(0,'self.FileRef was null')
         return Level:Fatal
     end
-    IF OMITTED(AsciiFileName)
-        !dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
-        IF STATUS(self.FileRef) = SELF.OpenMode AND NAME(self.FileRef) = SELF.CurrentFileName 
-            !dbg.write('file is already open')
-            RETURN LEVEL:Benign
-        END
-        OpenMode = SELF.OpenMode
-    ELSE
-        self.CurrentFileName = CLIP(AsciiFileName)
-        !dbg.Write('self.CurrentFileName = ' & self.currentfilename)
-    END
+	IF OMITTED(AsciiFileName)
+		!dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
+		IF STATUS(self.FileRef) = SELF.OpenMode AND NAME(self.FileRef) = SELF.CurrentFileName 
+			!dbg.write('file is already open')
+			RETURN LEVEL:Benign
+		END
+		OpenMode = SELF.OpenMode
+	ELSE
+		self.CurrentFileName = CLIP(AsciiFileName)
+		!dbg.Write('self.CurrentFileName = ' & self.currentfilename)
+	END
+	! dgh Sept 2012 return an error if the file doesn't exist!
+	if not exists(self.CurrentFileName) then return level:fatal.
     self.FileNameRef = SELF.CurrentFileName
     IF STATUS(self.FileRef) 
         !dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Init')

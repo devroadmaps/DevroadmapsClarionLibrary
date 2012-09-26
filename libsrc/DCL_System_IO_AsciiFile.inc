@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,8 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
+
     include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 
 
@@ -50,7 +53,12 @@ DCL_System_IO_AsciiFileManager           CLASS,MODULE('DCL_System_IO_AsciiFile.c
 GetAsciiFileInstance                        procedure(long instanceNumber),*DCL_System_IO_AsciiFile    
                                         end
 
-    
+!--------------------------------------------------------------------------------
+! Sample usage    
+!--------------------------------------------------------------------------------
+!AsciiFile                               &DCL_System_IO_AsciiFile
+!	code
+!	AsciiFile &= DCL_System_IO_AsciiFileManager.GetAsciiFileInstance(DCL_System_IO_AsciiFile_InstanceNumber1)
 
 DCL_System_IO_AsciiFile                  CLASS,TYPE,MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
 Errors                                      &DCL_System_ErrorManager

@@ -33,22 +33,28 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
-    include('DCL_System_Class.inc'),once
-    !include('DCL_System_ErrorManager.inc'),once
+	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+	include('DCL_System_Class.inc'),once
+	!include('DCL_System_ErrorManager.inc'),once
 
-DCL_System_ExpFileWriter_HeaderFileQueue    queue,type
-Filename                                        cstring(FILE:maxfilepath + FILE:maxfilename + 1)
-                                            end
+DCL_System_ExpFileWriter_HeaderFileQueue        queue,type
+Filename                                            cstring(FILE:maxfilepath + FILE:maxfilename + 1)
+												end
+
+DCL_System_ExpFileWriter_ExportStatementQueue   queue,type
+ExportStatement                                     cstring(100)
+												end
 
 
-DCL_System_ExpFileWriter                    Class,Type,Module('DCL_System_ExpFileWriter.CLW'),Link('DCL_System_ExpFileWriter.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
+DCL_System_ExpFileWriter                Class,Type,Module('DCL_System_ExpFileWriter.CLW'),Link('DCL_System_ExpFileWriter.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
 !Errors                                          &DCL_System_ErrorManager
-ClassHeaderQ                                    &DCL_System_ExpFileWriter_HeaderFileQueue
-Construct                                       Procedure()
-Destruct                                        Procedure()
-AddClassHeaderFile                              procedure(string filename)
-WriteExpFile                                    procedure(string appname,<string directoryname>)
-                                            End
+ClassHeaderQ                                &DCL_System_ExpFileWriter_HeaderFileQueue
+CustomExportStatementQ                      &DCL_System_ExpFileWriter_ExportStatementQueue
+Construct                                   Procedure()
+Destruct                                    Procedure()
+AddClassHeaderFile                          procedure(string filename)
+AddCustomExportStatement                    procedure(string statement)
+WriteExpFile                                procedure(string appname,<string directoryname>)
+										End
 
 

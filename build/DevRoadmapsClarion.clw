@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 
                                         PROGRAM
 
@@ -63,12 +65,15 @@
 !    include('DCL_UI_DebugNotifier.inc'),once
 !    include('DCL_UI_INotifier.inc'),once
 !    include('DCL_UI_ProgressNotifier.inc'),once
+	Include('DCL_Clarion_TXAParser.inc'),Once
+
 
 !   comment
 
 
 
 !gdbg                                    DCL_System_Diagnostics_Debugger
+gdbg                                    DCL_System_Diagnostics_Logger
 
     CODE
     

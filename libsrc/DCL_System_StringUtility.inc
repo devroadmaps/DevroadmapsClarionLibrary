@@ -43,6 +43,7 @@ DCL_System_StringUtility                            Class,Type,Module('DCL_Syste
 !Construct                                   Procedure()
 !Destruct                                    Procedure()
 GetPaddedString                                         procedure(string s,long length),string
+ReplaceSingleQuoteWithTilde                             procedure(*cstring s)
 
                                         End
 

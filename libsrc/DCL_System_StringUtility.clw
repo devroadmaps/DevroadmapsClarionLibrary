@@ -57,8 +57,18 @@ DCL_System_StringUtility.GetPaddedString       procedure(string s,long length)!,
 OrigLength                                  long
     code
     OrigLength = len(clip(s))
-    if OrigLength > length
-        return sub(s,1,length)
-    else
-        return sub(s,1,length) & all(' ',length-OrigLength)
-    end
+	if OrigLength > length
+		return sub(s,1,length)
+	else
+		return sub(s,1,length) & all(' ',length-OrigLength)
+	end
+	
+DCL_System_StringUtility.ReplaceSingleQuoteWithTilde    procedure(*cstring str)
+x                                                   LONG
+	code
+	loop x = 1 to len(str)
+		if str[x] = ''''
+			str[x] = '~'
+		END
+	END
+	

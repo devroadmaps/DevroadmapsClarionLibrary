@@ -1,0 +1,49 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{C49C9961-F0CD-4AB6-A589-2A9364E755D7}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DCL_Clarion_TXAParser_Tests</RootNamespace>
+    <AssemblyName>DCL_Clarion_TXAParser_Tests</AssemblyName>
+    <OutputName>DCL_Clarion_TXAParser_Tests</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <Model>Dll</Model>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <Compile Include="DCL_Clarion_TXAParser_Tests.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_Clarion_TXAParser_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_CLARION_TXAPARSER_TESTS_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_Clarion_TXAParser_Tests_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Library Include="DevRoadmapsClarion.lib" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>..\ClarionTest.exe DCL_Clarion_TXAParser_Tests.dll /run</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -11,6 +11,8 @@ ClarionTest/*/obj
 *.obj
 *.rsc
 *.RSC
+*.bpp
+*.ap~
 CL_SQL_*
-
+PWEE*.txt
 
