@@ -48,7 +48,8 @@ ExpWriter                                   DCL_System_ExpFileWriter
 
     CODE
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Class.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')
+	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')
+	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Data_Datafier.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_FileLogger.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Logger.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Profiler.inc')
@@ -64,6 +65,8 @@ ExpWriter                                   DCL_System_ExpFileWriter
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StackNode.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_String.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StringUtility.inc')
+    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Threading_CriticalSection.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Clarion_TXAParser.inc')
 	ExpWriter.AddCustomExportStatement('  $gdbg @?') 
+	ExpWriter.AddCustomExportStatement('  $gDatafier @?') 
     ExpWriter.WriteExpFile('DevRoadmapsClarion')

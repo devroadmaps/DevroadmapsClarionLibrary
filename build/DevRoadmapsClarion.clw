@@ -66,6 +66,8 @@
 !    include('DCL_UI_INotifier.inc'),once
 !    include('DCL_UI_ProgressNotifier.inc'),once
 	Include('DCL_Clarion_TXAParser.inc'),Once
+	include('DCL_Data_Datafier.inc'),once
+	include('DCL_System_Threading_CriticalSection.inc'),once
 
 
 !   comment
@@ -74,6 +76,7 @@
 
 !gdbg                                    DCL_System_Diagnostics_Debugger
 gdbg                                    DCL_System_Diagnostics_Logger
+gDatafier                               DCL_Data_Datafier
 
     CODE
     

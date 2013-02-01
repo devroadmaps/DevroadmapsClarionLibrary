@@ -8,6 +8,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{6C5D
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{57D6D46A-60E7-47C3-A557-C7D86A50BF62}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_Data_Datafier.clw = ..\libsrc\DCL_Data_Datafier.clw
+		..\libsrc\DCL_Data_Datafier.inc = ..\libsrc\DCL_Data_Datafier.inc
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D7D-429A-4BB2-9972-DDE3063A11C0}"
 	ProjectSection(SolutionItems) = postProject
 		..\libsrc\DCL_System_Class.inc = ..\libsrc\DCL_System_Class.inc
@@ -18,6 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D
 		..\libsrc\DCL_System_Stack.clw = ..\libsrc\DCL_System_Stack.clw
 		..\libsrc\DCL_System_Stack.inc = ..\libsrc\DCL_System_Stack.inc
 		..\libsrc\DCL_System_StackNode.inc = ..\libsrc\DCL_System_StackNode.inc
+		..\libsrc\DCL_System_Threading_CriticalSection.clw = ..\libsrc\DCL_System_Threading_CriticalSection.clw
+		..\libsrc\DCL_System_Threading_CriticalSection.inc = ..\libsrc\DCL_System_Threading_CriticalSection.inc
+		..\libsrc\DCL_System_Threading_ICriticalSection.inc = ..\libsrc\DCL_System_Threading_ICriticalSection.inc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{54368A34-3D8A-4615-AA64-385BFAE0EF2B}"
@@ -42,5 +51,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{54368A34-3D8A-4615-AA64-385BFAE0EF2B} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 		{2D4C3D7D-429A-4BB2-9972-DDE3063A11C0} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{57D6D46A-60E7-47C3-A557-C7D86A50BF62} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 	EndGlobalSection
 EndGlobal
