@@ -1,4 +1,10 @@
 # Auto detect text files and perform LF normalization
+*.clw text eol=crlf
+*.CLW text eol=crlf
+*.inc text eol=crlf
+*.INC text eol=crlf
+*.cwproj text eol=crlf
+*.CWPROJ text eol=crlf
 * text=auto
 
 # Custom for Visual Studio
