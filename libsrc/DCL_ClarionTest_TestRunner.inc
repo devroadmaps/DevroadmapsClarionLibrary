@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
-! Copyright (c) 2012, CoveComm Inc.
+! Copyright (c) 2013, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,22 +34,24 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+! endRegion
+
+	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 	include('DCL_System_Runtime_Dll.inc'),once
 	include('DCL_clariontest_testresult.inc'),once
+	include('DCL_ClarionTest_TestProcedures.inc'),once
 
-DCL_ClarionTest_TestRunner      class,type,module('DCL_ClarionTest_TestRunner.clw'),link('DCL_ClarionTest_TestRunner.clw')!,_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-Procedures                      &DCL_ClarionTest_ProceduresQueue
-DllMgr                          &DCL_System_Runtime_Dll
-DllName                         cstring(FILE:maxfilepath + FILE:maxfilename + 1)
-Construct                       PROCEDURE
-Destruct                        procedure
-GetFailedTest                   procedure(string errormsg),*DCL_ClarionTest_TestResult
-GetTestProcedures               procedure(*DCL_ClarionTest_ProceduresQueue q)
-Init                            procedure(string dllname)
-Kill                            procedure
-!LastErrorCode                   procedure,Long
-!LastErrCode                     long(0),private
-RunTest                             procedure(long index),*DCL_ClarionTest_TestResult
-RunTestByName                       procedure(string name),*DCL_ClarionTest_TestResult
-								end
+
+DCL_ClarionTest_TestRunner              class,type,module('DCL_ClarionTest_TestRunner.clw'),link('DCL_ClarionTest_TestRunner.clw')!,_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
+Procedures                                  &DCL_ClarionTest_TestProceduresQueue
+DllMgr                                      &DCL_System_Runtime_Dll
+DllName                                     cstring(FILE:maxfilepath + FILE:maxfilename + 1)
+Construct                                   PROCEDURE
+Destruct                                    procedure
+GetFailedTest                               procedure(string errormsg),*DCL_ClarionTest_TestResult
+GetTestProcedures                           procedure(*DCL_ClarionTest_TestProceduresQueue q)
+Init                                        procedure(string dllname)
+Kill                                        procedure
+RunTest                                     procedure(long index),*DCL_ClarionTest_TestResult
+RunTestByName                               procedure(string name),*DCL_ClarionTest_TestResult
+										end

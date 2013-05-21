@@ -70,7 +70,8 @@
 #!**********
 #AT(%GlobalData),DESCRIPTION(%ApplicationTemplateInstanceDescription)
   include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
-ClarionTest_ctpl    DCL_ClarionTest_Procedures
+  include('DCL_ClarionTest_TestProcedures.inc'),once
+ClarionTest_ctpl    DCL_ClarionTest_TestProcedures
 #ENDAT
 #!**********
 #AT(%GlobalMap),DESCRIPTION(%ApplicationTemplateInstanceDescription)
@@ -127,17 +128,17 @@ ProcedureReturn   ROUTINE
     #FIX(%Procedure,%PassedProcedure)
     #IF(%Procedure)
       #IF(SUB(%Procedure,1,1) <> '_')
-ClarionTest_ctpl.List.Priority       = 10
+ClarionTest_ctpl.List.TestPriority       = 10
       #ELSIF(SUB(%Procedure,1,1) = '_')
-ClarionTest_ctpl.List.Priority       = %(SUB(%Procedure,2,3)+0)
+ClarionTest_ctpl.List.TestPriority       = %(SUB(%Procedure,2,3)+0)
       #ENDIF
-ClarionTest_ctpl.List.testname       = '%Procedure'
+ClarionTest_ctpl.List.TestName       = '%Procedure'
     #Else
-ClarionTest_ctpl.List.Priority       = 10
-ClarionTest_ctpl.List.testname       = '%PassedProcedure'
+ClarionTest_ctpl.List.TestPriority       = 10
+ClarionTest_ctpl.List.TestName       = '%PassedProcedure'
     #EndIf
-ClarionTest_ctpl.List.TestGroup      = '%PassedGroup'
-ClarionTest_ctpl.List.TestGroupOrder = %(SUB(%PassedGroup,2,3)+0)
+ClarionTest_ctpl.List.TestGroupName      = '%PassedGroup'
+ClarionTest_ctpl.List.TestGroupPriority = %(SUB(%PassedGroup,2,3)+0)
 ADD(ClarionTest_ctpl.List)
     
 #!*****************************************************************************

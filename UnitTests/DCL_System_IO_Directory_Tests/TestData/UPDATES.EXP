@@ -1,0 +1,15 @@
+LIBRARY 'UPDATES' GUI
+EXPORTS
+;Start of initialisation function
+  UPDATES:INIT@F10ERRORCLASS8INICLASS                     @?
+  UPDATES:KILL@F                                          @?
+;End of initialisation functions
+
+;Start of Exported Procedures
+  VIEWPRODUCTS@F                                          @?
+  VIEWORDERS@F                                            @?
+  VIEWCUSTOMERS@F                                         @?
+;End of Exported Procedures
+
+
+

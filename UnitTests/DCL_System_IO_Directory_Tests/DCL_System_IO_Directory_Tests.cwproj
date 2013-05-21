@@ -1,0 +1,52 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{A330E106-43F0-47EC-BDC1-D2D6E59B98A9}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>DCL_System_IO_Directory_Tests</AssemblyName>
+    <OutputName>DCL_System_IO_Directory_Tests</OutputName>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+    <Model>Dll</Model>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DCL_System_IO_Directory_Tests.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_IO_Directory_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_IO_Directory_Tests002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_SYSTEM_IO_DIRECTORY_TESTS_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_IO_Directory_Tests_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <Library Include="DevRoadmapsClarion.lib" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>..\ClarionTest DCL_System_IO_Directory_Tests.dll /run</PostBuildEvent>
+  </PropertyGroup>
+</Project>

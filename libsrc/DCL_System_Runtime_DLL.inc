@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region 
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,7 +34,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-
+!endregion
 	! Original code by Jim Kane
 ! http://www.clarionmag.com/cmag/v3/v3n11byaddress1.html
 ! http://www.clarionmag.com/cmag/v3/v3n11byaddress2.html

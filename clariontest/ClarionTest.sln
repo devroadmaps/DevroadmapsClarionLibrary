@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Clarion 2.1.0.2447
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
 	ProjectSection(SolutionItems) = postProject
+		ClarionTest.INI = ClarionTest.INI
 	EndProjectSection
 EndProject
 Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "ClarionTest", "ClarionTest.cwproj", "{C887B0A3-2C01-4ADE-8791-0067E6233FB7}"

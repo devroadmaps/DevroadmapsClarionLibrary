@@ -69,7 +69,8 @@ SilentRunning        BYTE(0)                               ! Set true when appli
 !endregion
 
   include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
-ClarionTest_ctpl    DCL_ClarionTest_Procedures
+  include('DCL_ClarionTest_TestProcedures.inc'),once
+ClarionTest_ctpl    DCL_ClarionTest_TestProcedures
 
 GlobalRequest        BYTE(0),THREAD                        ! Set when a browse calls a form, to let it know action to perform
 GlobalResponse       BYTE(0),THREAD                        ! Set to the response from the form
@@ -112,16 +113,16 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     CODE
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ParseClassFile_GetExports'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ParseClassFile_GetExports'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ParseClassFile_VerifyClassName'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ParseClassFile_VerifyClassName'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
     RETURN 0

@@ -1,0 +1,41 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{24CBF366-5424-4084-8E75-C82A3A0C717C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>reports</AssemblyName>
+    <OutputName>Reports</OutputName>
+    <DefineConstants>maincode=&gt;off%3b_ABCDllMode_=&gt;1%3b_ABCLinkMode_=&gt;0</DefineConstants>
+    <Model>Dll</Model>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="allfiles.cwproj">
+      <Project>{AB8A2471-4C76-4434-BF3E-5EA5B778D11B}</Project>
+      <Name>allfiles</Name>
+      <Generated>True</Generated>
+    </ProjectReference>
+    <Compile Include="Reports.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="Reports001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Library Include="UPDATES.LIB" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

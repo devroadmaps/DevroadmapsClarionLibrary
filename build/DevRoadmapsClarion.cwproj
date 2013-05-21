@@ -29,6 +29,7 @@
     <line_numbers>True</line_numbers>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CWUTIL.CLW" />
     <Compile Include="DevRoadmapsClarion.clw" />
     <Compile Include="DCL_CallA.a" />
     <None Include="DevRoadmapsClarion.exp" />

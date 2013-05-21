@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,8 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
+!
 ! This file contains various source needed by the ClarionTest
 ! unit testing framework.
 
@@ -61,8 +64,11 @@ IsEmpty                                 procedure(*? object),byte
 IsEqualTo                               procedure(string expected),byte,proc
 IsNotEqualTo                            procedure(string expected),byte
 IsNull                                  procedure(*? object),byte
-SetUnitTestFailed                       procedure(string stdMessage)
-SetUnitTestFailed                       procedure(string stdMessage,string userMessage)
+SetUnitTestFailed                       procedure(string stdMessage,<string userMessage>)
+SetUnitTestIgnored                      procedure(string stdMessage,<string userMessage>)
+SetUnitTestStatus                       procedure(long status,string stdMessage,<string userMessage>)
+
+
 
 
     Section('ProgramProcedures')
@@ -75,7 +81,7 @@ Debug                                   procedure(string s)
 BeginUnitTest                           procedure(string testName)
     CODE
     clear(UnitTestResult)
-    UnitTestResult.Passed = true
+    UnitTestResult.Status = DCL_ClarionTest_Status_Pass
     UnitTestResult.ProcedureName = testName
 	
 AssertThat                              procedure(string testResult,byte b,<string userMessage>,<string successMessage>)
@@ -87,7 +93,7 @@ singlequote                                 equate('''')
     if not omitted(userMessage)
         info = userMessage
     end
-    if UnitTestResult.Passed = false then return false.
+    if UnitTestResult.Status <> DCL_ClarionTest_Status_Pass then return false.
 !	if UnitTestVariableType <> DCL_ClarionTest_UnitTestVariableTypes:StringType
 !		SetUnitTestFailed('Strings can only be compared with other strings')
 !	END
@@ -147,14 +153,36 @@ IsNotEqualTo                            procedure(string s)
     return true
 	
 	
-SetUnitTestFailed                       procedure(string stdMessage)
-    CODE
-    SetUnitTestFailed(stdMessage,'')
+!SetUnitTestFailed                       procedure(string stdMessage)
+!    CODE
+!    SetUnitTestFailed(stdMessage,'')
 	
-SetUnitTestFailed                       procedure(string stdMessage,string userMessage)
-    CODE
-    Debug('SetUnitTestFailed ' & stdMessage)
-    UnitTestResult.Passed = false
-    !UnitTestResult.Message = stdMessage & ' ' & userMessage
-    UnitTestResult.Message = clip(userMessage) & ' (' & stdMessage & ')'
+SetUnitTestFailed                       procedure(string stdMessage,<string userMessage>)
+	CODE
+	if omitted(userMessage)
+		SetUnitTestStatus(DCL_ClarionTest_Status_Fail,stdMessage)
+	else
+		SetUnitTestStatus(DCL_ClarionTest_Status_Fail,stdMessage,userMessage)
+	end
+		
+SetUnitTestIgnored                       procedure(string stdMessage,<string userMessage>)
+	CODE
+	if omitted(userMessage)
+		SetUnitTestStatus(DCL_ClarionTest_Status_Ignore,stdMessage)
+	else
+		SetUnitTestStatus(DCL_ClarionTest_Status_Ignore,stdMessage,userMessage)
+	end
+	
+		
+SetUnitTestStatus                       procedure(long status,string stdMessage,<string userMessage>)
+	CODE
+	Debug('SetUnitTestFailed ' & stdMessage)
+	UnitTestResult.Status = status
+	!UnitTestResult.Message = stdMessage & ' ' & userMessage
+	if omitted(userMessage)
+		UnitTestResult.Message = clip(userMessage)
+	else
+		UnitTestResult.Message = clip(userMessage) & ' (' & stdMessage & ')'
+	end
+	
 		

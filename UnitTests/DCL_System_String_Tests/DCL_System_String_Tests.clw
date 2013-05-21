@@ -98,7 +98,8 @@ SilentRunning        BYTE(0)                               ! Set true when appli
 !endregion
 
   include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
-ClarionTest_ctpl    DCL_ClarionTest_Procedures
+  include('DCL_ClarionTest_TestProcedures.inc'),once
+ClarionTest_ctpl    DCL_ClarionTest_TestProcedures
 
 GlobalRequest        BYTE(0),THREAD                        ! Set when a browse calls a form, to let it know action to perform
 GlobalResponse       BYTE(0),THREAD                        ! Set to the response from the form
@@ -141,142 +142,142 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     CODE
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'AppendSpace_Verify'
-    ClarionTest_ctpl.List.TestGroup      = 'CurrentTests'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'AppendSpace_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'CurrentTests'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'AppendNothing_Verify'
-    ClarionTest_ctpl.List.TestGroup      = 'CurrentTests'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'AppendNothing_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'CurrentTests'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'PrependString_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'PrependString_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_LeadingDelmiter_VerifyCountAndValues'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_LeadingDelmiter_VerifyCountAndValues'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ReplaceString_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ReplaceString_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitStringWithMultipleDelimiters_VerifyCountAndValues'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitStringWithMultipleDelimiters_VerifyCountAndValues'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_BugReport_IndexOutOfRange'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_BugReport_IndexOutOfRange'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'FindIndexOf_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'FindIndexOf_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'IsAlpha_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'IsAlpha_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_VerifyCountAndValues'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_VerifyCountAndValues'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ReplaceWord_Bug_1_VerifyFix'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ReplaceWord_Bug_1_VerifyFix'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'DoesStringEndWith_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'DoesStringEndWith_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'FindLastIndexOf_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'FindLastIndexOf_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'InsertStringIntoString_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'InsertStringIntoString_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ReplaceWholeWord_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ReplaceWholeWord_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ReplaceMultipleWords_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ReplaceMultipleWords_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'TrimString_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'TrimString_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_ReplaceOneLine_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_ReplaceOneLine_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_DelmitersOnly_VerifyCountAndValues'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_DelmitersOnly_VerifyCountAndValues'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'DoesStringBeginWith_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'DoesStringBeginWith_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'SplitString_ChangeOneLine_VerifyWhole'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'SplitString_ChangeOneLine_VerifyWhole'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'ReplaceStringWithClearedCString_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'ReplaceStringWithClearedCString_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'InsertStringIntoFilePath_Verify'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'InsertStringIntoFilePath_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
     RETURN 0

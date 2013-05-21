@@ -1,0 +1,3 @@
+  MODULE('DLLTUTOR001.CLW')
+SplashScreen           PROCEDURE
+  END

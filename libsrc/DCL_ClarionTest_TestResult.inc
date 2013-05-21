@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,44 +34,33 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
-    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+!endregion
+	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 
-DCL_ClarionTest_ProceduresQueue      queue,TYPE
-TestGroup                               string(200)
-TestGroupStyle                          long
-Priority                                decimal(6,2)
-PriorityStyle                           long
-TestName                                string(200)
-TestNameStyle                           LONG
-TestResult                              string(400)
-TestResultStyle                         LONG
-Passed                                  BYTE(false)
-PassedStyle                             LONG
-Mark                                    BYTE
-TestGroupOrder                              LONG(0)
-									end
 
-DCL_ClarionTest_UnitTestTypes        Itemize,pre()
-IsEqualTo                               equate(1)
-IsNotEqualTo                            equate
-									end
-DCL_ClarionTest_UnitTestVariableTypes        Itemize,pre()
-StringType                                      equate
-IntegerType                                     equate
-											end
+DCL_ClarionTest_UnitTestTypes           Itemize,pre()
+IsEqualTo                                   equate(1)
+IsNotEqualTo                                equate
+										end
+DCL_ClarionTest_UnitTestVariableTypes   Itemize,pre()
+StringType                                  equate
+IntegerType                                 equate
+										end
 
-DCL_ClarionTest_Procedures   CLASS,TYPE,MODULE('DCL_ClarionTest_TestResult.clw'),LINK('DCL_ClarionTest_TestResult.clw')!,_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-List                            &DCL_ClarionTest_ProceduresQueue
-!Names                           string(200),dim(500)
-Construct                       PROCEDURE
-Destruct                        procedure
-							end
 
-DCL_ClarionTest_TestResult   CLASS,type
-ProcedureName                   cstring(100)
-Description                     cstring(1000)
-Passed                          BYTE
-Message                         cstring(1000)
-							END
+DCL_ClarionTest_TestResult              CLASS,type
+ProcedureName                               cstring(100)
+Description                                 cstring(1000)
+Status                                      long
+Message                                     cstring(1000)
+										END
 !GlobalTestResultInstance	DCL_ClarionTest_TestResult
+
+DCL_ClarionTest_Status_Pass             equate(1)
+DCL_ClarionTest_Status_Fail             equate(2)
+DCL_ClarionTest_Status_Ignore             equate(3)
+
+
+
+
 

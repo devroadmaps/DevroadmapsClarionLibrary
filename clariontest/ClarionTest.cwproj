@@ -33,15 +33,9 @@
     <Compile Include="ClarionTest.clw">
       <Generated>true</Generated>
     </Compile>
-    <Compile Include="ClarionTest001.clw">
-      <Generated>true</Generated>
-    </Compile>
-    <Compile Include="CLARIONTEST_BC.CLW">
-      <Generated>true</Generated>
-    </Compile>
-    <Compile Include="ClarionTest_BC0.CLW">
-      <Generated>true</Generated>
-    </Compile>
+    <Compile Include="clariontest_about.clw" />
+    <Compile Include="clariontest_main.clw" />
+    <Compile Include="clariontest_settings.clw" />
     <Compile Include="DCL_CallA.a" />
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +46,7 @@
     <FileDriver Include="DOS" />
     <FileDriver Include="ODBC" />
     <FileDriver Include="TOPSPEED" />
-    <Library Include="IQXML80.LIB" />
+    <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>

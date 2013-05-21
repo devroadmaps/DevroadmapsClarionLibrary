@@ -1,0 +1,46 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{AB8A2471-4C76-4434-BF3E-5EA5B778D11B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>allfiles</AssemblyName>
+    <OutputName>AllFiles</OutputName>
+    <DefineConstants>maincode=&gt;off%3b_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+    <Model>Dll</Model>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <FileDriver Include="TOPSPEED" />
+    <Compile Include="Allfiles.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="Allfiles001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ALLFILES_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="Allfiles_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CWUtil.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

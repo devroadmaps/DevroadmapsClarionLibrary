@@ -8,6 +8,69 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{6C5D
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClarionTest", "ClarionTest", "{B657FC8D-6553-4B17-B75E-8E97D7CDFACC}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc = ..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc
+		..\libsrc\DCL_ClarionTest_SQLPlugin.clw = ..\libsrc\DCL_ClarionTest_SQLPlugin.clw
+		..\libsrc\DCL_ClarionTest_SQLPlugin.inc = ..\libsrc\DCL_ClarionTest_SQLPlugin.inc
+		..\libsrc\DCL_ClarionTest_TestResult.clw = ..\libsrc\DCL_ClarionTest_TestResult.clw
+		..\libsrc\DCL_ClarionTest_TestResult.inc = ..\libsrc\DCL_ClarionTest_TestResult.inc
+		..\libsrc\DCL_ClarionTest_TestRunner.clw = ..\libsrc\DCL_ClarionTest_TestRunner.clw
+		..\libsrc\DCL_ClarionTest_TestRunner.inc = ..\libsrc\DCL_ClarionTest_TestRunner.inc
+		..\libsrc\DCL_ClarionTest_Equates.inc = ..\libsrc\DCL_ClarionTest_Equates.inc
+		..\libsrc\DCL_ClarionTest_TestProcedures.clw = ..\libsrc\DCL_ClarionTest_TestProcedures.clw
+		..\libsrc\DCL_ClarionTest_TestProcedures.inc = ..\libsrc\DCL_ClarionTest_TestProcedures.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System_Threading", "System_Threading", "{302FF6AC-02FD-4FAE-8E9C-950E764C7AE8}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_System_Threading_CriticalSection.clw = ..\libsrc\DCL_System_Threading_CriticalSection.clw
+		..\libsrc\DCL_System_Threading_CriticalSection.inc = ..\libsrc\DCL_System_Threading_CriticalSection.inc
+		..\libsrc\DCL_System_Threading_ICriticalSection.inc = ..\libsrc\DCL_System_Threading_ICriticalSection.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System_Diagnostics", "System_Diagnostics", "{4110A792-BA03-4571-BD4A-1E7A8ACBF83C}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_System_Diagnostics_FileLogger.clw = ..\libsrc\DCL_System_Diagnostics_FileLogger.clw
+		..\libsrc\DCL_System_Diagnostics_FileLogger.inc = ..\libsrc\DCL_System_Diagnostics_FileLogger.inc
+		..\libsrc\DCL_System_Diagnostics_Logger.clw = ..\libsrc\DCL_System_Diagnostics_Logger.clw
+		..\libsrc\DCL_System_Diagnostics_Logger.inc = ..\libsrc\DCL_System_Diagnostics_Logger.inc
+		..\libsrc\DCL_System_Diagnostics_Profiler.clw = ..\libsrc\DCL_System_Diagnostics_Profiler.clw
+		..\libsrc\DCL_System_Diagnostics_Profiler.inc = ..\libsrc\DCL_System_Diagnostics_Profiler.inc
+		..\libsrc\DCL_System_Diagnostics_Timer.clw = ..\libsrc\DCL_System_Diagnostics_Timer.clw
+		..\libsrc\DCL_System_Diagnostics_Timer.inc = ..\libsrc\DCL_System_Diagnostics_Timer.inc
+		..\libsrc\DCL_System_Diagnostics_Tracer.clw = ..\libsrc\DCL_System_Diagnostics_Tracer.clw
+		..\libsrc\DCL_System_Diagnostics_Tracer.inc = ..\libsrc\DCL_System_Diagnostics_Tracer.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System_Runtime", "System_Runtime", "{00AFCB14-1243-4E57-B2D1-330B452C67F5}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_System_Runtime_DirectoryWatcher.clw = ..\libsrc\DCL_System_Runtime_DirectoryWatcher.clw
+		..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc = ..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc
+		..\libsrc\DCL_System_Runtime_DLL.clw = ..\libsrc\DCL_System_Runtime_DLL.clw
+		..\libsrc\DCL_System_Runtime_DLL.inc = ..\libsrc\DCL_System_Runtime_DLL.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System_IO", "System_IO", "{6247CB3A-0AE4-4DC8-983E-6CC58A3B2809}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_System_IO_Directory.clw = ..\libsrc\DCL_System_IO_Directory.clw
+		..\libsrc\DCL_System_IO_Directory.inc = ..\libsrc\DCL_System_IO_Directory.inc
+		..\libsrc\DCL_System_IO_AsciiFile.clw = ..\libsrc\DCL_System_IO_AsciiFile.clw
+		..\libsrc\DCL_System_IO_AsciiFile.inc = ..\libsrc\DCL_System_IO_AsciiFile.inc
+		..\libsrc\DCL_System_IO_FileInfo.clw = ..\libsrc\DCL_System_IO_FileInfo.clw
+		..\libsrc\DCL_System_IO_FileInfo.inc = ..\libsrc\DCL_System_IO_FileInfo.inc
+		..\libsrc\DCL_System_IO_File.clw = ..\libsrc\DCL_System_IO_File.clw
+		..\libsrc\DCL_System_IO_File.inc = ..\libsrc\DCL_System_IO_File.inc
+		..\libsrc\DCL_System_IO_CaptureStdOutput.clw = ..\libsrc\DCL_System_IO_CaptureStdOutput.clw
+		..\libsrc\DCL_System_IO_CaptureStdOutput.inc = ..\libsrc\DCL_System_IO_CaptureStdOutput.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Text", "Text", "{860617F0-E3D9-4B3D-9997-CE932E652693}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_Text_RTF.clw = ..\libsrc\DCL_Text_RTF.clw
+		..\libsrc\DCL_Text_RTF.inc = ..\libsrc\DCL_Text_RTF.inc
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{57D6D46A-60E7-47C3-A557-C7D86A50BF62}"
 	ProjectSection(SolutionItems) = postProject
 		..\libsrc\DCL_Data_Datafier.clw = ..\libsrc\DCL_Data_Datafier.clw
@@ -19,22 +82,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D
 		..\libsrc\DCL_System_Class.inc = ..\libsrc\DCL_System_Class.inc
 		..\libsrc\DCL_System_String.clw = ..\libsrc\DCL_System_String.clw
 		..\libsrc\DCL_System_String.inc = ..\libsrc\DCL_System_String.inc
-		..\libsrc\DCL_System_Diagnostics_Profiler.clw = ..\libsrc\DCL_System_Diagnostics_Profiler.clw
-		..\libsrc\DCL_System_Diagnostics_Profiler.inc = ..\libsrc\DCL_System_Diagnostics_Profiler.inc
 		..\libsrc\DCL_System_Stack.clw = ..\libsrc\DCL_System_Stack.clw
 		..\libsrc\DCL_System_Stack.inc = ..\libsrc\DCL_System_Stack.inc
 		..\libsrc\DCL_System_StackNode.inc = ..\libsrc\DCL_System_StackNode.inc
-		..\libsrc\DCL_System_Threading_CriticalSection.clw = ..\libsrc\DCL_System_Threading_CriticalSection.clw
-		..\libsrc\DCL_System_Threading_CriticalSection.inc = ..\libsrc\DCL_System_Threading_CriticalSection.inc
-		..\libsrc\DCL_System_Threading_ICriticalSection.inc = ..\libsrc\DCL_System_Threading_ICriticalSection.inc
+		..\libsrc\DCL_System_ErrorManager.clw = ..\libsrc\DCL_System_ErrorManager.clw
+		..\libsrc\DCL_System_ErrorManager.inc = ..\libsrc\DCL_System_ErrorManager.inc
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{54368A34-3D8A-4615-AA64-385BFAE0EF2B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{B0C0381C-28DB-4C2A-97E3-2EA08AF03D80}"
 	ProjectSection(SolutionItems) = postProject
-		..\libsrc\CL_SQL_Database.clw = ..\libsrc\CL_SQL_Database.clw
-		..\libsrc\CL_SQL_Database.inc = ..\libsrc\CL_SQL_Database.inc
-		..\libsrc\CL_SQL_Table.clw = ..\libsrc\CL_SQL_Table.clw
-		..\libsrc\CL_SQL_Table.inc = ..\libsrc\CL_SQL_Table.inc
+		copyfiles.cmd = copyfiles.cmd
+		..\libsrc\DCL_BaseClass.clw = ..\libsrc\DCL_BaseClass.clw
+		..\libsrc\DCL_BaseClass.inc = ..\libsrc\DCL_BaseClass.inc
+		..\libsrc\DCL_Windows_API_Functions.inc = ..\libsrc\DCL_Windows_API_Functions.inc
+		..\libsrc\DCL_Windows_API_Equates.inc = ..\libsrc\DCL_Windows_API_Equates.inc
 	EndProjectSection
 EndProject
 Global
@@ -49,8 +110,13 @@ Global
 		{631666FC-E116-4DBD-AA21-53367CBC6EA0}.Release|Win32.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{54368A34-3D8A-4615-AA64-385BFAE0EF2B} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 		{2D4C3D7D-429A-4BB2-9972-DDE3063A11C0} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 		{57D6D46A-60E7-47C3-A557-C7D86A50BF62} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{860617F0-E3D9-4B3D-9997-CE932E652693} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{6247CB3A-0AE4-4DC8-983E-6CC58A3B2809} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{00AFCB14-1243-4E57-B2D1-330B452C67F5} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{4110A792-BA03-4571-BD4A-1E7A8ACBF83C} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{302FF6AC-02FD-4FAE-8E9C-950E764C7AE8} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{B657FC8D-6553-4B17-B75E-8E97D7CDFACC} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 	EndGlobalSection
 EndGlobal

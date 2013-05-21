@@ -1,0 +1,1 @@
+copy Updates._ProgramModule.clw + Updates.SingleInvoiceReport.clw + Updates.UpdateCustomer.clw + Updates.UpdateOrder.clw + Updates.UpdateProduct.clw + Updates.ViewCustomers.clw + Updates.ViewOrders.clw + Updates.ViewProducts.clw _Updates._AllProcedures.clw /y

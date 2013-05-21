@@ -1,0 +1,292 @@
+[DICTIONARY]
+VERSION '1.0'
+CREATED ' 6 DEC 1997' ' 9:59:54PM'
+MODIFIED '29 OCT 2003' ' 3:30:20PM'
+[LONGDESC]
+!Tutorial Dictionary - Updated 10/2003
+
+[FILES]
+
+Customer FILE,DRIVER('TOPSPEED'),PRE(CUS),CREATE,THREAD
+!!> IDENT(1),USAGE(File)
+[QUICKCODE]
+!NOPOPULATE 
+KeyCustNumber KEY(CUS:CustNumber),NOCASE,OPT
+!!> IDENT(1),AUTO
+KeyCompany KEY(CUS:Company),DUP,NOCASE
+!!> IDENT(2)
+KeyZipCode KEY(CUS:ZipCode),DUP,NOCASE
+!!> IDENT(3)
+Record                   RECORD
+[SCREENCONTROLS]
+! PROMPT('&Cust Number:'),USE(?CUS:CustNumber:Prompt)
+! STRING(@n4),USE(CUS:CustNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n4),USE(CUS:CustNumber),RIGHT(1)
+CustNumber                 LONG
+!!> IDENT(5),PROMPT('&Cust Number:'),HEADER('Cust Number'),PICTURE(@n4),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('&Company:'),USE(?CUS:Company:Prompt)
+! ENTRY(@s20),USE(CUS:Company)
+[REPORTCONTROLS]
+! STRING(@s20),USE(CUS:Company)
+Company                    STRING(20)
+!!> IDENT(6),PROMPT('&Company:'),HEADER('Company'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&First Name:'),USE(?CUS:FirstName:Prompt)
+! ENTRY(@s20),USE(CUS:FirstName)
+[REPORTCONTROLS]
+! STRING(@s20),USE(CUS:FirstName)
+FirstName                  STRING(20)
+!!> IDENT(7),PROMPT('&First Name:'),HEADER('First Name'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&Last Name:'),USE(?CUS:LastName:Prompt)
+! ENTRY(@s20),USE(CUS:LastName)
+[REPORTCONTROLS]
+! STRING(@s20),USE(CUS:LastName)
+LastName                   STRING(20)
+!!> IDENT(8),PROMPT('&Last Name:'),HEADER('Last Name'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&Address:'),USE(?CUS:Address:Prompt)
+! ENTRY(@s20),USE(CUS:Address)
+[REPORTCONTROLS]
+! STRING(@s20),USE(CUS:Address)
+Address                    STRING(20)
+!!> IDENT(9),PROMPT('&Address:'),HEADER('Address'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&City:'),USE(?CUS:City:Prompt)
+! ENTRY(@s20),USE(CUS:City)
+[REPORTCONTROLS]
+! STRING(@s20),USE(CUS:City)
+City                       STRING(20)
+!!> IDENT(10),PROMPT('&City:'),HEADER('City'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&State:'),USE(?CUS:State:Prompt)
+! LIST,USE(CUS:State),DROP(5),FROM('AL|MS|FL|GA|LA|SC')
+[REPORTCONTROLS]
+! STRING(@s2),USE(CUS:State)
+State                      STRING(2)
+!!> IDENT(11),VALID(INLIST('AL|MS|FL|GA|LA|SC')),INITIAL('''FL'''),PROMPT('&State:'),HEADER('State'),PICTURE(@s2)
+[SCREENCONTROLS]
+! PROMPT('&Zip Code:'),USE(?CUS:ZipCode:Prompt)
+! ENTRY(@P#####P),USE(CUS:ZipCode),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@P#####P),USE(CUS:ZipCode),RIGHT(1)
+ZipCode                    LONG
+!!> IDENT(12),PROMPT('&Zip Code:'),HEADER('Zip Code'),PICTURE(@P#####P),JUSTIFY(RIGHT,1)
+                         END
+                       END
+
+Orders FILE,DRIVER('TOPSPEED'),PRE(ORD),CREATE,THREAD  !Order header file
+!!> IDENT(3),USAGE(File)
+KeyOrderNumber KEY(ORD:OrderNumber),NOCASE,OPT,PRIMARY
+!!> IDENT(5),AUTO
+KeyCustNumber KEY(ORD:CustNumber),DUP,NOCASE,OPT
+!!> IDENT(6)
+Record                   RECORD
+[SCREENCONTROLS]
+! PROMPT('&Cust Number:'),USE(?ORD:CustNumber:Prompt)
+! ENTRY(@n4),USE(ORD:CustNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n4),USE(ORD:CustNumber),RIGHT(1)
+CustNumber                 LONG
+!!> IDENT(19),VALID(INFILE(Customer,Orders:Customer)),PROMPT('&Cust Number:'),HEADER('Cust Number'),PICTURE(@n4),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Order Number:'),USE(?ORD:OrderNumber:Prompt)
+! ENTRY(@n-7),USE(ORD:OrderNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(ORD:OrderNumber),RIGHT(1)
+OrderNumber                SHORT
+!!> IDENT(20),PROMPT('Order Number:'),HEADER('Order Number'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Invoice Amount:'),USE(?ORD:InvoiceAmount:Prompt)
+! ENTRY(@n-10.2),USE(ORD:InvoiceAmount),DECIMAL(12)
+[REPORTCONTROLS]
+! STRING(@n-10.2),USE(ORD:InvoiceAmount),DECIMAL(12)
+InvoiceAmount              DECIMAL(7,2)
+!!> IDENT(21),PROMPT('Invoice Amount:'),HEADER('Invoice Amount'),PICTURE(@n-10.2),JUSTIFY(DECIMAL,12)
+[SCREENCONTROLS]
+! PROMPT('Order Date:'),USE(?ORD:OrderDate:Prompt)
+! ENTRY(@d1),USE(ORD:OrderDate),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@d1),USE(ORD:OrderDate),RIGHT(1)
+OrderDate                  LONG
+!!> IDENT(22),INITIAL('TODAY()'),PROMPT('Order Date:'),HEADER('Order Date'),PICTURE(@d1),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Order Note:'),USE(?ORD:OrderNote:Prompt)
+! ENTRY(@s80),USE(ORD:OrderNote)
+[REPORTCONTROLS]
+! STRING(@s80),USE(ORD:OrderNote)
+OrderNote                  STRING(80)
+!!> IDENT(23),PROMPT('Order Note:'),HEADER('Order Note'),PICTURE(@s80)
+                         END
+                       END
+
+Detail FILE,DRIVER('TOPSPEED'),PRE(DTL),CREATE,THREAD  !Order detail file
+!!> IDENT(4),USAGE(File)
+KeyProdNumber KEY(DTL:ProdNumber),DUP,NOCASE,OPT
+!!> IDENT(8)
+KeyOrderNumber KEY(DTL:OrderNumber),DUP,NOCASE,OPT
+!!> IDENT(9)
+Record                   RECORD
+[SCREENCONTROLS]
+! PROMPT('Order Number:'),USE(?DTL:OrderNumber:Prompt)
+! ENTRY(@n-7),USE(DTL:OrderNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(DTL:OrderNumber),RIGHT(1)
+OrderNumber                SHORT
+!!> IDENT(25),PROMPT('Order Number:'),HEADER('Order Number'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Prod Number:'),USE(?DTL:ProdNumber:Prompt)
+! ENTRY(@n-7),USE(DTL:ProdNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(DTL:ProdNumber),RIGHT(1)
+ProdNumber                 SHORT
+!!> IDENT(26),VALID(INFILE(Products,Detail:Products)),PROMPT('Prod Number:'),HEADER('Prod Number'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Quantity:'),USE(?DTL:Quantity:Prompt)
+! ENTRY(@n-7),USE(DTL:Quantity),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(DTL:Quantity),RIGHT(1)
+Quantity                   SHORT
+!!> IDENT(27),PROMPT('Quantity:'),HEADER('Quantity'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Prod Amount:'),USE(?DTL:ProdAmount:Prompt)
+! ENTRY(@n-7.2),USE(DTL:ProdAmount),DECIMAL(12)
+[REPORTCONTROLS]
+! STRING(@n-7.2),USE(DTL:ProdAmount),DECIMAL(12)
+ProdAmount                 DECIMAL(5,2)
+!!> IDENT(28),PROMPT('Prod Amount:'),HEADER('Prod Amount'),PICTURE(@n-7.2),JUSTIFY(DECIMAL,12)
+[SCREENCONTROLS]
+! PROMPT('Tax Rate:'),USE(?DTL:TaxRate:Prompt)
+! ENTRY(@n-4.2),USE(DTL:TaxRate),DECIMAL(12)
+[REPORTCONTROLS]
+! STRING(@n-4.2),USE(DTL:TaxRate),DECIMAL(12)
+TaxRate                    DECIMAL(2,2)
+!!> IDENT(29),PROMPT('Tax Rate:'),HEADER('Tax Rate'),PICTURE(@n-4.2),JUSTIFY(DECIMAL,12)
+                         END
+                       END
+
+Products FILE,DRIVER('TOPSPEED'),PRE(PRD),CREATE,THREAD  !Products for sale
+!!> IDENT(5),USAGE(File)
+KeyProdNumber KEY(PRD:ProdNumber),NOCASE,OPT,PRIMARY
+!!> IDENT(11),AUTO
+KeyProdDesc KEY(PRD:ProdDesc),DUP,NOCASE,OPT
+!!> IDENT(12)
+Record                   RECORD
+[SCREENCONTROLS]
+! PROMPT('Prod Number:'),USE(?PRD:ProdNumber:Prompt)
+! ENTRY(@n-7),USE(PRD:ProdNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(PRD:ProdNumber),RIGHT(1)
+ProdNumber                 SHORT
+!!> IDENT(31),PROMPT('Prod Number:'),HEADER('Prod Number'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Prod Desc:'),USE(?PRD:ProdDesc:Prompt)
+! ENTRY(@s25),USE(PRD:ProdDesc)
+[REPORTCONTROLS]
+! STRING(@s25),USE(PRD:ProdDesc)
+ProdDesc                   STRING(25)
+!!> IDENT(32),PROMPT('Prod Desc:'),HEADER('Prod Desc'),PICTURE(@s25)
+[SCREENCONTROLS]
+! PROMPT('Prod Amount:'),USE(?PRD:ProdAmount:Prompt)
+! ENTRY(@n-7.2),USE(PRD:ProdAmount),DECIMAL(12)
+[REPORTCONTROLS]
+! STRING(@n-7.2),USE(PRD:ProdAmount),DECIMAL(12)
+ProdAmount                 DECIMAL(5,2)
+!!> IDENT(33),PROMPT('Prod Amount:'),HEADER('Prod Amount'),PICTURE(@n-7.2),JUSTIFY(DECIMAL,12)
+[SCREENCONTROLS]
+! PROMPT('Tax Rate:'),USE(?PRD:TaxRate:Prompt)
+! ENTRY(@n-4.2),USE(PRD:TaxRate),DECIMAL(12)
+[REPORTCONTROLS]
+! STRING(@n-4.2),USE(PRD:TaxRate),DECIMAL(12)
+TaxRate                    DECIMAL(2,2)
+!!> IDENT(34),PROMPT('Tax Rate:'),HEADER('Tax Rate'),PICTURE(@n-4.2),JUSTIFY(DECIMAL,12)
+                         END
+                       END
+
+[USEROPTION]
+!EDITINPLACE
+Phones FILE,DRIVER('TOPSPEED'),PRE(PHO),CREATE,THREAD
+!!> IDENT(2),USAGE(File)
+KeyCustNumber KEY(PHO:CustNumber),DUP,NOCASE
+!!> IDENT(4)
+Record                   RECORD
+[SCREENCONTROLS]
+! PROMPT('&Cust Number:'),USE(?PHO:CustNumber:Prompt)
+! ENTRY(@n4),USE(PHO:CustNumber),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n4),USE(PHO:CustNumber),RIGHT(1)
+CustNumber                 DECIMAL(4)
+!!> IDENT(15),PROMPT('&Cust Number:'),HEADER('Cust Number'),PICTURE(@n4),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('&Area:'),USE(?PHO:Area:Prompt)
+! ENTRY(@P(###)P),USE(PHO:Area),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@P(###)P),USE(PHO:Area),RIGHT(1)
+Area                       LONG
+!!> IDENT(16),PROMPT('&Area:'),HEADER('Area'),PICTURE(@P(###)P),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('&Phone:'),USE(?PHO:Phone:Prompt)
+! ENTRY(@P###-####P),USE(PHO:Phone),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@P###-####P),USE(PHO:Phone),RIGHT(1)
+Phone                      LONG
+!!> IDENT(17),PROMPT('&Phone:'),HEADER('Phone'),PICTURE(@P###-####P),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('&Description:'),USE(?PHO:Description:Prompt)
+! ENTRY(@s20),USE(PHO:Description)
+[REPORTCONTROLS]
+! STRING(@s20),USE(PHO:Description)
+Description                STRING(20)
+!!> IDENT(18),PROMPT('&Description:'),HEADER('Description'),PICTURE(@s20)
+                         END
+                       END
+
+
+[RELATIONS]
+
+                       RELATION,ONE:MANY,UPDATE(CASCADE),DELETE(RESTRICT)
+Orders                   FILE(ORD:KeyOrderNumber)
+Detail                   RELATED_FILE(DTL:KeyOrderNumber)
+                         FILE_TO_RELATED_KEY
+                           FIELD(ORD:OrderNumber,DTL:OrderNumber)
+                         END
+                         RELATED_FILE_TO_KEY
+                           FIELD(DTL:OrderNumber,ORD:OrderNumber)
+                         END
+                       END
+
+                       RELATION,MANY:ONE,UPDATE(RESTRICT),DELETE(RESTRICT)
+Detail                   FILE(DTL:KeyProdNumber)
+Products                 RELATED_FILE(PRD:KeyProdNumber)
+                         FILE_TO_RELATED_KEY
+                           FIELD(DTL:ProdNumber,PRD:ProdNumber)
+                         END
+                         RELATED_FILE_TO_KEY
+                           FIELD(PRD:ProdNumber,DTL:ProdNumber)
+                         END
+                       END
+
+                       RELATION,MANY:ONE,UPDATE(CASCADE),DELETE(RESTRICT)
+Orders                   FILE(ORD:KeyCustNumber)
+Customer                 RELATED_FILE(CUS:KeyCustNumber)
+                         FILE_TO_RELATED_KEY
+                           FIELD(ORD:CustNumber,CUS:CustNumber)
+                         END
+                         RELATED_FILE_TO_KEY
+                           FIELD(CUS:CustNumber,ORD:CustNumber)
+                         END
+                       END
+
+                       RELATION,MANY:ONE,UPDATE(CASCADE),DELETE(RESTRICT)
+Phones                   FILE(PHO:KeyCustNumber)
+Customer                 RELATED_FILE(CUS:KeyCustNumber)
+                         FILE_TO_RELATED_KEY
+                           FIELD(PHO:CustNumber,CUS:CustNumber)
+                         END
+                         RELATED_FILE_TO_KEY
+                           FIELD(CUS:CustNumber,PHO:CustNumber)
+                         END
+                       END
+

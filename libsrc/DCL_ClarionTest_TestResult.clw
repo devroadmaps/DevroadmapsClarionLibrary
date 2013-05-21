@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 					member()
 
 
@@ -42,13 +44,5 @@
 	include('DCL_ClarionTest_TestResult.inc'),once
 
 
-DCL_ClarionTest_Procedures.Construct                       PROCEDURE
-	CODE
-	self.List &= new DCL_ClarionTest_ProceduresQueue
-	
-DCL_ClarionTest_Procedures.Destruct                        procedure
-	code
-	free(self.List)
-	dispose(self.List)
 							
 	

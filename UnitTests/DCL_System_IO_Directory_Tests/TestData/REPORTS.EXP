@@ -1,0 +1,15 @@
+LIBRARY 'C:\DEV\C7\DLLTUTOR\REPORTS' GUI
+EXPORTS
+;Start of initialisation function
+  REPORTS:INIT@F10ERRORCLASS8INICLASS                     @?
+  REPORTS:KILL@F                                          @?
+;End of initialisation functions
+
+;Start of Exported Procedures
+  CUSTINVOICEREPORT@F                                     @?
+  CUSTREPORT@F                                            @?
+  INVOICEREPORT@F                                         @?
+;End of Exported Procedures
+
+
+
