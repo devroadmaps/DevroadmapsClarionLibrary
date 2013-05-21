@@ -19,7 +19,7 @@ FilesOpened          LONG                                  !
 
 	AssertThat('ad',IsEqualTo('ad'))!,,'This is a custom "success" message')
 	
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
 !!! <summary>
@@ -33,6 +33,6 @@ FilesOpened          LONG                                  !
   addr = address(UnitTestResult)
   BeginUnitTest('_002_CompareTruetoFalse_DeliberateTestFailure')
     AssertThat(true,IsEqualTo(false))
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

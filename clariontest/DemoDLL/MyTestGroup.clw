@@ -18,7 +18,7 @@ FilesOpened          LONG                                  !
   BeginUnitTest('_002_CompareTwoIntegers_Verify')
 	AssertThat(123,IsNotEqualTo(1234),'Wrong number')
 	AssertThat(123,IsEqualTo(123))
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
 !!! <summary>
@@ -48,7 +48,7 @@ s1	string('abcd')
   addr = address(UnitTestResult)
   BeginUnitTest('_001_CompareTwoGroups_Verify')
 	AssertThat(Group1,IsNotEqualTo(Group2))
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
 !!! <summary>
@@ -75,7 +75,7 @@ FilesOpened          LONG                                  !
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('_003_CompareTwsoStrings')
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
 !!! <summary>

@@ -15,17 +15,12 @@
    INCLUDE('ABREPORT.INC'),ONCE
    INCLUDE('ABRESIZE.INC'),ONCE
    INCLUDE('ABTOOLBA.INC'),ONCE
-   INCLUDE('ABTBLSYN.INC'),ONCE
    INCLUDE('ABUTIL.INC'),ONCE
    INCLUDE('ABWINDOW.INC'),ONCE
    INCLUDE('ABWMFPAR.INC'),ONCE
-   INCLUDE('ALSUZCLA.INC'),ONCE
    INCLUDE('CSIDLFOLDER.INC'),ONCE
    INCLUDE('ERRORS.CLW'),ONCE
    INCLUDE('KEYCODES.CLW'),ONCE
-   INCLUDE('MESSAGEBOX.INC'),ONCE
-   INCLUDE('NYSGCALC.INC'),ONCE
-   INCLUDE('NETCRIT.INC'),ONCE
    INCLUDE('SPECIALFOLDER.INC'),ONCE
    INCLUDE('ABBREAK.INC'),ONCE
    INCLUDE('ABCPTHD.INC'),ONCE
@@ -41,17 +36,14 @@
    INCLUDE('ABRPPSEL.INC'),ONCE
    INCLUDE('ABRULE.INC'),ONCE
    INCLUDE('ABVCRFRM.INC'),ONCE
-   INCLUDE('ALSZCLA.INC'),ONCE
    INCLUDE('CFILTBASE.INC'),ONCE
    INCLUDE('CFILTERLIST.INC'),ONCE
    INCLUDE('CWSYNCHC.INC'),ONCE
    INCLUDE('MDISYNC.INC'),ONCE
    INCLUDE('QPROCESS.INC'),ONCE
    INCLUDE('RTFCTL.INC'),ONCE
-   INCLUDE('SUBCLASSWINDOW.INC'),ONCE
    INCLUDE('TRIGGER.INC'),ONCE
    INCLUDE('WINEXT.INC'),ONCE
-   INCLUDE('XPWINDOW.INC'),ONCE
 
    MAP
      MODULE('DEMODLL_BC.CLW')
@@ -74,7 +66,7 @@ _003_AnotherGroup      PROCEDURE   !
      MODULE('DEMODLL001.CLW')
 CompareEmptyString     FUNCTION(*long addr),long,pascal   !
      END
-       include('CM_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
+       include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
 ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr),LONG,PASCAL
     ! Declare functions defined in this DLL
 DemoDLL:Init           PROCEDURE(<ErrorClass curGlobalErrors>, <INIClass curINIMgr>)
@@ -86,8 +78,9 @@ SilentRunning        BYTE(0)                               ! Set true when appli
 !region File Declaration
 !endregion
 
-  include('CM_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
-ClarionTest_ctpl    CM_ClarionTest_Procedures
+  include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
+  include('DCL_ClarionTest_TestProcedures.inc'),once
+ClarionTest_ctpl    DCL_ClarionTest_TestProcedures
 
 TestClass   CLASS
 Construct       PROCEDURE
@@ -129,48 +122,48 @@ DLLInitializer.Construct PROCEDURE
   FuzzyMatcher.SetOption(MatchOption:NoCase, 1)            ! Configure case matching
   FuzzyMatcher.SetOption(MatchOption:WordOnly, 0)          ! Configure 'word only' matching
   
-  INCLUDE('CM_ClarionTest_GlobalCodeAndData.inc','ProgramProcedures')
+  INCLUDE('DCL_ClarionTest_GlobalCodeAndData.inc','ProgramProcedures')
 ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
-  CODE
-  Addr = ADDRESS(ClarionTest_ctpl)
-  FREE(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 3
-  ClarionTest_ctpl.List.TestGroup      = '_001_Group1'
-  ClarionTest_ctpl.List.testname       = '_003_CompareTwsoStrings'
-  ClarionTest_ctpl.List.TestGroupOrder = 1
-  
-  ADD(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 2
-  ClarionTest_ctpl.List.TestGroup      = '_001_Group1'
-  ClarionTest_ctpl.List.testname       = '_002_CompareTruetoFalse_DeliberateTestFailure'
-  ClarionTest_ctpl.List.TestGroupOrder = 1
-  
-  ADD(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 1
-  ClarionTest_ctpl.List.TestGroup      = '_001_Group1'
-  ClarionTest_ctpl.List.testname       = '_001_CompareTwoGroups_Verify'
-  ClarionTest_ctpl.List.TestGroupOrder = 1
-  
-  ADD(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 2
-  ClarionTest_ctpl.List.TestGroup      = '_002_Group2'
-  ClarionTest_ctpl.List.testname       = '_002_CompareTwoIntegers_Verify'
-  ClarionTest_ctpl.List.TestGroupOrder = 2
-  
-  ADD(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 1
-  ClarionTest_ctpl.List.TestGroup      = '_002_Group2'
-  ClarionTest_ctpl.List.testname       = '_001_CompareTwoStrings_Verify'
-  ClarionTest_ctpl.List.TestGroupOrder = 2
-  
-  ADD(ClarionTest_ctpl.List)
-  ClarionTest_ctpl.List.Priority       = 10
-  ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-  ClarionTest_ctpl.List.testname       = 'CompareEmptyString'
-  ClarionTest_ctpl.List.TestGroupOrder = 0
-  
-  ADD(ClarionTest_ctpl.List)
-  RETURN 0
+    CODE
+    Addr = ADDRESS(ClarionTest_ctpl)
+    FREE(ClarionTest_ctpl.List)
+    ClarionTest_ctpl.List.TestPriority       = 3
+    ClarionTest_ctpl.List.TestName       = '_003_CompareTwsoStrings'
+    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 2
+    ClarionTest_ctpl.List.TestName       = '_002_CompareTruetoFalse_DeliberateTestFailure'
+    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 1
+    ClarionTest_ctpl.List.TestName       = '_001_CompareTwoGroups_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 2
+    ClarionTest_ctpl.List.TestName       = '_002_CompareTwoIntegers_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_002_Group2'
+    ClarionTest_ctpl.List.TestGroupPriority = 2
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 1
+    ClarionTest_ctpl.List.TestName       = '_001_CompareTwoStrings_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = '_002_Group2'
+    ClarionTest_ctpl.List.TestGroupPriority = 2
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareEmptyString'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
+    ADD(ClarionTest_ctpl.List)
+        
+    RETURN 0
 TestClass.Construct                     PROCEDURE
     CODE
     !MESSAGE('Hello')

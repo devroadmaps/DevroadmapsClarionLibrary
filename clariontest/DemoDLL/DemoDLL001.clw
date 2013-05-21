@@ -25,6 +25,6 @@ FilesOpened          LONG                                  !
     AssertThat(IsEmpty(str),isEqualto(true),'Isempty() failed test 3')
     
     
-  DO ProcedureReturn
+  DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

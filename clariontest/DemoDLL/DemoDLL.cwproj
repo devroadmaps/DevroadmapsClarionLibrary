@@ -46,8 +46,7 @@
     <Compile Include="MyTestGroup.clw">
       <Generated>true</Generated>
     </Compile>
-    <Library Include="LSPUZIPX.LIB" />
-    <Library Include="LSPZIPX.LIB" />
+    <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>

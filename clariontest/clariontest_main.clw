@@ -209,17 +209,12 @@ LoadTests                               ROUTINE
 			TestsQ.GroupOrTestName = ProceduresQ.TestGroupName
 			TestsQ.GroupOrTestLevel = 1
 			TestsQ.ProcedureQIndex = 0
-			!TestsQ.qPointer = 0
 			TestsQ.GroupOrTestStyle = Style:Bold
-			!TestsQ.qType = eGroup
 			ADD(TestsQ)
 		END
 		TestsQ.GroupOrTestStyle = Style:Default
 		TestsQ.GroupOrTestName = ProceduresQ.TestName
 		TestsQ.GroupOrTestLevel = 2
-		!TestsQ.TestGroupStyle = Style:Default
-		!TestsQ.Priority = ProceduresQ.TestPriority
-		!TestsQ.PriorityStyle = Style:Default
 		TestsQ.ProcedureQIndex = x
 		TestsQ.TestResult = ''
 		TestsQ.TestResultStyle = Style:Default
@@ -275,11 +270,6 @@ RunTests                                ROUTINE
 					TestsQ.TestResultStyle = Style:Failed
 				END
 			END
-			!put(ProceduresQ)
-			!TestsQ.TestResult = ProceduresQ.TestResult
-			!TestsQ.qTestResultStyle = ProceduresQ.TestResultStyle
-			!TestsQ.qPassed = ProceduresQ.Passed
-			!TestsQ.qMark = False
 			PUT(TestsQ)
 		END
 	END
