@@ -73,7 +73,7 @@ ExpWriter                                   DCL_System_ExpFileWriter
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StringUtility.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Threading_CriticalSection.inc')
     ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Text_RTF.inc')
-	ExpWriter.AddCustomExportStatement('  $gdbg @?') 
+	ExpWriter.AddCustomExportStatement('  $gLogger @?') 
 	ExpWriter.AddCustomExportStatement('  $gDatafier @?') 
 	ExpWriter.AddCustomExportStatement('  $DCL_SYSTEM_IO_ASCIIFILEMANAGER @?') 
 

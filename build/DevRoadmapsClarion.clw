@@ -82,7 +82,7 @@
 
 
 !gdbg                                    DCL_System_Diagnostics_Logger
-gdbg                                    DCL_System_Diagnostics_Logger
+gLogger                                 DCL_System_Diagnostics_Logger
 gDatafier                               DCL_Data_Datafier
 
     CODE
