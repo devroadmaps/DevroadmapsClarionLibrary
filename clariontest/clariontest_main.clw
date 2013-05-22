@@ -245,6 +245,7 @@ LoadTests                               ROUTINE
 		END
 	END
 
+	sort(ProceduresQ,ProceduresQ.TestGroupPriority,ProceduresQ.TestGroupName,ProceduresQ.TestPriority,ProceduresQ.TestName)
 	loop x = 1 to records(ProceduresQ)
 		get(ProceduresQ,x)
 		IF ProceduresQ.TestGroupName <> PreviousGroupOrTestName
