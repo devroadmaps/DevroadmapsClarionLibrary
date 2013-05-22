@@ -44,18 +44,26 @@
 	include('DCL_System_ErrorManager.inc'),once
 	!include('windows.inc'),once
 
-DCL_System_IO_DirectoryQueue             queue,TYPE
-FilePath                                    cstring(FILE:MaxFilePath+1)
-FileName                                    cstring(FILE:MaxFileName+1)
+!DCL_System_IO_DirectoryQueue             queue,TYPE
+!FilePath                                    cstring(FILE:MaxFilePath+1)
+!FileName                                    cstring(FILE:MaxFileName+1)
+!										end
+
+
+DCL_System_IO_DirectoryFilesQueue       queue,TYPE
+name                                        STRING(FILE:MAXFILENAME)
+shortname                                   STRING(13)
+date                                        LONG
+time                                        LONG
+size                                        LONG
+attrib                                      BYTE 
 										end
-
-
 
 
 DCL_System_IO_Directory                               Class,Type,Module('DCL_System_IO_Directory.CLW'),Link('DCL_System_IO_Directory.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
 Path                                                        cstring(FILE:MaxFilePath+1),protected
 Filter                                                      cstring(100)
-FileQ                                                       &DCL_System_IO_FileInfoQueue,protected
+FilesQ                                                      &DCL_System_IO_DirectoryFilesQueue
 MaxDaysOld                                                  long(0),protected
 RefreshNeeded                                               byte(false),protected
 UseRmDir                                                    bool
@@ -63,9 +71,10 @@ Construct                                                   procedure
 Destruct                                                    procedure
 CreateDirectory                                             procedure(byte force=false)
 FileCount                                                   procedure,long
+GetChecksum                                                 procedure,real
 GetDirectoryListing                                         procedure
 Init                                                        procedure(string path)
-LoadFilenamesQueue                                          procedure(*DCL_System_IO_DirectoryQueue q)
+!LoadFilenamesQueue                                          procedure(*DCL_System_IO_DirectoryQueue q)
 RemoveDirectory                                             procedure(byte OnlyIfEmpty=true)
 SetFilesOnly                                                procedure(byte flag)
 SetFilter                                                   procedure(string filter)

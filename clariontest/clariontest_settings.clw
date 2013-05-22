@@ -9,7 +9,7 @@
 Settings                                PROCEDURE 
 
 DirectoryListing                            DCL_System_IO_Directory
-DirectoryQ                                  DCL_System_IO_DirectoryQueue
+!DirectoryQ                                  DCL_System_IO_DirectoryQueue
 
 
 !CurrentTab                                  STRING(80)                            !

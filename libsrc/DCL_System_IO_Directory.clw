@@ -106,12 +106,12 @@ DCL_System_IO_Directory.Construct       procedure
 	code
 	self.useRmDir = true
 	dbg.SetPrefix('DCL_System_IO_Directory')
-	self.fileq &= new DCL_System_IO_FileInfoQueue
+	self.FilesQ &= new DCL_System_IO_DirectoryFilesQueue
 	
 DCL_System_IO_Directory.Destruct        procedure
 	code
-	free(self.fileq)
-	dispose(self.fileq)
+	free(self.FilesQ)
+	dispose(self.FilesQ)
 	
 	
 
@@ -129,34 +129,47 @@ DCL_System_IO_Directory.FileCount       procedure !,long
 	if self.RefreshNeeded
 		self.GetDirectoryListing()
 	END
-	return records(self.FileQ)
+	return records(self.FilesQ)
 	
+DCL_System_IO_Directory.GetChecksum     procedure!,real
+Checksum                                    REAL
+x                                           long
+	CODE
+	loop x = 1 to records(self.FilesQ)
+		get(self.FilesQ,x)
+		checksum += self.FilesQ.date
+		checksum += self.FilesQ.time / 10000000
+		checksum += self.FilesQ.attrib
+	END
+	return checksum
+	
+
 DCL_System_IO_Directory.GetDirectoryListing     procedure	
-Files                                               QUEUE(File:queue),PRE(FIL)    !Inherit exact declaration of File:queue
-													END
+!Files                                               QUEUE(File:queue),PRE(FIL)    !Inherit exact declaration of File:queue
+!													END
 x                                                   long
 	CODE
-	loop x = 1 to records(self.fileq)
-		get(self.fileq,x)
-		dispose(self.fileq.DCL_System_IO_FileInfo)
-	END
-	free(self.fileq)
+!	loop x = 1 to records(self.FilesQ)
+!		get(self.FilesQ,x)
+!		dispose(self.FilesQ.DCL_System_IO_FileInfo)
+!	END
+	free(self.FilesQ)
 	dbg.Write('Looking in path ' & self.Path & self.Filter)
-	DIRECTORY(Files,self.Path & self.Filter, ff_:Normal)  
-	dbg.Write(records(files) & ' directory items found')
-	loop x = 1 to records(Files)
-		get(Files,x)
-		if (self.MaxDaysOld > 0)
-			if files.Date < today() and (files.Date + self.MaxDaysOld) < today()
-				CYCLE
-			end
-		end
-		clear(self.fileq)
-		self.fileq.DCL_System_IO_FileInfo &= new DCL_System_IO_FileInfo()
-		self.fileq.DCL_System_IO_FileInfo.FileName = files.Name
-		!dbg.Write('added self.fileq.DCL_System_IO_FileInfo.filename ' & self.fileq.DCL_System_IO_FileInfo.FileName)
-		add(self.fileq)
-	end
+	DIRECTORY(self.FilesQ,self.Path & self.Filter, ff_:Normal)  
+	dbg.Write(records(self.FilesQ) & ' directory items found')
+!	loop x = 1 to records(Files)
+!		get(Files,x)
+!		if (self.MaxDaysOld > 0)
+!			if files.Date < today() and (files.Date + self.MaxDaysOld) < today()
+!				CYCLE
+!			end
+!		end
+!		clear(self.FilesQ)
+!		self.FilesQ.DCL_System_IO_FileInfo &= new DCL_System_IO_FileInfo()
+!		self.FilesQ.DCL_System_IO_FileInfo.FileName = files.Name
+!		!dbg.Write('added self.FilesQ.DCL_System_IO_FileInfo.filename ' & self.FilesQ.DCL_System_IO_FileInfo.FileName)
+!		add(self.FilesQ)
+!	end
 
 
 DCL_System_IO_Directory.Init            procedure(string dirname)
@@ -167,18 +180,18 @@ DCL_System_IO_Directory.Init            procedure(string dirname)
 	end
 	self.RefreshNeeded = true
 	
-DCL_System_IO_Directory.LoadFilenamesQueue      procedure(*DCL_System_IO_DirectoryQueue q)
-x                                                   long
-	CODE
-	if self.RefreshNeeded
-		self.GetDirectoryListing()
-	END
-	loop x = 1 to records(self.FileQ)
-		get(self.fileq,x)
-		q.FilePath = self.Path	
-		q.FileName = self.fileq.DCL_System_IO_FileInfo.FileName
-		add(q)
-	end
+!DCL_System_IO_Directory.LoadFilenamesQueue      procedure(*DCL_System_IO_DirectoryQueue q)
+!x                                                   long
+!	CODE
+!	if self.RefreshNeeded
+!		self.GetDirectoryListing()
+!	END
+!	loop x = 1 to records(self.FilesQ)
+!		get(self.FilesQ,x)
+!		q.FilePath = self.Path	
+!		q.FileName = self.FilesQ.DCL_System_IO_FileInfo.FileName
+!		add(q)
+!	end
 
 	
 DCL_System_IO_Directory.RemoveDirectory procedure(byte OnlyIfEmpty=false)	

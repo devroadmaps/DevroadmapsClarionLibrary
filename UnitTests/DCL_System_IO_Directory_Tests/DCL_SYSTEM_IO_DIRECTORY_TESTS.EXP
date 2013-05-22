@@ -2037,6 +2037,8 @@ EXPORTS
   DIRECTORYMANAGER_GETLISTOFONEAPPINDIRECTORY_VERIFYAPPNAME @?
   GETLISTOFAPPSINDIRECTORY_VERIFYNAMES                    @?
   CREATEREMOVENONEMPTYDIRECTORY                           @?
+  CURRENTTESTS@F                                          @?
+  GETCHECKSUMOFFILESINDIRECTORY_VERIFY                    @?
   CREATEREMOVEDIRECTORY                                   @?
 ;End of Exported Procedures
 

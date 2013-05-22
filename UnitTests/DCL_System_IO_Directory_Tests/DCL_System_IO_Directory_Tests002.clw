@@ -13,7 +13,7 @@
 GetListOfAppsInDirectory_VerifyNames PROCEDURE  (*long addr) ! Declare Procedure
 FilesOpened          LONG                                  !
 dm                                          DCL_System_IO_Directory
-filesq                                      DCL_System_IO_DirectoryQueue
+!filesq                                      DCL_System_IO_DirectoryQueue
 x                                           long	
 dirname                                                             cstring(500)
 
@@ -26,15 +26,15 @@ dirname                                                             cstring(500)
 	dm.SetFilter('*.app')
 	dm.SetFilesOnly(true)
 	AssertThat(dm.FileCount(),IsEqualTo(4), 'Did not find four dlls')
-	Dm.LoadFilenamesQueue(filesq)
-	get(filesq,1)
-	AssertThat(lower(filesq.filename),IsEqualTo('allfiles.app'))
-	get(filesq,2)
-	AssertThat(lower(filesq.filename),IsEqualTo('dlltutor.app'))
-	get(filesq,3)
-	AssertThat(lower(filesq.filename),IsEqualTo('reports.app'))
-	get(filesq,4)
-	AssertThat(lower(filesq.filename),IsEqualTo('updates.app'))
+	!Dm.LoadnamesQueue(filesq)
+	get(dm.filesq,1)
+	AssertThat(lower(dm.FilesQ.name),IsEqualTo('allfiles.app'))
+	get(dm.FilesQ,2)
+	AssertThat(lower(dm.FilesQ.name),IsEqualTo('dlltutor.app'))
+	get(dm.FilesQ,3)
+	AssertThat(lower(dm.FilesQ.name),IsEqualTo('reports.app'))
+	get(dm.FilesQ,4)
+	AssertThat(lower(dm.FilesQ.name),IsEqualTo('updates.app'))
     return 0
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
@@ -71,13 +71,13 @@ FilesOpened          LONG                                  !
 dm                                      DCL_System_IO_Directory
 dirname                                 cstring(500)
 testfile                                &DCL_System_IO_AsciiFile
-testfilename	cstring(500)
+testfilename                        cstring(500)
 
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('CreateRemoveNonEmptyDirectory')
     testfile &= DCL_System_IO_AsciiFileManager.GetAsciiFileInstance(DCL_System_IO_AsciiFile_InstanceNumber1)
-    dirname = longpath() & '\temporary directory for testing purposes'
+    dirname = longpath() & '\temporary_directory_for_testing_purposes'
 	dm.Init(dirname)
 	dm.RemoveDirectory()
 	AssertThat(exists(Dirname),IsEqualTo(false),'could not delete directory ' & dirname)
@@ -99,7 +99,7 @@ ProcedureReturn   ROUTINE
 DirectoryManager_GetListOfOneAppInDirectory_VerifyAppName PROCEDURE  (*long addr) ! Declare Procedure
 FilesOpened          LONG                                  !
 dm                                                                  DCL_System_IO_Directory
-filesq                                                              DCL_System_IO_DirectoryQueue
+!filesq                                                              DCL_System_IO_DirectoryQueue
 x                                                                   long	
 pathname                                                            cstring(500)
 
@@ -111,9 +111,39 @@ pathname                                                            cstring(500)
 	dm.SetFilter('updates.app')
 	dm.SetFilesOnly(true)
 	AssertThat(dm.FileCount(),IsEqualTo(1), 'Did not find updates.app in ' & pathname)
-	Dm.LoadFilenamesQueue(filesq)
-	get(filesq,1)
-	AssertThat(lower(filesq.filename),IsEqualTo('updates.app'))
+	!Dm.LoadFilenamesQueue(filesq)
+	get(dm.filesq,1)
+	AssertThat(lower(dm.filesq.name),IsEqualTo('updates.app'))
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
+!!! <summary>
+!!! Generated from procedure template - TestProcedure
+!!! </summary>
+GetChecksumOfFilesInDirectory_Verify PROCEDURE  (*long addr) ! Declare Procedure
+FilesOpened          LONG                                  !
+dm                                          DCL_System_IO_Directory
+!filesq                                      DCL_System_IO_DirectoryQueue
+!x                                           long	
+dirname                                                             cstring(500)
+
+  CODE
+  addr = address(UnitTestResult)
+  BeginUnitTest('GetChecksumOfFilesInDirectory_Verify')
+	dirname = longpath() & '\testdata'
+	AssertThat(exists(Dirname),IsEqualTo(true),'Could not find directory ' & dirname)
+	dm.Init(dirname)
+	dm.SetFilter('*.app')
+	dm.SetFilesOnly(true)
+	AssertThat(dm.FileCount(),IsEqualTo(4), 'Did not find four dlls')
+	AssertThat(dm.GetChecksum(),IsEqualTo(310433.7135404),'Wrong checksum for directory listing')
+    return 0
+  DO ProcedureReturn ! dgh
+ProcedureReturn   ROUTINE
+  RETURN 0
+!!! <summary>
+!!! Generated from procedure template - GroupProcedure
+!!! </summary>
+CurrentTests         PROCEDURE                             ! Declare Procedure
+
+  CODE

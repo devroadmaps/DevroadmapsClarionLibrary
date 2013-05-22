@@ -36,7 +36,7 @@
 !---------------------------------------------------------------------------------------------!
 ! endRegion
 
-	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+	!include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 	include('DCL_System_Runtime_Dll.inc'),once
 	include('DCL_clariontest_testresult.inc'),once
 	include('DCL_ClarionTest_TestProcedures.inc'),once

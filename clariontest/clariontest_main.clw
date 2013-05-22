@@ -21,6 +21,7 @@ Default                                         equate
 Passed                                          equate
 Failed                                          equate
 Bold                                            equate
+NoResult                                        equate
 											end
 
 TestDllPathAndName                          CSTRING(File:MaxFilePath + File:MaxFileName + 1)
@@ -49,6 +50,7 @@ ProceduresQ                                 queue(DCL_ClarionTest_TestProcedures
 TestResult                                  &DCL_ClarionTest_TestResult
 str                                         DCL_System_String
 RunTestsOnDllChange                         bool
+ListOfDlls                                  DCL_System_IO_Directory
 
 
 Window                                      WINDOW('ClarionTest'),AT(,,600,300),CENTER,GRAY,IMM,SYSTEM,ICON('ClarionT' & |
@@ -80,6 +82,8 @@ TimeOfLastDirectoryChange                   long
 TestsToRun                                  long
 CurrentTestIndex                            long
 DelayBeforeAutorun                          long(90)
+PreviousDllsChecksum                        REAL
+CurrentDllsChecksum                         real
 
 
 	CODE
@@ -103,7 +107,13 @@ DelayBeforeAutorun                          long(90)
 			if TimeOfLastDirectoryChange > 0
 				if clock() < TimeOfLastDirectoryChange or clock() >  TimeOfLastDirectoryChange + DelayBeforeAutorun
 					TimeOfLastDirectoryChange = 0
-					do RunTests
+					ListOfDlls.GetDirectoryListing()
+					CurrentDllsChecksum = ListOfDlls.GetChecksum()
+					if CurrentDllsChecksum <> PreviousDllsChecksum
+						PreviousDllsChecksum = CurrentDllsChecksum
+						do RunTests
+					END
+					
 				end
 			end
 		END
@@ -123,10 +133,24 @@ DelayBeforeAutorun                          long(90)
 			do RunTests
 		of ?RunTestsOnDllChange
 			do SetDirectoryWatcher
-
-		END
-		
-	END
+		of ?SelectAll
+			loop x = 1 to records(testsq)
+				get(testsq,x)
+				if testsq.ProcedureQIndex = 0 then cycle.
+				if ?SelectAll{prop:text} = 'Select All' 
+					testsq.Mark = TRUE
+				else
+					testsq.Mark = FALSE
+				end
+				put(testsq)
+			end
+			if ?SelectAll{prop:text} = 'Select All' 
+				?SelectAll{prop:text} = 'Clear All' 
+			else
+				?SelectAll{prop:text} = 'Select All' 
+			end
+		end
+	end
 	settings.Update(ProcedureName,window)
 	logger.write('calling settings.update with ' & ProcedureName & ',TestDllPathAndName,' & TestDllPathAndName)
 	settings.Update(ProcedureName,'TestDllPathAndName',TestDllPathAndName)
@@ -153,16 +177,21 @@ PrepareWindow                           routine
 	?TestList{PROPSTYLE:BackColor, Style:Default}     = -1
 	?TestList{PROPSTYLE:TextSelected, Style:Default}  = -1
 	?TestList{PROPSTYLE:BackSelected, Style:Default}  = -1
+
+	?TestList{PROPSTYLE:TextColor, Style:NoResult}     = color:black
+	?TestList{PROPSTYLE:BackColor, Style:NoResult}     = color:white
+	?TestList{PROPSTYLE:TextSelected, Style:NoResult}  = color:black
+	?TestList{PROPSTYLE:BackSelected, Style:NoResult}  = color:white
   
 	?TestList{PROPSTYLE:TextColor, Style:Passed}     = color:green
 	?TestList{PROPSTYLE:BackColor, Style:Passed}     = color:white
-	?TestList{PROPSTYLE:TextSelected, Style:Passed}  = -1
-	?TestList{PROPSTYLE:BackSelected, Style:Passed}  = -1
+	?TestList{PROPSTYLE:TextSelected, Style:Passed}  = color:green
+	?TestList{PROPSTYLE:BackSelected, Style:Passed}  = color:white
   
 	?TestList{PROPSTYLE:TextColor, Style:Failed}     = color:red
 	?TestList{PROPSTYLE:BackColor, Style:Failed}     = color:white
-	?TestList{PROPSTYLE:TextSelected, Style:Failed}  = -1
-	?TestList{PROPSTYLE:BackSelected, Style:Failed}  = -1
+	?TestList{PROPSTYLE:TextSelected, Style:Failed}  = color:red
+	?TestList{PROPSTYLE:BackSelected, Style:Failed}  = color:white
   	
 	?TestList{PROPSTYLE:FontStyle, Style:Bold}     = FONT:Bold
 	?TestList{PROPSTYLE:TextSelected, Style:Failed}  = -1
@@ -177,6 +206,10 @@ SetDirectoryWatcher                     routine
 	if RunTestsOnDllChange and exists(TestDllDirectory)
 		DirectoryWatcher.Init(TestDllDirectory)
 		DirectoryWatcher.noNotifyOnStartup = true
+		ListOfDlls.Init(TestDllDirectory)
+		ListOfDlls.SetFilter('*.dll')
+		ListOfDlls.GetDirectoryListing()
+		PreviousDllsChecksum = ListOfDlls.GetChecksum()
 	else
 		DirectoryWatcher.Kill
 	end
@@ -217,7 +250,7 @@ LoadTests                               ROUTINE
 		TestsQ.GroupOrTestLevel = 2
 		TestsQ.ProcedureQIndex = x
 		TestsQ.TestResult = ''
-		TestsQ.TestResultStyle = Style:Default
+		TestsQ.TestResultStyle = Style:NoResult
 		TestsQ.Mark = false
 		Add(TestsQ)
 	END

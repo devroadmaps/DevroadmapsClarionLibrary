@@ -43,9 +43,9 @@
 	
     Section('GlobalData')
     include('DCL_ClarionTest_TestResult.inc'),once
-    include('DCL_System_Diagnostics_Logger.inc'),once
+    include('DCL_System_Diagnostics_logger.inc'),once
 
-!dbgr                DCL_System_Diagnostics_Logger
+logger                                  DCL_System_Diagnostics_Logger
 UnitTestResult                          DCL_ClarionTest_TestResult
 UnitTestType                            long
 UnitTestVariableType                    long
@@ -57,7 +57,6 @@ UnitTestExpectedLong                    Long
 !	MODULE('Winapi')
 !		ODS(*CSTRING),PASCAL,RAW,NAME('OutputDebugStringA')                   !32-bit only
 !	END
-Debug                                   procedure(string s)
 BeginUnitTest                           Procedure(string testName)
 AssertThat                              procedure(string testResult,byte b,<string debugMessage>,<string successMessage>),byte,proc
 IsEmpty                                 procedure(*? object),byte
@@ -73,9 +72,9 @@ SetUnitTestStatus                       procedure(long status,string stdMessage,
 
     Section('ProgramProcedures')
 
-Debug                                   procedure(string s)
-    CODE
-    !gdbg.write('ClarionTest global code: ' & s)
+!Debug                                   procedure(string s)
+!    CODE
+!    !gdbg.write('ClarionTest global code: ' & s)
 	
 
 BeginUnitTest                           procedure(string testName)
@@ -88,8 +87,8 @@ AssertThat                              procedure(string testResult,byte b,<stri
 Info                                        cstring(1000)
 singlequote                                 equate('''')
     CODE
-    debug('** AssertThat receives testresult ' & singlequote & testresult & singlequote)
-    debug('** UnitTestExpectedString: ' & singlequote & UnitTestExpectedString & singlequote)
+    !logger.write('** AssertThat receives testresult ' & singlequote & testresult & singlequote)
+    !logger.write('** UnitTestExpectedString: ' & singlequote & UnitTestExpectedString & singlequote)
     if not omitted(userMessage)
         info = userMessage
     end
@@ -103,13 +102,13 @@ singlequote                                 equate('''')
     end
     case UnitTestType
     of DCL_ClarionTest_UnitTestTypes:IsEqualTo
-        debug('DCL_ClarionTest_UnitTestTypes:IsEqualTo - comparing ' & singlequote & clip(testResult) & singlequote & ' with ' & singlequote & clip(UnitTestExpectedString) & singlequote)
+        !logger.write('DCL_ClarionTest_UnitTestTypes:IsEqualTo - comparing ' & singlequote & clip(testResult) & singlequote & ' with ' & singlequote & clip(UnitTestExpectedString) & singlequote)
         if testResult <> UnitTestExpectedString
             SetUnitTestFailed('Expected ' & singlequote & UnitTestExpectedString & singlequote & ', received ' & singlequote & testResult & singlequote, info)
             RETURN false
         END
     of DCL_ClarionTest_UnitTestTypes:IsNotEqualTo
-        debug('DCL_ClarionTest_UnitTestTypes:IsNotEqualTo - comparing ' & singlequote & clip(testResult) & singlequote & ' with ' & singlequote & clip(UnitTestExpectedString) & singlequote)
+        !logger.write('DCL_ClarionTest_UnitTestTypes:IsNotEqualTo - comparing ' & singlequote & clip(testResult) & singlequote & ' with ' & singlequote & clip(UnitTestExpectedString) & singlequote)
         if testResult = UnitTestExpectedString
             SetUnitTestFailed('Values are identical', info)
             RETURN false
@@ -129,7 +128,7 @@ IsEqualTo                               procedure(string s)
     UnitTestVariableType = DCL_ClarionTest_UnitTestVariableTypes:StringType
     UnitTestExpectedString &= new string(len(clip(s)))
     UnitTestExpectedString = s
-    debug('IsEqualTo created new string(' & len(clip(s)) & '), value ''' & UnitTestExpectedString & '''')
+    !logger.write('IsEqualTo created new string(' & len(clip(s)) & '), value ''' & UnitTestExpectedString & '''')
     return true
 	
 IsEmpty                                 procedure(*? object)!,byte
@@ -159,6 +158,7 @@ IsNotEqualTo                            procedure(string s)
 	
 SetUnitTestFailed                       procedure(string stdMessage,<string userMessage>)
 	CODE
+	!logger.write('calling SetUnitTestFailed')
 	if omitted(userMessage)
 		SetUnitTestStatus(DCL_ClarionTest_Status_Fail,stdMessage)
 	else
@@ -176,13 +176,13 @@ SetUnitTestIgnored                       procedure(string stdMessage,<string use
 		
 SetUnitTestStatus                       procedure(long status,string stdMessage,<string userMessage>)
 	CODE
-	Debug('SetUnitTestFailed ' & stdMessage)
+	!logger.write('SetUnitTestStatus ' & stdMessage)
 	UnitTestResult.Status = status
 	!UnitTestResult.Message = stdMessage & ' ' & userMessage
-	if omitted(userMessage)
-		UnitTestResult.Message = clip(userMessage)
+	if omitted(userMessage)  
+		UnitTestResult.Message = clip(stdMessage)
 	else
-		UnitTestResult.Message = clip(userMessage) & ' (' & stdMessage & ')'
+		UnitTestResult.Message = clip(stdMessage) & ' (' & userMessage & ')'
 	end
-	
+	!logger.write('Set UnitTestResult.Message to ' & UnitTestResult.Message)
 		

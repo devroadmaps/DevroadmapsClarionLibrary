@@ -5,6 +5,7 @@
 	Include('DCL_System_Runtime_DirectoryWatcher.inc'),once
 	include('DCL_System_Diagnostics_Logger.inc'),once
 	include('DCL_System_String.inc'),once
+	include('DCL_System_IO_Directory.inc'),once
 
     INCLUDE('ABUTIL.INC'),ONCE
 

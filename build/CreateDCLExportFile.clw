@@ -48,7 +48,7 @@ ExpWriter                                   DCL_System_ExpFileWriter
 
     CODE
 	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Clarion_TXAParser.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_ClarionTest_TestProcedures.inc')
+	!ExpWriter.AddClassHeaderFile('..\libsrc\DCL_ClarionTest_TestProcedures.inc') ! DO NOT INCLUDE
 	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Data_Datafier.inc')
 	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Class.inc')
 	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')

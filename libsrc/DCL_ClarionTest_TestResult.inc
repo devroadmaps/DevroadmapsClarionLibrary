@@ -35,7 +35,7 @@
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
 !endregion
-	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+	!include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 
 
 DCL_ClarionTest_UnitTestTypes           Itemize,pre()

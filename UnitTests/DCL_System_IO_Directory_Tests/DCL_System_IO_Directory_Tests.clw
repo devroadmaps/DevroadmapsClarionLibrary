@@ -61,6 +61,8 @@ GetListOfAppsInDirectory_VerifyNames FUNCTION(*long addr),long,pascal   !
 CreateRemoveDirectory  FUNCTION(*long addr),long,pascal   !
 CreateRemoveNonEmptyDirectory FUNCTION(*long addr),long,pascal   !
 DirectoryManager_GetListOfOneAppInDirectory_VerifyAppName FUNCTION(*long addr),long,pascal   !
+GetChecksumOfFilesInDirectory_Verify FUNCTION(*long addr),long,pascal   !
+CurrentTests           PROCEDURE   !
      END
        include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
      	include('cwutil.inc'),once
@@ -76,7 +78,8 @@ SilentRunning        BYTE(0)                               ! Set true when appli
 !endregion
 
   include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalData'),once
-ClarionTest_ctpl    DCL_ClarionTest_Procedures
+  include('DCL_ClarionTest_TestProcedures.inc'),once
+ClarionTest_ctpl    DCL_ClarionTest_TestProcedures
 
 GlobalRequest        BYTE(0),THREAD                        ! Set when a browse calls a form, to let it know action to perform
 GlobalResponse       BYTE(0),THREAD                        ! Set to the response from the form
@@ -119,28 +122,34 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     CODE
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'DirectoryManager_GetListOfOneAppInDirectory_VerifyAppName'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'GetChecksumOfFilesInDirectory_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'CurrentTests'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'GetListOfAppsInDirectory_VerifyNames'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'DirectoryManager_GetListOfOneAppInDirectory_VerifyAppName'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'CreateRemoveNonEmptyDirectory'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'GetListOfAppsInDirectory_VerifyNames'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.Priority       = 10
-    ClarionTest_ctpl.List.testname       = 'CreateRemoveDirectory'
-    ClarionTest_ctpl.List.TestGroup      = '_000_Default'
-    ClarionTest_ctpl.List.TestGroupOrder = 0
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CreateRemoveNonEmptyDirectory'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CreateRemoveDirectory'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
     RETURN 0

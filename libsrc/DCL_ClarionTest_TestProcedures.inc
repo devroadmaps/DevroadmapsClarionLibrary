@@ -37,7 +37,7 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+	!include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 	!include('DCL_System_ErrorManager.inc'),once
 DCL_ClarionTest_TestProceduresQueue     queue,TYPE
 TestGroupName                               string(200)
@@ -46,7 +46,7 @@ TestName                                    string(200)
 TestPriority                                long
 										end
 
-DCL_ClarionTest_TestProcedures          Class,Type,Module('DCL_ClarionTest_TestProcedures.CLW'),Link('DCL_ClarionTest_TestProcedures.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
+DCL_ClarionTest_TestProcedures          Class,Type,Module('DCL_ClarionTest_TestProcedures.CLW'),Link('DCL_ClarionTest_TestProcedures.CLW')!,_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
 List                                        &DCL_ClarionTest_TestProceduresQueue
 Construct                                   Procedure()
 Destruct                                    Procedure()
