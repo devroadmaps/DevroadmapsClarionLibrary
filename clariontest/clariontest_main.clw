@@ -24,6 +24,8 @@ Bold                                            equate
 NoResult                                        equate
 											end
 
+FailedTestCount                             long
+
 TestDllPathAndName                          CSTRING(File:MaxFilePath + File:MaxFileName + 1)
 
 PreviousGroupOrTestName                           string(200)
@@ -259,6 +261,7 @@ LoadTests                               ROUTINE
 	END
 
 RunTests                                ROUTINE
+	FailedTestCount = 0
 	setcursor(cursor:wait)
 	!dbg.write('RunTests routine is initializing the dll') 
 	TestRunner.Init(TestDllName)
@@ -294,6 +297,7 @@ RunTests                                ROUTINE
 			if TestResult &= null
 				TestsQ.TestDescription = 'Failed: TestResult object was null'
 				TestsQ.TestStatus = dcl_ClarionTest_Status_Fail
+				FailedTestCount += 1
 			ELSE
 				TestsQ.TestStatus = TestResult.Status
 				if TestResult.Status = DCL_ClarionTest_Status_Pass
@@ -304,6 +308,7 @@ RunTests                                ROUTINE
 				else
 					TestsQ.TestResult = 'Failed: ' & TestResult.Message
 					TestsQ.TestResultStyle = Style:Failed
+					FailedTestCount += 1
 				END
 			END
 			PUT(TestsQ)
@@ -312,6 +317,16 @@ RunTests                                ROUTINE
 	TestRunner.Kill()
 	display()
 	setcursor()
+	0{prop:text} = 'ClarionTest - ' & FailedTestCount & ' failed tests'
+	if FailedTestCount > 0
+		beep(BEEP:SystemHand)
+		if FailedTestCount = 1
+			0{prop:text} = 'ClarionTest - 1 failed test'
+		end
+	else
+		beep(BEEP:SystemExclamation)
+	end
+	
 
 Resizer.Init                            PROCEDURE(BYTE AppStrategy=AppStrategy:Resize,BYTE SetWindowMinSize=False,BYTE SetWindowMaxSize=False)
 	CODE
