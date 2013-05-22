@@ -19,8 +19,8 @@ DoTask                                          procedure,VIRTUAL
 
 											itemize(1),pre(Style)
 Default                                         equate
-Passed                                          equate
 Failed                                          equate
+Passed                                          equate
 Bold                                            equate
 NoResult                                        equate
 											end
@@ -34,14 +34,14 @@ TestsQ                                      QUEUE,PRE(TestsQ)
 GroupOrTestName                                 STRING(200)                           
 GroupOrTestLevel                                LONG                                  
 GroupOrTestStyle                                LONG                                  
-GroupOrTestPriority                             real
-GroupOrTestPriorityStyle                        LONG                                  
 TestResult                                      STRING(400)                           
 TestResultStyle                                 LONG                                  
+! Following fields are not used for display
 TestDescription                                 STRING(100)                           
 TestLongDescription                             STRING(5000)                          
 TestStatus                                      Long
-! Following fields are not used for display
+GroupOrTestPriority                             real
+GroupOrTestPriorityStyle                        LONG                                  
 Mark                                            BYTE                                  
 ProcedureQIndex                                 LONG                                  
 Type                                            BYTE                                  
@@ -71,7 +71,7 @@ Window                                      WINDOW('ClarionTest'),AT(,,600,300),
 												BUTTON('...'),AT(579,3,12,12),USE(?LookupTestDllPathAndName)
 												PROGRESS,AT(3,20,595,8),USE(?Progress),RANGE(0,100)
 												LIST,AT(3,32,595,246),USE(?TestList),HVSCROLL,FONT(,10),MARK(testsq.Mark), |
-													FROM(TestsQ),FORMAT('259L(2)|MYT(1)~Test~@s200@#1#1020L(2)Y~Result~@s255@#6#')
+													FROM(TestsQ),FORMAT('259L(2)|MYT(1)~Test~@s200@1020L(2)Y~Result~@s255@')
 											END
 
 
@@ -181,25 +181,30 @@ PrepareWindow                           routine
 	?TestList{PROPSTYLE:BackColor, Style:Default}     = -1
 	?TestList{PROPSTYLE:TextSelected, Style:Default}  = -1
 	?TestList{PROPSTYLE:BackSelected, Style:Default}  = -1
+	?TestList{PROPSTYLE:FontStyle, Style:Default}  	 = -1
 
 	?TestList{PROPSTYLE:TextColor, Style:NoResult}     = color:black
 	?TestList{PROPSTYLE:BackColor, Style:NoResult}     = color:white
 	?TestList{PROPSTYLE:TextSelected, Style:NoResult}  = color:black
 	?TestList{PROPSTYLE:BackSelected, Style:NoResult}  = color:white
+	?TestList{PROPSTYLE:FontStyle, Style:NoResult}  	 = -1
   
 	?TestList{PROPSTYLE:TextColor, Style:Passed}     = color:green
 	?TestList{PROPSTYLE:BackColor, Style:Passed}     = color:white
 	?TestList{PROPSTYLE:TextSelected, Style:Passed}  = color:green
 	?TestList{PROPSTYLE:BackSelected, Style:Passed}  = color:white
+	?TestList{PROPSTYLE:FontStyle, Style:Passed}  	 = -1
   
 	?TestList{PROPSTYLE:TextColor, Style:Failed}     = color:red
 	?TestList{PROPSTYLE:BackColor, Style:Failed}     = color:white
 	?TestList{PROPSTYLE:TextSelected, Style:Failed}  = color:red
 	?TestList{PROPSTYLE:BackSelected, Style:Failed}  = color:white
-  	
+	?TestList{PROPSTYLE:FontStyle, Style:Failed}     = FONT:Bold
+
+
 	?TestList{PROPSTYLE:FontStyle, Style:Bold}     = FONT:Bold
-	?TestList{PROPSTYLE:TextSelected, Style:Failed}  = -1
-	?TestList{PROPSTYLE:BackSelected, Style:Failed}  = -1			
+	?TestList{PROPSTYLE:TextSelected, Style:Bold}  = -1
+	?TestList{PROPSTYLE:BackSelected, Style:Bold}  = -1			
 
 	if command('/run')
 		post(event:accepted,?RunAllTests)
