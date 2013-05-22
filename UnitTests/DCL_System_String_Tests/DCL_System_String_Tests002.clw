@@ -130,6 +130,7 @@ str DCL_System_String
 	AssertThat(str.IndexOf('fgh'),IsEqualTo(6))
 	str.Assign('ab\cdefghi')
 	AssertThat(str.IndexOf('\'),IsEqualTo(3))
+	!SetUnitTestFailed('findindex')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

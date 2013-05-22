@@ -296,7 +296,7 @@ RunTests                                ROUTINE
 		if ~errorcode()
 !		!dbg.write('Got record ' & TestsQ.qPointer & ', test ' & ProceduresQ.TestName)
 !		!dbg.write('Running test ' & ProceduresQ.TestName)
-			TestResult &= TestRunner.RunTest(TestsQ.ProcedureQIndex)
+			TestResult &= TestRunner.RunTestByName(TestsQ.GroupOrTestName)
 			CurrentTestIndex += 1
 			?Progress{PROP:Progress} = CurrentTestIndex
 			display(?Progress)			

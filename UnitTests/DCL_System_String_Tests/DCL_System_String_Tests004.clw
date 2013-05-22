@@ -61,7 +61,7 @@ str DCL_System_String
     str.Append(' ')
     str.Append('b')
     AssertThat(str.Get(), IsEqualTo('a b'))
-	SetUnitTestFailed('Forced failure')
+	!SetUnitTestFailed('Forced failure')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
@@ -79,7 +79,7 @@ str DCL_System_String
     str.Append('')
     str.Append('b')
 	AssertThat(str.Get(), IsEqualTo('ab'))
-	SetUnitTestFailed('forced failure')
+	!SetUnitTestFailed('forced failure')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

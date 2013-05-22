@@ -98,7 +98,7 @@ str DCL_System_String
 	AssertThat(str.IsAlpha('['),IsEqualTo(false),'[ is not alpha')
 	AssertThat(str.IsAlpha('`'),IsEqualTo(false),'` is not alpha')
 	AssertThat(str.IsAlpha('{{'),IsEqualTo(false),'{{ is not alpha')
-	
+	!SetUnitTestFailed('Isalpha')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0
