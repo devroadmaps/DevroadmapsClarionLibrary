@@ -3,6 +3,7 @@
 										MEMBER('ClarionTest.clw')                               ! This is a MEMBER module
 
 
+
 Logger                                  DCL_System_Diagnostics_Logger
 
 
@@ -326,6 +327,7 @@ RunTests                                ROUTINE
 	else
 		beep(BEEP:SystemExclamation)
 	end
+	0{prop:text} = 0{prop:text} & ' at ' & format(clock(),@t6)
 	
 
 Resizer.Init                            PROCEDURE(BYTE AppStrategy=AppStrategy:Resize,BYTE SetWindowMinSize=False,BYTE SetWindowMaxSize=False)

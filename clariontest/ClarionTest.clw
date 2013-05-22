@@ -20,6 +20,9 @@
 											Module('ClarionTest_Settings.clw')
 												Settings()
 											end
+											MODULE('')
+												SLEEP(LONG),PASCAL
+											END
 
 										end
 
