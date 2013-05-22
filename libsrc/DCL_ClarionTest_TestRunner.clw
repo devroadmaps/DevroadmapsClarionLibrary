@@ -64,10 +64,10 @@ DCL_ClarionTest_TestRunner.Init         procedure(string dllname)
 	if self.dllmgr &= NULL
 		logger.write('Creating DLLMgr')
 		self.DllMgr &= new DCL_System_Runtime_Dll
-		self.DllName = dllname
 	ELSE
 		logger.write('DLLMgr already exsists')
 	end
+	self.DllName = dllname
 	self.DllMgr.Init(self.dllname)
     
 	

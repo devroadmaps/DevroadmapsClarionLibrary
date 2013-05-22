@@ -47,6 +47,6 @@
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>
-    <PostBuildEvent>..\ClarionTest DCL_System_IO_Directory_Tests.dll /run</PostBuildEvent>
+    <PostBuildEvent>copy DCL_System_IO_Directory_Tests.dll .. /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

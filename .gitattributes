@@ -3,6 +3,10 @@
 *.CLW text eol=crlf
 *.inc text eol=crlf
 *.INC text eol=crlf
+*.sln text eol=crlf
+*.SLN text eol=crlf
+*.ini text eol=crlf
+*.INI text eol=crlf
 *.cwproj text eol=crlf
 *.CWPROJ text eol=crlf
 * text=auto

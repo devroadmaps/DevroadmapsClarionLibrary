@@ -123,6 +123,7 @@ CurrentDllsChecksum                         real
 		of ?LookupTestDllPathAndName
 			FILEDIALOG('Chose a test dll',TestDllPathAndName,'Test DLLs|*.dll')
 			display(?TestDllPathAndName)
+			logger.write('dgh selected DLL ' & TestDllPathAndName)
 			!update(?TestDllPathAndName)
 			do LoadTests
 		of ?RunSelectedTests
@@ -219,6 +220,7 @@ SetDirectoryWatcher                     routine
 LoadTests                               ROUTINE
 	do SetDirectoryWatcher
 	free(TestsQ)
+	free(ProceduresQ)
 	logger.Write('Loading tests from ' & TestDllPathAndName)
 	str.Assign(TestDllPathAndName)
 	TestDllDirectory = str.SubString(1,str.LastIndexOf('\'))
@@ -228,6 +230,7 @@ LoadTests                               ROUTINE
 		ELSE
 			setpath(TestDllDirectory)
 			TestDllName = str.SubString(str.LastIndexOf('\') + 1,str.Length())
+			logger.write('dgh Loading test procedures for ' & TestDllName)
 			TestRunner.Init(TestDllName)
 			TestRunner.GetTestProcedures(ProceduresQ)
 			logger.Write('Found ' & records(ProceduresQ) & ' tests')
