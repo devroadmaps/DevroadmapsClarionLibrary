@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "DCL_System_IO_AsciiFile_Tests", "DCL_System_IO_AsciiFile_Tests.cwproj", "{682D0FB6-4BBF-4104-BA9F-16E501FE8EF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		DCL_System_IO_AsciiFile_Tests.app = DCL_System_IO_AsciiFile_Tests.app
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{93290E9C-03F2-4AE8-9316-8552E99AD970}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\DCL_System_IO_AsciiFile.clw = ..\..\libsrc\DCL_System_IO_AsciiFile.clw
+		..\..\libsrc\DCL_System_IO_AsciiFile.inc = ..\..\libsrc\DCL_System_IO_AsciiFile.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{682D0FB6-4BBF-4104-BA9F-16E501FE8EF1}.Debug|Win32.Build.0 = Debug|Win32
+		{682D0FB6-4BBF-4104-BA9F-16E501FE8EF1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{682D0FB6-4BBF-4104-BA9F-16E501FE8EF1}.Release|Win32.Build.0 = Release|Win32
+		{682D0FB6-4BBF-4104-BA9F-16E501FE8EF1}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
-! Copyright (c) 2012, CoveComm Inc.
+! Copyright (c) 2012, 2013 CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,74 +34,96 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 
                     
                                         MEMBER()
-                                        MAP
-                                        end
+										MAP
+										end
 
-
+	Include('DCL_System_Pool.inc'),Once
     INCLUDE('DCL_System_IO_AsciiFile.inc'),ONCE
     include('DCL_System_Diagnostics_Logger.inc'),once
 
-!dbg                                    DCL_System_Diagnostics_Logger
+dbg                                     DCL_System_Diagnostics_Logger
 
-DCL_System_IO_AsciiFileInstanceAInternal CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-!DCL_AsciiFileA                           CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw')
-Construct                                   procedure()
-                                        end
+ASCII_IO_RECORD_SIZE                    EQUATE(5000)
 
-DCL_System_IO_AsciiFileInstanceBInternal CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-!DCL_AsciiFileB                           CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw')
-Construct                                   procedure()
-                                        end
-
-DCL_System_IO_AsciiFileInstanceCInternal CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-!DCL_AsciiFileC                           CLASS(DCL_System_IO_AsciiFile),MODULE('DCL_System_IO_AsciiFile.clw')
-Construct                                   procedure()
-                                        end
+AsciiFilePool                           class(DCL_System_Pool)
+Construct                                   procedure
+										end
 
 
-AsciiFileNameA                          STRING(MaxPathLength),static
 
-AsciiFileA                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileNameA),PRE(ASCIIA)
+AsciiFileName1                          STRING(MaxPathLength),static
+AsciiFile1                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileName1),PRE(AsciiFile1)
                                             RECORD
 Txt                                             STRING(ASCII_IO_RECORD_SIZE)
                                             END
                                         END
 
-AsciiFileNameB                          STRING(MaxPathLength),static
-
-AsciiFileB                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileNameB),PRE(ASCIIB)
-                                            RECORD
+AsciiFileName2                          STRING(MaxPathLength),static
+AsciiFile2                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileName2),PRE(AsciiFile2)
+											RECORD
 Txt                                             STRING(ASCII_IO_RECORD_SIZE)
-                                            END
-                                        END
+											END
+										END
 
-AsciiFileNameC                          STRING(MaxPathLength),static
-
-AsciiFileC                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileNameC),PRE(ASCIIC)
-                                            RECORD
+AsciiFileName3                          STRING(MaxPathLength),static
+AsciiFile3                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileName3),PRE(AsciiFile3)
+											RECORD
 Txt                                             STRING(ASCII_IO_RECORD_SIZE)
-                                            END
-                                        END
+											END
+										END
+
+AsciiFileName4                          STRING(MaxPathLength),static
+AsciiFile4                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileName4),PRE(AsciiFile4)
+											RECORD
+Txt                                             STRING(ASCII_IO_RECORD_SIZE)
+											END
+										END
+
+AsciiFileName5                          STRING(MaxPathLength),static
+AsciiFile5                              FILE,DRIVER('ASCII','/CLIP = on'),CREATE,NAME(AsciiFileName5),PRE(AsciiFile5)
+											RECORD
+Txt                                             STRING(ASCII_IO_RECORD_SIZE)
+											END
+										END
 
 
-!dbg                                     DCL_System_Diagnostics_Logger
+AsciiFilePool.Construct                 procedure
+	code
+	self.Init(5)
+	self.SetStopOnError(true,'DCL_System_IO_AsciiFile: All available ASCII files are in use!')
+
+
 
 
 DCL_System_IO_AsciiFile.Construct        PROCEDURE()
     CODE
-    self.Errors &= new DCL_System_ErrorManager
+	self.Errors &= new DCL_System_ErrorManager
+	self.PoolItemNumber = AsciiFilePool.GetItemNumber()
+	execute self.PoolItemNumber
+		self.Init(AsciiFile1,AsciiFile1:Record,AsciiFileName1)
+		self.Init(AsciiFile2,AsciiFile2:Record,AsciiFileName2)
+		self.Init(AsciiFile3,AsciiFile3:Record,AsciiFileName3)
+		self.Init(AsciiFile4,AsciiFile4:Record,AsciiFileName4)
+		self.Init(AsciiFile5,AsciiFile5:Record,AsciiFileName5)
+	else
+		stop('Unable to initialize the ASCIIFile instance - if you continue the program will probably crash')
+	end
+	
+	
 
 DCL_System_IO_AsciiFile.Destruct         PROCEDURE()
-    CODE
+	CODE
     SELF.CloseFile()
-    dispose(self.Errors)
+	AsciiFilePool.ReleaseItemNumber(self.PoolItemNumber)
+	dispose(self.Errors)
 
 DCL_System_IO_AsciiFile.CloseFile        PROCEDURE()
     CODE
-    !dbg.write('Closing ' & self.filenameref & ' from DCL_System_IO_AsciiFile.CloseFile')
+    dbg.write('Closing ' & self.filenameref & ' from DCL_System_IO_AsciiFile.CloseFile')
     close(self.fileref)
     
 
@@ -120,32 +143,30 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(FILE AFile,*STRING FileLine,*
     
 DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE CreateFile=False, LONG OpenMode=ReadWrite+DenyWrite)
     CODE
-    !dbg.SetPrefix('DCL_System_IO_AsciiFile.InitFile')
+    dbg.SetPrefix('DCL_System_IO_AsciiFile.InitFile')
     if self.fileRef &= NULL
-        !dbg.write('self.FileRef is null')
+        dbg.write('self.FileRef is null')
         self.Errors.AddError(0,'self.FileRef was null')
         return Level:Fatal
     end
 	IF OMITTED(AsciiFileName)
-		!dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
+		dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
 		IF STATUS(self.FileRef) = SELF.OpenMode AND NAME(self.FileRef) = SELF.CurrentFileName 
-			!dbg.write('file is already open')
+			dbg.write('file is already open')
 			RETURN LEVEL:Benign
 		END
 		OpenMode = SELF.OpenMode
 	ELSE
 		self.CurrentFileName = CLIP(AsciiFileName)
-		!dbg.Write('self.CurrentFileName = ' & self.currentfilename)
+		dbg.Write('self.CurrentFileName = ' & self.currentfilename)
 	END
-	! dgh Sept 2012 return an error if the file doesn't exist!
-	if not exists(self.CurrentFileName) then return level:fatal.
     self.FileNameRef = SELF.CurrentFileName
     IF STATUS(self.FileRef) 
-        !dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Init')
+        dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Init')
         CLOSE(self.FileRef)
     end
     IF CreateFile
-        !dbg.write('creating file')
+        dbg.write('creating file')
         LOOP 50 TIMES
             REMOVE(self.CurrentFileName)
             REMOVE(self.FileRef)
@@ -158,17 +179,24 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE 
         end
         IF ERRORCODE() THEN RETURN LEVEL:Notify.
     END
-    LOOP 50 TIMES
-        !dbg.write('trying to open ' & self.FileNameRef)
+	! If the file doesn't exist then log the error and return.
+	if not exists(self.CurrentFileName) 
+		self.Errors.AddError('File does not exist and/or could not be created')
+		return level:fatal
+	end
+	LOOP 50 TIMES
+        dbg.write('trying to open ' & self.FileNameRef)
         OPEN(self.FileRef, OpenMode)
-        if errorcode()
-            self.Errors.AddError(errorcode(),error())
-        else
+		if errorcode()
+			self.Errors.AddError(errorcode(),error())
+			dbg.write('Error: ' & self.Errors.GetLastError())
+		else
+			dbg.write('Success opening file')
             break
         end
     end
     IF ERRORCODE() 
-        !dbg.write('Error opening file: ' & error())
+        dbg.write('Error opening file: ' & error())
     !ASSERT(False, ERROR())
         RETURN LEVEL:Notify
     END
@@ -176,7 +204,7 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE 
         SELF.CurrentFileName      = NAME(self.FileRef)
         SELF.OpenMode      = STATUS(self.FileRef)
     END
-    !dbg.write('file successfully opened, issuing set')
+    dbg.write('file successfully opened, issuing set')
     set(self.FileRef)
     RETURN LEVEL:Benign
     
@@ -202,7 +230,7 @@ DCL_System_IO_AsciiFile.Read             PROCEDURE(*CSTRING TextLine)!, BYTE, PR
     if self.fileref &= null
         return Level:Fatal
     END
-    !dbg.write('Reading record from ' & self.FileRef{prop:name})
+    dbg.write('Reading record from ' & self.FileRef{prop:name})
     next(self.fileref)
     if errorcode()
         return Level:Fatal
@@ -219,56 +247,56 @@ txt                                         cstring(5000)
 reccount                                    long
 replace                                     byte(true)
     code
-    !dbg.SetPrefix('DCL_System_IO_AsciiFile.Replace')
+    dbg.SetPrefix('DCL_System_IO_AsciiFile.Replace')
     if exists(filename)
         if self.Init(filename) <> Level:Benign
             return Level:Fatal
         else
-            !dbg.write('Comparing queue to ' & filename)
+            dbg.write('Comparing queue to ' & filename)
             reccount = 0 
             replace = false
             loop while self.read(txt) = level:benign
                 reccount += 1
                 if reccount > records(q)
-                    !dbg.write('more records in file than in queue')
+                    dbg.write('more records in file than in queue')
                     replace = TRUE
                     BREAK
                 END
                 get(q,reccount)
                 if qfield <> txt
-                !dbg.write('text differs: ' & txt & ' <<> ' & q)
+                dbg.write('text differs: ' & txt & ' <<> ' & q)
                     replace = TRUE
                     BREAK
                 END
             end
             if reccount < records(q)
-                !dbg.write('more queue records than file records')
+                dbg.write('more queue records than file records')
                 replace = TRUE
             END
         end
         self.closefile()
     end
     if replace = TRUE
-        !dbg.write('replacing')
+        dbg.write('replacing')
         if self.Init(filename,true) <> Level:Benign
-            !dbg.write('fatal error')
+            dbg.write('fatal error')
             return Level:Fatal
         end
-            !dbg.write('Init succeeded')
+            dbg.write('Init succeeded')
         loop reccount = 1 to records(q)
             get(q,reccount)
-            !dbg.write('writing line ' & reccount & ' '  & clip(qfield))
+            dbg.write('writing line ' & reccount & ' '  & clip(qfield))
             if len(clip(qfield)) > 200
                 !gdbg.write('Long field: ' & qfield)
             end
             if self.write(clip(qfield) & ' ') <> level:benign
-                    !dbg.write('write failed')
+                    dbg.write('write failed')
                 self.closefile()
-                !dbg.write('fatal error')
+                dbg.write('fatal error')
                 return Level:Fatal
             end
         END
-        !dbg.write('closing file')
+        dbg.write('closing file')
         self.closefile()
     end
     return level:benign
@@ -280,17 +308,20 @@ DCL_System_IO_AsciiFile.Write            PROCEDURE(STRING TextLine)
 ReturnValue                                 BYTE(LEVEL:Benign)
     CODE
     IF ~SELF.FileNameRef THEN RETURN LEVEL:Fatal.
-    IF SELF.AutoFlush
-        SELF.Init()
-    end
-    self.FileTxtRef = CLIP(TextLine)
+	IF SELF.AutoFlush
+		SELF.Init()
+	end
+	clear(self.FileTxtRef)
+	self.FileTxtRef = CLIP(TextLine)
+	dbg.write('DCL_System_IO_AsciiFile.Write (' & len(clip(TextLine)) & ',' & len(clip(self.FileTxtRef)) & ' chars): ' & self.FileTxtRef)
     ADD(self.FileRef)
-    IF ERRORCODE() 
+	IF ERRORCODE() 
+		dbg.write('Error adding record: ' & error())
         ReturnValue = LEVEL:Notify
     END
     IF SELF.AutoFlush  
         CLOSE(self.FileRef)
-        !dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Write (autoflush)')
+        dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Write (autoflush)')
     end
     RETURN ReturnValue	
   
@@ -300,42 +331,5 @@ x                                           long
     loop x = 1 to records(q)
         get(q,x)
         self.Write(qfield)
-    end
- 
+    end 
   
-
-    
-DCL_System_IO_AsciiFileInstanceAInternal.Construct       PROCEDURE
-    CODE
-    self.Init(AsciiFileA,AsciifileA.Txt,AsciifileNameA)
-    
-DCL_System_IO_AsciiFileInstanceBInternal.Construct       PROCEDURE
-    CODE
-    self.Init(AsciiFileB,AsciifileB.Txt,AsciifileNameB)
-                                    
-DCL_System_IO_AsciiFileInstanceCInternal.Construct       PROCEDURE
-    CODE
-    self.Init(AsciiFileC,AsciifileC.Txt,AsciifileNameC)
-
-    
-    
-
-
-DCL_System_IO_AsciiFileManager.GetAsciiFileInstance      procedure(long instanceNumber)!,*DCL_System_IO_AsciiFile    
-    code
-    case instanceNumber
-    of DCL_System_IO_AsciiFile_InstanceNumber1
-        return DCL_System_IO_AsciiFileInstanceAInternal
-    of DCL_System_IO_AsciiFile_InstanceNumber2
-        return DCL_System_IO_AsciiFileInstanceBInternal
-    of DCL_System_IO_AsciiFile_InstanceNumber3
-        return DCL_System_IO_AsciiFileInstanceCInternal
-    end
-    return null
-            
-        
-
-
-
-
-

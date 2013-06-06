@@ -92,7 +92,7 @@ CurrentDllsChecksum                         real
 	CODE
 	ProgramDirectory = longpath()
 	open(window)
-	Window{PROP:MinWidth} = 600
+	Window{PROP:MinWidth} = 400
 	Window{PROP:MinHeight} = 300
 	!Resizer.Init(AppStrategy:Resize)
 	Resizer.Init(AppStrategy:Spread)

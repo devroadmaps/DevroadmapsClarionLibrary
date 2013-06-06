@@ -6,12 +6,12 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>ClarionTest</AssemblyName>
     <OutputName>ClarionTest</OutputName>
-    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1%3b_APIDllMode_=&gt;0%3b_APILinkMode_=&gt;1%3b_MAIDllMode_=&gt;0%3b_MAILinkMode_=&gt;1%3b_WinsockDllMode_=&gt;0%3b_WinsockLinkMode_=&gt;1</DefineConstants>
     <Model>Dll</Model>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <stack_size>16384</stack_size>
     <CopyCore>True</CopyCore>
     <ApplicationIcon>ClarionTest.ico</ApplicationIcon>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode=&gt;1%3b_Compile_DCL_Class_Source_=&gt;1</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>True</DebugSymbols>
@@ -46,7 +46,6 @@
     <FileDriver Include="DOS" />
     <FileDriver Include="ODBC" />
     <FileDriver Include="TOPSPEED" />
-    <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>

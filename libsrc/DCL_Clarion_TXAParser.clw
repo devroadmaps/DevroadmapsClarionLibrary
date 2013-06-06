@@ -217,9 +217,9 @@ y                                           LONG
 z                                           long
 found                                       Byte
 
-TxaFile                                     &DCL_System_IO_AsciiFile
+TxaFile                                     DCL_System_IO_AsciiFile
 	code
-	TxaFile &= DCL_System_IO_AsciiFileManager.GetAsciiFileInstance(DCL_System_IO_AsciiFile_InstanceNumber1)
+	!TxaFile &= DCL_System_IO_AsciiFileManager.GetAsciiFileInstance(DCL_System_IO_AsciiFile_InstanceNumber1)
 	self.Reset()
 	if self.ProcedureQ &= null
 		self.ProcedureQ &= new DCL_Clarion_TXAParser_ProcedureQueue

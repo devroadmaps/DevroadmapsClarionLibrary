@@ -87,6 +87,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D
 		..\libsrc\DCL_System_StackNode.inc = ..\libsrc\DCL_System_StackNode.inc
 		..\libsrc\DCL_System_ErrorManager.clw = ..\libsrc\DCL_System_ErrorManager.clw
 		..\libsrc\DCL_System_ErrorManager.inc = ..\libsrc\DCL_System_ErrorManager.inc
+		..\libsrc\DCL_System_Pool.clw = ..\libsrc\DCL_System_Pool.clw
+		..\libsrc\DCL_System_Pool.inc = ..\libsrc\DCL_System_Pool.inc
+		..\libsrc\DCL_System_Class.clw = ..\libsrc\DCL_System_Class.clw
+		..\libsrc\DCL_System_Mangle.clw = ..\libsrc\DCL_System_Mangle.clw
+		..\libsrc\DCL_System_Mangle.inc = ..\libsrc\DCL_System_Mangle.inc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{B0C0381C-28DB-4C2A-97E3-2EA08AF03D80}"
@@ -96,6 +101,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{B0C0381C
 		..\libsrc\DCL_BaseClass.inc = ..\libsrc\DCL_BaseClass.inc
 		..\libsrc\DCL_Windows_API_Functions.inc = ..\libsrc\DCL_Windows_API_Functions.inc
 		..\libsrc\DCL_Windows_API_Equates.inc = ..\libsrc\DCL_Windows_API_Equates.inc
+		ClassHeadersToExport.txt = ClassHeadersToExport.txt
 	EndProjectSection
 EndProject
 Global

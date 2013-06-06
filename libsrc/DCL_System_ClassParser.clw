@@ -77,8 +77,8 @@ DCL_System_ClassParser.GetClass             procedure(long index)!,*DCL_System_C
     return self.ClassQ.Class_
     
 DCL_System_ClassParser.Parse                procedure(string filename)!,BOOL,proc
-FileMgr                                         DCL_System_IO_AsciiFileManager
-ClassFile                                       &DCL_System_IO_AsciiFile
+!FileMgr                                         DCL_System_IO_AsciiFileManager
+ClassFile                                       DCL_System_IO_AsciiFile
 Txt                                             cstring(1000)
 TxtUpper                                        cstring(1000)
 str                                             DCL_System_String
@@ -88,7 +88,7 @@ State:LookingForMethods                         equate(2)
 CurrentClass                                    &DCL_System_Class
     code
     State = State:LookingForClass
-    ClassFile &= FileMgr.GetAsciiFileInstance(1)
+    !ClassFile &= FileMgr.GetAsciiFileInstance(1)
     ClassFile.OpenFile(filename)
     if ClassFile.Errors.Count() > 0
         dbg.write('Error opening ' & filename)

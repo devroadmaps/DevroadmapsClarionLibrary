@@ -146,16 +146,16 @@ y                                               long
         end
     end
     
-DCL_System_Class.GetExports                 procedure(*queue q,BOOL freeQueue=true)
+DCL_System_Class.GetExports                 procedure(*queue q,*? qField,BOOL freeQueue=true)
 x                                               long    
 y                                               long
 str                                             DCL_System_String
 mangler                                         DCL_System_Mangle
     code
     if freeQueue then FREE(q).
-    q = '  TYPE$' & CLIP(UPPER(self.Name)) & ' @?'
+    qfield = '  TYPE$' & CLIP(UPPER(self.Name)) & ' @?'
     ADD(q)
-    q = '  VMT$' & CLIP(UPPER(self.Name)) & ' @?'         
+    qField = '  VMT$' & CLIP(UPPER(self.Name)) & ' @?'         
     ADD(q)
     loop x = 1 to RECORDS(self.MethodQ)
         GET(self.MethodQ,x)
@@ -167,7 +167,7 @@ mangler                                         DCL_System_Mangle
         end 
         str.Append(' @?')
         dbg.Write(str.Get())
-        q =  str.Get()
+        qField =  str.Get()
         ADD(q)
     end
     

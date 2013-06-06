@@ -43,6 +43,7 @@ Error                   cstring(500)
 
 DCL_System_ErrorManager class,type,module('DCL_System_ErrorManager.clw'),link('DCL_System_ErrorManager.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
 ErrorsQ                 &ErrorsQueue
+AddError                procedure(string error)
 AddError                procedure(long errorcode, string error)
 AddErrors               procedure(*DCL_System_ErrorManager errors)
 Construct               PROCEDURE

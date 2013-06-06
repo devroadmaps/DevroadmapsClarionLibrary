@@ -7,7 +7,7 @@
     <RootNamespace>CreateDCLExportFile</RootNamespace>
     <AssemblyName>CreateDCLExportFile</AssemblyName>
     <OutputName>CreateDCLExportFile</OutputName>
-    <DefineConstants>_Compile_DCL_Class_Source_=&gt;1</DefineConstants>
+    <DefineConstants>_Compile_DCL_Class_Source_=&gt;0</DefineConstants>
     <stack_size>16384</stack_size>
     <CopyCore>True</CopyCore>
   </PropertyGroup>
@@ -33,6 +33,8 @@
   </ItemGroup>
   <ItemGroup>
     <FileDriver Include="ASCII" />
+    <FileDriver Include="DOS" />
+    <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
 </Project>

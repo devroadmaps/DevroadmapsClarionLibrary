@@ -42,39 +42,58 @@
                                             MAP
                                             END
 
-    include('DCL_System_ExpFileWriter.inc'),once
+	include('DCL_System_ExpFileWriter.inc'),once
+	include('DCL_System_IO_AsciiFile.inc'),once
 
-ExpWriter                                   DCL_System_ExpFileWriter
+ExpWriter                               DCL_System_ExpFileWriter
+ListOfIncludeFiles                      DCL_System_IO_AsciiFile
+IncludeFile                             cstring(500)
 
-    CODE
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Clarion_TXAParser.inc')
-	!ExpWriter.AddClassHeaderFile('..\libsrc\DCL_ClarionTest_TestProcedures.inc') ! DO NOT INCLUDE
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Data_Datafier.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Class.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_FileLogger.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Logger.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Profiler.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Timer.inc') 
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Tracer.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ErrorManager.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ExpFileWriter.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_AsciiFile.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_CaptureStdOutput.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_Directory.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_File.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_FileInfo.inc')
-	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Mangle.inc')
-    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc') ! DO NOT INCLUDE
-    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DLL.inc') ! DO NOT INCLUDE
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Stack.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StackNode.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_String.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StringUtility.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Threading_CriticalSection.inc')
-    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Text_RTF.inc')
+
+	CODE
+	if not ListOfIncludeFiles.OpenFile('ClassHeadersToExport.txt') = Level:Benign
+		message('Unable to open file: ' & ListOfIncludeFiles.Errors.GetLastError())
+		return 
+	end
+	
+				
+	loop
+		if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
+		ExpWriter.AddClassHeaderFile(clip(IncludeFile))
+	end
+	ListOfIncludeFiles.CloseFile()
+	
+	
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Clarion_TXAParser.inc')
+!	!ExpWriter.AddClassHeaderFile('..\libsrc\DCL_ClarionTest_TestProcedures.inc') ! DO NOT INCLUDE
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Data_Datafier.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Class.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_FileLogger.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Logger.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Profiler.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Timer.inc') 
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Tracer.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ErrorManager.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ExpFileWriter.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_AsciiFile.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_CaptureStdOutput.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_Directory.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_File.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_FileInfo.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Mangle.inc')
+!    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc') ! DO NOT INCLUDE
+!    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DLL.inc') ! DO NOT INCLUDE
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Stack.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StackNode.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_String.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StringUtility.inc')
+!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Threading_CriticalSection.inc')
+!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Text_RTF.inc')
+
+
 	ExpWriter.AddCustomExportStatement('  $gLogger @?') 
 	ExpWriter.AddCustomExportStatement('  $gDatafier @?') 
-	ExpWriter.AddCustomExportStatement('  $DCL_SYSTEM_IO_ASCIIFILEMANAGER @?') 
+	!ExpWriter.AddCustomExportStatement('  $DCL_SYSTEM_IO_ASCIIFILEMANAGER @?') 
 
-	ExpWriter.WriteExpFile('DevRoadmapsClarion')
+	ExpWriter.WriteExpFile('DevRoadmapsClarion')	

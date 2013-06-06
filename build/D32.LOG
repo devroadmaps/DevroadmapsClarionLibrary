@@ -1,0 +1,67 @@
+Started 
+Heap handle: 00340000
+start process E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe
+Command line :> "E:\Clarion.Installs\Clarion8\bin\Cladb.exe" -s Release "E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe" 
+Command line :> "E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe" 
+Redirection file :> 
+CREATE_PROCESS_DEBUG_EVENT  ! No image name found
+g.debug_name E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe
+BaseOfImage                00400000
+CREATE_PROCESS_DEBUG_EVENT: process main thread tid=000003F8
+thread handle=000001FC
+ntdll.dll Loaded at: 775B0000
+No debug information
+UNLOAD_DLL_DEBUG_EVENT: BaseOfDll 76F00000
+UNLOAD_DLL_DEBUG_EVENT: BaseOfDll 74DF0000
+UNLOAD_DLL_DEBUG_EVENT: BaseOfDll 76F00000
+UNLOAD_DLL_DEBUG_EVENT: BaseOfDll 77020000
+KERNEL32.dll Loaded at: 74DF0000
+No debug information
+KERNELBASE.dll Loaded at: 75A10000
+No debug information
+ClaASC.dll Loaded at: 007E0000
+No debug information
+ClaRUN.dll Loaded at: 01000000
+WslDb$$NotifyDebugger 010D1CB0
+ADVAPI32.dll Loaded at: 75850000
+No debug information
+msvcrt.dll Loaded at: 768F0000
+No debug information
+SECHOST.dll Loaded at: 768D0000
+No debug information
+RPCRT4.dll Loaded at: 74D00000
+No debug information
+SspiCli.dll Loaded at: 74C90000
+No debug information
+CRYPTBASE.dll Loaded at: 74C80000
+No debug information
+COMCTL32.dll Loaded at: 68F70000
+No debug information
+GDI32.dll Loaded at: 74F10000
+No debug information
+USER32.dll Loaded at: 75170000
+No debug information
+LPK.dll Loaded at: 75270000
+No debug information
+USP10.dll Loaded at: 76830000
+No debug information
+COMDLG32.dll Loaded at: 76740000
+No debug information
+SHLWAPI.dll Loaded at: 769D0000
+No debug information
+SHELL32.dll Loaded at: 75AF0000
+No debug information
+MPR.dll Loaded at: 72340000
+No debug information
+ole32.dll Loaded at: 75460000
+No debug information
+OLEAUT32.dll Loaded at: 75280000
+No debug information
+oledlg.dll Loaded at: 64360000
+No debug information
+WINSPOOL.DRV Loaded at: 6DA50000
+No debug information
+IMM32.dll Loaded at: 76A30000
+No debug information
+MSCTF.dll Loaded at: 75780000
+No debug information

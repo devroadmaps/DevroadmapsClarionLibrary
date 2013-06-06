@@ -57,7 +57,7 @@ Construct                                       Procedure()
 Destruct                                        Procedure()
 AddMethod                                       procedure(string declaration)
 Debug                                           procedure
-GetExports                                      procedure(*queue q,BOOL freeQueue=true)
+GetExports                                      procedure(*queue q,*? qField, BOOL freeQueue=true)
 MethodCount                                     procedure,long
 Reset                                           procedure
 Name                                            cstring(100)

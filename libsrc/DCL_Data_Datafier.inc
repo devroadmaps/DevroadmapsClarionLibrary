@@ -1,8 +1,8 @@
 !---------------------------------------------------------------------------------------------!
-!
 ! Copyright © Jeff Slarve
 ! All Rights Reserved
-!
+!---------------------------------------------------------------------------------------------!
+!region
 ! The Datafier Class is for creation of on-the-fly variables that are usable in a thread-safe manner and accessible globally
 !
 ! Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 	!include('DCL_System_ErrorManager.inc'),once
 	include('DCL_System_Threading_CriticalSection.inc'),once

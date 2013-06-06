@@ -1,5 +1,5 @@
 !---------------------------------------------------------------------------------------------!
-! Copyright (c) 2012, CoveComm Inc.
+! Copyright (c) 2012, 2013 CoveComm Inc.
 ! All rights reserved.
 !---------------------------------------------------------------------------------------------!
 !region
@@ -36,22 +36,22 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+	include('DCL_IncludeInAllClassHeaderFiles.inc'),once
 
 
-    INCLUDE('ABfile.equ'),ONCE
-    include('DCL_System_ErrorManager.inc'),once
+	INCLUDE('ABfile.equ'),ONCE
+	include('DCL_System_ErrorManager.inc'),once
 
-ASCII_IO_RECORD_SIZE                    EQUATE(5000)
 MaxPathLength                           equate(FILE:MaxFileName + FILE:MaxFilePath + 1)
 
-DCL_System_IO_AsciiFile_InstanceNumber1  equate(1)
-DCL_System_IO_AsciiFile_InstanceNumber2  equate(2)
-DCL_System_IO_AsciiFile_InstanceNumber3  equate(3)
 
-DCL_System_IO_AsciiFileManager           CLASS,MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
-GetAsciiFileInstance                        procedure(long instanceNumber),*DCL_System_IO_AsciiFile    
-                                        end
+!DCL_System_IO_AsciiFile_InstanceNumber1  equate(1)
+!DCL_System_IO_AsciiFile_InstanceNumber2  equate(2)
+!DCL_System_IO_AsciiFile_InstanceNumber3  equate(3)
+
+!DCL_System_IO_AsciiFileManager           CLASS,MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
+!GetAsciiFileInstance                        procedure(long instanceNumber),*DCL_System_IO_AsciiFile    
+!                                        end
 
 !--------------------------------------------------------------------------------
 ! Sample usage    
@@ -60,14 +60,15 @@ GetAsciiFileInstance                        procedure(long instanceNumber),*DCL_
 !	code
 !	AsciiFile &= DCL_System_IO_AsciiFileManager.GetAsciiFileInstance(DCL_System_IO_AsciiFile_InstanceNumber1)
 
-DCL_System_IO_AsciiFile                  CLASS,TYPE,MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
+DCL_System_IO_AsciiFile                 CLASS,TYPE,MODULE('DCL_System_IO_AsciiFile.clw'),LINK('DCL_System_IO_AsciiFile.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
+Autoflush                                   byte(false)
 Errors                                      &DCL_System_ErrorManager
 FileRef                                     &File,protected
 FileTxtRef                                  &string,protected
 FileNameRef                                 &string,protected
 CurrentFileName                             cstring(MaxPathLength)
 OpenMode                                    long
-Autoflush                                   byte(false)
+PoolItemNumber                              long,private
 !AsciiText                       &string
 Construct                                   PROCEDURE
 Destruct                                    procedure
@@ -84,5 +85,5 @@ Read                                        PROCEDURE(*CSTRING TextLine), BYTE, 
 Replace                                     procedure(string filename,*queue q,*cstring qField),long
 Write                                       PROCEDURE(STRING TextLine),byte,proc
 Write                                       procedure(*queue q,*cstring qfield)
-                                        END
+										END
 

@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
-! Copyright (c) 2012, CoveComm Inc.
+! Copyright (c) 2012, 2013 CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 										Member
 										Map
 										End
@@ -44,9 +46,9 @@
 	include('DCL_System_Class.inc'),once
 	include('DCL_System_ClassParser.inc'),once
 	INCLUDE('DCL_System_IO_AsciiFile.inc'),ONCE
-	!include('DCL_System_Diagnostics_Logger.inc'),once
+	include('DCL_System_Diagnostics_Logger.inc'),once
 
-!dbg                                     DCL_System_Diagnostics_Logger
+dbg                                     DCL_System_Diagnostics_Logger
 
 DCL_System_ExpFileWriter.Construct      Procedure()
 	code
@@ -84,8 +86,8 @@ parser                                      DCL_System_ClassParser
 x                                           long
 y                                           long
 str                                         DCL_System_String
-FileMgr                                     DCL_System_IO_AsciiFileManager
-ExpFile                                     &DCL_System_IO_AsciiFile
+!FileMgr                                     DCL_System_IO_AsciiFileManager
+ExpFile                                     DCL_System_IO_AsciiFile
 	code
 	loop x = 1 to RECORDS(self.classheaderq)
 		GET(self.classheaderq,x)
@@ -94,7 +96,7 @@ ExpFile                                     &DCL_System_IO_AsciiFile
 		loop y = 1 to parser.ClassCount()
 			cls &= parser.GetClass(y)
 			if not cls &= null
-				cls.GetExports(ExportsQ,FALSE)
+				cls.GetExports(ExportsQ,ExportsQ.Txt,FALSE)
 			end
 		end
 	end
@@ -105,17 +107,20 @@ ExpFile                                     &DCL_System_IO_AsciiFile
 	end
 	if ~str.EndsWith('\') then str.Append('\').
 	str.Append(CLIP(appname) & '.EXP')
-	ExpFile &= FileMgr.GetAsciiFileInstance(1)
+	!ExpFile &= FileMgr.GetAsciiFileInstance(1)
 	if ExpFile.CreateFile(str.Get()) = Level:Benign
 		ExpFile.Write('LIBRARY ''' & CLIP(appname) & ''' GUI')
 		Expfile.Write('EXPORTS')
 		loop x = 1 to RECORDS(ExportsQ)
 			GET(exportsq,x)
 			ExpFile.Write(ExportsQ.Txt)
+			dbg.Write(ExportsQ.txt)
 		end
 	end
 	loop x = 1 to records(self.CustomExportStatementQ)
 		get(self.CustomExportStatementQ,x)
 		ExpFile.Write(self.CustomExportStatementQ.ExportStatement)
 	END
-	ExpFile.CloseFile()   
+	ExpFile.CloseFile()   	
+
+

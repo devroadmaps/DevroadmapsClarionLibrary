@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
 ! Copyright (c) 2012, CoveComm Inc.
 ! All rights reserved.
-! 
+!---------------------------------------------------------------------------------------------!
+!region
 ! 
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met: 
@@ -33,6 +34,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
                     MEMBER
                     MAP
                     END
@@ -83,7 +85,7 @@ DCL_System_String.AssignToLine           PROCEDURE(STRING pNewValue,long lineNum
 !!! <remarks>If no value already exists then the new value is assigned
 !!! as if Assign had been called instead of Append.</remarks>
 DCL_System_String.Append        PROCEDURE(STRING pNewValue)
-    CODE
+	CODE
     IF NOT Self.Value &= NULL
         Self.Assign(Self.Value & pNewValue)
     ELSE
@@ -102,7 +104,7 @@ DCL_System_String.AppendLine             PROCEDURE(STRING pNewValue)
 DCL_System_String.BeginsWith    procedure(string s)!,byte
 thislength                      long
 otherlength                     long
-    CODE
+	CODE
     s = upper(clip(s))
     IF NOT Self.Value &= NULL
         if s = '' 
@@ -462,7 +464,7 @@ s                           string(100)
                         end
     CODE
     q.s = pSplitStr
-    add(q)
+    add(q)  ! dgh demo
     self.Split(q)
     
 
@@ -562,7 +564,8 @@ chars                   long
 !!! as the stop position. If the Start position greater than the stop position or the length
 !!! of the string then an empty string is returned.</remarks>
 DCL_System_String.SubString     PROCEDURE(LONG pStart, LONG pStop) !,STRING
-    CODE
+	CODE
+	!return '' ! dgh demo
     IF pStop > LEN(SELF.Value)
         pSTOP = LEN(SELF.VALUE)
     ELSIF pStart > LEN(Self.Value)

@@ -1,0 +1,9 @@
+Error: Corrupt block/Unknown block type freed.  This is probably caused by freeing a static variable or a bad pointer.
+004834DB  0001:000824DB ClarionTest.Exe
+00428206  0001:00027206 ClarionTest.Exe
+0042872E  0001:0002772E ClarionTest.Exe
+004C826F  0001:000C726F ClarionTest.Exe
+004C7F95  0001:000C6F95 ClarionTest.Exe
+77549EF2  0001:00029EF2 ntdll.dll
+77549EC5  0001:00029EC5 ntdll.dll
+----------------------------------

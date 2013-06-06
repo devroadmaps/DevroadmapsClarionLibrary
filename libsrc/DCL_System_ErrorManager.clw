@@ -41,6 +41,10 @@
 
     include('DCL_System_ErrorManager.inc'),once
 
+DCL_System_ErrorManager.AddError        procedure(string err)
+	code
+	self.AddError(0,err)
+	
 DCL_System_ErrorManager.AddError         procedure(long errcode, string err)
     CODE
     self.errorsq.errorcode = ERRCODE

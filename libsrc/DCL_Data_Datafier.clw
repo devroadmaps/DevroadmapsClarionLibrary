@@ -1,7 +1,8 @@
 !---------------------------------------------------------------------------------------------!
-!
 ! Copyright © Jeff Slarve
 ! All Rights Reserved
+!---------------------------------------------------------------------------------------------!
+!region
 !
 ! The Datafier Class is for creation of on-the-fly variables that are usable in a thread-safe manner and accessible globally
 !
@@ -35,6 +36,7 @@
 ! If you find this software useful, please support its creation and maintenance
 ! by taking out a subscription to www.DevRoadmaps.com.
 !---------------------------------------------------------------------------------------------!
+!endregion
 
 										MEMBER
 
