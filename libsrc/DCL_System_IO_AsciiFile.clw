@@ -49,9 +49,11 @@ dbg                                     DCL_System_Diagnostics_Logger
 
 ASCII_IO_RECORD_SIZE                    EQUATE(5000)
 
-AsciiFilePool                           class(DCL_System_Pool)
+AsciiFilePoolType                       class(DCL_System_Pool),type
 Construct                                   procedure
 										end
+
+AsciiFilePoolInstance                   &AsciiFilePoolType
 
 
 
@@ -91,7 +93,7 @@ Txt                                             STRING(ASCII_IO_RECORD_SIZE)
 										END
 
 
-AsciiFilePool.Construct                 procedure
+AsciiFilePoolType.Construct                 procedure
 	code
 	self.Init(5)
 	self.SetStopOnError(true,'DCL_System_IO_AsciiFile: All available ASCII files are in use!')
@@ -100,9 +102,10 @@ AsciiFilePool.Construct                 procedure
 
 
 DCL_System_IO_AsciiFile.Construct        PROCEDURE()
-    CODE
+	CODE
+	if AsciiFilePoolInstance &= null then AsciiFilePoolInstance &= new AsciiFilePoolType.
 	self.Errors &= new DCL_System_ErrorManager
-	self.PoolItemNumber = AsciiFilePool.GetItemNumber()
+	self.PoolItemNumber = AsciiFilePoolInstance.GetItemNumber()
 	execute self.PoolItemNumber
 		self.Init(AsciiFile1,AsciiFile1:Record,AsciiFileName1)
 		self.Init(AsciiFile2,AsciiFile2:Record,AsciiFileName2)
@@ -118,7 +121,7 @@ DCL_System_IO_AsciiFile.Construct        PROCEDURE()
 DCL_System_IO_AsciiFile.Destruct         PROCEDURE()
 	CODE
     SELF.CloseFile()
-	AsciiFilePool.ReleaseItemNumber(self.PoolItemNumber)
+	AsciiFilePoolInstance.ReleaseItemNumber(self.PoolItemNumber)
 	dispose(self.Errors)
 
 DCL_System_IO_AsciiFile.CloseFile        PROCEDURE()

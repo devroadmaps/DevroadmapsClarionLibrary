@@ -1,13 +1,13 @@
 Started 
-Heap handle: 00340000
+Heap handle: 01570000
 start process E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe
-Command line :> "E:\Clarion.Installs\Clarion8\bin\Cladb.exe" -s Release "E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe" 
+Command line :> "E:\Clarion.Installs\Clarion8\bin\Cladb.exe" -s Debug "E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe" 
 Command line :> "E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe" 
 Redirection file :> 
 CREATE_PROCESS_DEBUG_EVENT  ! No image name found
 g.debug_name E:\dev-Clarion\DevroadmapsClarionLibrary\build\CreateDCLExportFile.Exe
 BaseOfImage                00400000
-CREATE_PROCESS_DEBUG_EVENT: process main thread tid=000003F8
+CREATE_PROCESS_DEBUG_EVENT: process main thread tid=000015B0
 thread handle=000001FC
 ntdll.dll Loaded at: 775B0000
 No debug information
