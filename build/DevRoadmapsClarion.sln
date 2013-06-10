@@ -92,6 +92,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{2D4C3D
 		..\libsrc\DCL_System_Class.clw = ..\libsrc\DCL_System_Class.clw
 		..\libsrc\DCL_System_Mangle.clw = ..\libsrc\DCL_System_Mangle.clw
 		..\libsrc\DCL_System_Mangle.inc = ..\libsrc\DCL_System_Mangle.inc
+		..\libsrc\DCL_System_ClassParser.clw = ..\libsrc\DCL_System_ClassParser.clw
+		..\libsrc\DCL_System_ClassParser.inc = ..\libsrc\DCL_System_ClassParser.inc
+		..\libsrc\DCL_System_ExpFileWriter.clw = ..\libsrc\DCL_System_ExpFileWriter.clw
+		..\libsrc\DCL_System_ExpFileWriter.inc = ..\libsrc\DCL_System_ExpFileWriter.inc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{B0C0381C-28DB-4C2A-97E3-2EA08AF03D80}"

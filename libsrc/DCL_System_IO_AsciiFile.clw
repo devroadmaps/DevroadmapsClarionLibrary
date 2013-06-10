@@ -49,6 +49,7 @@ dbg                                     DCL_System_Diagnostics_Logger
 
 ASCII_IO_RECORD_SIZE                    EQUATE(5000)
 
+!AsciiFilePoolInstance                       class(DCL_System_Pool)
 AsciiFilePoolType                       class(DCL_System_Pool),type
 Construct                                   procedure
 										end
@@ -93,8 +94,11 @@ Txt                                             STRING(ASCII_IO_RECORD_SIZE)
 										END
 
 
-AsciiFilePoolType.Construct                 procedure
+
+!AsciiFilePoolInstance.Construct                 procedure
+AsciiFilePoolType.Construct             procedure
 	code
+	dbg.write('AsciiFilePoolInstance.Construct ' & address(self))
 	self.Init(5)
 	self.SetStopOnError(true,'DCL_System_IO_AsciiFile: All available ASCII files are in use!')
 
@@ -103,6 +107,7 @@ AsciiFilePoolType.Construct                 procedure
 
 DCL_System_IO_AsciiFile.Construct        PROCEDURE()
 	CODE
+	dbg.write('DCL_System_IO_AsciiFile.Construct ' & address(self))
 	if AsciiFilePoolInstance &= null then AsciiFilePoolInstance &= new AsciiFilePoolType.
 	self.Errors &= new DCL_System_ErrorManager
 	self.PoolItemNumber = AsciiFilePoolInstance.GetItemNumber()
@@ -126,7 +131,7 @@ DCL_System_IO_AsciiFile.Destruct         PROCEDURE()
 
 DCL_System_IO_AsciiFile.CloseFile        PROCEDURE()
     CODE
-    dbg.write('Closing ' & self.filenameref & ' from DCL_System_IO_AsciiFile.CloseFile')
+    !dbg.write('Closing ' & self.filenameref & ' from DCL_System_IO_AsciiFile.CloseFile')
     close(self.fileref)
     
 
@@ -146,30 +151,30 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(FILE AFile,*STRING FileLine,*
     
 DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE CreateFile=False, LONG OpenMode=ReadWrite+DenyWrite)
     CODE
-    dbg.SetPrefix('DCL_System_IO_AsciiFile.InitFile')
+    !dbg.SetPrefix('DCL_System_IO_AsciiFile.InitFile')
     if self.fileRef &= NULL
-        dbg.write('self.FileRef is null')
+        !dbg.write('self.FileRef is null')
         self.Errors.AddError(0,'self.FileRef was null')
         return Level:Fatal
     end
 	IF OMITTED(AsciiFileName)
-		dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
+		!dbg.Write('file name omitted, self.CurrentFileName = ' & self.currentfilename)
 		IF STATUS(self.FileRef) = SELF.OpenMode AND NAME(self.FileRef) = SELF.CurrentFileName 
-			dbg.write('file is already open')
+			!dbg.write('file is already open')
 			RETURN LEVEL:Benign
 		END
 		OpenMode = SELF.OpenMode
 	ELSE
 		self.CurrentFileName = CLIP(AsciiFileName)
-		dbg.Write('self.CurrentFileName = ' & self.currentfilename)
+		!dbg.Write('self.CurrentFileName = ' & self.currentfilename)
 	END
     self.FileNameRef = SELF.CurrentFileName
     IF STATUS(self.FileRef) 
-        dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Init')
+        !dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Init')
         CLOSE(self.FileRef)
     end
     IF CreateFile
-        dbg.write('creating file')
+        !dbg.write('creating file')
         LOOP 50 TIMES
             REMOVE(self.CurrentFileName)
             REMOVE(self.FileRef)
@@ -188,18 +193,18 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE 
 		return level:fatal
 	end
 	LOOP 50 TIMES
-        dbg.write('trying to open ' & self.FileNameRef)
+        !dbg.write('trying to open ' & self.FileNameRef)
         OPEN(self.FileRef, OpenMode)
 		if errorcode()
 			self.Errors.AddError(errorcode(),error())
-			dbg.write('Error: ' & self.Errors.GetLastError())
+			!dbg.write('Error: ' & self.Errors.GetLastError())
 		else
-			dbg.write('Success opening file')
+			!dbg.write('Success opening file')
             break
         end
     end
     IF ERRORCODE() 
-        dbg.write('Error opening file: ' & error())
+        !dbg.write('Error opening file: ' & error())
     !ASSERT(False, ERROR())
         RETURN LEVEL:Notify
     END
@@ -207,7 +212,7 @@ DCL_System_IO_AsciiFile.Init             PROCEDURE(<STRING AsciiFileName>, BYTE 
         SELF.CurrentFileName      = NAME(self.FileRef)
         SELF.OpenMode      = STATUS(self.FileRef)
     END
-    dbg.write('file successfully opened, issuing set')
+    !dbg.write('file successfully opened, issuing set')
     set(self.FileRef)
     RETURN LEVEL:Benign
     
@@ -233,7 +238,7 @@ DCL_System_IO_AsciiFile.Read             PROCEDURE(*CSTRING TextLine)!, BYTE, PR
     if self.fileref &= null
         return Level:Fatal
     END
-    dbg.write('Reading record from ' & self.FileRef{prop:name})
+    !dbg.write('Reading record from ' & self.FileRef{prop:name})
     next(self.fileref)
     if errorcode()
         return Level:Fatal
@@ -250,56 +255,56 @@ txt                                         cstring(5000)
 reccount                                    long
 replace                                     byte(true)
     code
-    dbg.SetPrefix('DCL_System_IO_AsciiFile.Replace')
+    !dbg.SetPrefix('DCL_System_IO_AsciiFile.Replace')
     if exists(filename)
         if self.Init(filename) <> Level:Benign
             return Level:Fatal
         else
-            dbg.write('Comparing queue to ' & filename)
+            !dbg.write('Comparing queue to ' & filename)
             reccount = 0 
             replace = false
             loop while self.read(txt) = level:benign
                 reccount += 1
                 if reccount > records(q)
-                    dbg.write('more records in file than in queue')
+                    !dbg.write('more records in file than in queue')
                     replace = TRUE
                     BREAK
                 END
                 get(q,reccount)
                 if qfield <> txt
-                dbg.write('text differs: ' & txt & ' <<> ' & q)
+                !dbg.write('text differs: ' & txt & ' <<> ' & q)
                     replace = TRUE
                     BREAK
                 END
             end
             if reccount < records(q)
-                dbg.write('more queue records than file records')
+                !dbg.write('more queue records than file records')
                 replace = TRUE
             END
         end
         self.closefile()
     end
     if replace = TRUE
-        dbg.write('replacing')
+        !dbg.write('replacing')
         if self.Init(filename,true) <> Level:Benign
-            dbg.write('fatal error')
+            !dbg.write('fatal error')
             return Level:Fatal
         end
-            dbg.write('Init succeeded')
+            !dbg.write('Init succeeded')
         loop reccount = 1 to records(q)
             get(q,reccount)
-            dbg.write('writing line ' & reccount & ' '  & clip(qfield))
+            !dbg.write('writing line ' & reccount & ' '  & clip(qfield))
             if len(clip(qfield)) > 200
-                !gdbg.write('Long field: ' & qfield)
+                !g!dbg.write('Long field: ' & qfield)
             end
             if self.write(clip(qfield) & ' ') <> level:benign
-                    dbg.write('write failed')
+                    !dbg.write('write failed')
                 self.closefile()
-                dbg.write('fatal error')
+                !dbg.write('fatal error')
                 return Level:Fatal
             end
         END
-        dbg.write('closing file')
+        !dbg.write('closing file')
         self.closefile()
     end
     return level:benign
@@ -316,15 +321,15 @@ ReturnValue                                 BYTE(LEVEL:Benign)
 	end
 	clear(self.FileTxtRef)
 	self.FileTxtRef = CLIP(TextLine)
-	dbg.write('DCL_System_IO_AsciiFile.Write (' & len(clip(TextLine)) & ',' & len(clip(self.FileTxtRef)) & ' chars): ' & self.FileTxtRef)
+	!dbg.write('DCL_System_IO_AsciiFile.Write (' & len(clip(TextLine)) & ',' & len(clip(self.FileTxtRef)) & ' chars): ' & self.FileTxtRef)
     ADD(self.FileRef)
 	IF ERRORCODE() 
-		dbg.write('Error adding record: ' & error())
+		!dbg.write('Error adding record: ' & error())
         ReturnValue = LEVEL:Notify
     END
     IF SELF.AutoFlush  
         CLOSE(self.FileRef)
-        dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Write (autoflush)')
+        !dbg.write('closing ' & self.FileNameRef & ' from DCL_System_IO_AsciiFile.Write (autoflush)')
     end
     RETURN ReturnValue	
   

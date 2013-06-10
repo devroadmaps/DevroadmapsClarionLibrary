@@ -13,4 +13,6 @@
   </ClassSkeletons>
   <ClassSkeletons MQS_CLASSDESCRIPTION="DCL Base Class" MQS_CLASSINC="E:\dev-Clarion\DevroadmapsClarionLibrary\libsrc\DCL_BaseClass.inc">
   </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="DCL Base Class - Always Compile (not included in DCL DLL)" MQS_CLASSINC="E:\dev-Clarion\DevroadmapsClarionLibrary\libsrc\DCL_BaseClass_AlwaysCompile.inc">
+  </ClassSkeletons>
  </ClassSkeletons>

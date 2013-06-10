@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "CIDC_Sales_Invoice_Tests", "CIDC_Sales_Invoice_Tests.cwproj", "{0BABA41E-59E4-4531-AB62-BF4900A3CE5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		CIDC_Sales_Invoice_Tests.app = CIDC_Sales_Invoice_Tests.app
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{43B5980A-4F32-4415-8D5E-43E851379D9A}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\CIDC_Sales_Invoice.clw = ..\..\libsrc\CIDC_Sales_Invoice.clw
+		..\..\libsrc\CIDC_Sales_Invoice.inc = ..\..\libsrc\CIDC_Sales_Invoice.inc
+		..\..\libsrc\CIDC_Sales_LineItem.clw = ..\..\libsrc\CIDC_Sales_LineItem.clw
+		..\..\libsrc\CIDC_Sales_LineItem.inc = ..\..\libsrc\CIDC_Sales_LineItem.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BABA41E-59E4-4531-AB62-BF4900A3CE5D}.Debug|Win32.Build.0 = Debug|Win32
+		{0BABA41E-59E4-4531-AB62-BF4900A3CE5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0BABA41E-59E4-4531-AB62-BF4900A3CE5D}.Release|Win32.Build.0 = Release|Win32
+		{0BABA41E-59E4-4531-AB62-BF4900A3CE5D}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

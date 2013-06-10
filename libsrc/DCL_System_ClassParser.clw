@@ -91,7 +91,7 @@ CurrentClass                                    &DCL_System_Class
     !ClassFile &= FileMgr.GetAsciiFileInstance(1)
     ClassFile.OpenFile(filename)
     if ClassFile.Errors.Count() > 0
-        dbg.write('Error opening ' & filename)
+        !dbg.write('Error opening ' & filename)
         self.Errors.AddErrors(ClassFile.Errors)
         return FALSE
     end
@@ -102,12 +102,12 @@ CurrentClass                                    &DCL_System_Class
         str.Split('!')
         str.Assign(UPPER(str.GetLine(1))) ! Remove any comments
         str.Trim()
-        dbg.write('State: ' & state & ', Line: ' & txtupper)
+        !dbg.write('State: ' & state & ', Line: ' & txtupper)
         case state
         of State:LookingForClass
             if str.Contains(' CLASS,') or str.Contains(' CLASS(')
                 CurrentClass &= self.AddClass(str.SubString(1,str.IndexOf(' ')-1))
-                dbg.Write('class name set to ' & CurrentClass.Name)
+                !dbg.write('class name set to ' & CurrentClass.Name)
                 State = State:LookingForMethods
             end
         of State:LookingForMethods
@@ -141,15 +141,15 @@ x   long
 !        str.Split('!')
 !        str.Assign(UPPER(str.GetLine(1))) ! Remove any comments
 !        TxtUpper = str.Get()
-!        dbg.write('State: ' & state & ', Line: ' & txtupper)
+!        !dbg.write('State: ' & state & ', Line: ' & txtupper)
 !        case state
 !        of State:LookingForClass
 !            if INSTRING(' CLASS,',TxtUpper,1,1) or Instring(' CLASS(',TxtUpper,1,1)
 !                self.Name = str.SubString(1,INSTRING(' ',Txt,1,1))
-!                dbg.Write('class name set to ' & self.Name)
+!                !dbg.write('class name set to ' & self.Name)
 !                State = State:LookingForMethods
 !            else
-!                dbg.Write('class name not found')
+!                !dbg.write('class name not found')
 !            end
 !        end
 !        

@@ -69,7 +69,7 @@ pos2                                            long
 x                                               long
 parenthesesFound                                bool
     code
-    dbg.Write('Declaration: ' & declaration)
+    !dbg.write('Declaration: ' & declaration)
     pos = INSTRING(' PROCEDURE',UPPER(declaration),1,1)
     if pos > 0
         pos2 = pos + 10
@@ -84,10 +84,10 @@ parenthesesFound                                bool
         if str.BeginsWith('!') then return.
         self.MethodQ.Name = str.Get()
         self.MethodQ.ParameterQ &= new DCL_System_Class_ParameterQueue
-        dbg.Write('Method: ' & self.MethodQ.Name)
+        !dbg.write('Method: ' & self.MethodQ.Name)
         str.Assign(sub(declaration,pos2,len(declaration)))
         str.Trim()
-        dbg.Write('Parameters: ' & str.Get())
+        !dbg.write('Parameters: ' & str.Get())
         if str.EndsWith(',PRIVATE') or str.Contains(',PRIVATE,') then return.
         ADD(self.MethodQ)
         if str.BeginsWith('(')
@@ -98,12 +98,12 @@ parenthesesFound                                bool
             str.Assign(str.SubString(1,str.IndexOf(')')-1))
         end 
         if str.BeginsWith(',') then return. ! No parameters, just attributes
-        dbg.Write('Parameters: ' & str.Get())
+        !dbg.write('Parameters: ' & str.Get())
         str.Split(',')
-        dbg.Write('******* ' & str.Records() & ' parameters ')
+        !dbg.write('******* ' & str.Records() & ' parameters ')
         loop x = 1 to str.Records()
             CLEAR(self.MethodQ.ParameterQ)
-            dbg.write('Parameter: ' & str.GetLine(x))
+            !dbg.write('Parameter: ' & str.GetLine(x))
             paramStr.Assign(str.GetLine(x))
             paramStr.Replace('* ','*',10) ! Remove any spaces after * characters
             paramStr.Trim()
@@ -135,14 +135,14 @@ DCL_System_Class.Debug                      procedure
 x                                               long
 y                                               long
     code
-    dbg.Write('DCL_System_Class.Debug')
-    dbg.Write('Class name: ' & self.Name)
+    !dbg.write('DCL_System_Class.Debug')
+    !dbg.write('Class name: ' & self.Name)
     loop x = 1 to RECORDS(self.MethodQ)
         GET(self.MethodQ,x)
-        dbg.Write('  Method: ' & self.MethodQ.Name)
+        !dbg.write('  Method: ' & self.MethodQ.Name)
         loop y = 1 to RECORDS(self.MethodQ.ParameterQ)
             GET(self.MethodQ.ParameterQ,y)
-            dbg.Write('    Parameter: ' & self.MethodQ.ParameterQ.Type & ' ' & self.MethodQ.ParameterQ.Name & ' ' & choose(self.methodq.ParameterQ.Omittable,'Omittable','') & ' ' & choose(self.methodq.ParameterQ.ByAddress,'ByAddress',''))
+            !dbg.write('    Parameter: ' & self.MethodQ.ParameterQ.Type & ' ' & self.MethodQ.ParameterQ.Name & ' ' & choose(self.methodq.ParameterQ.Omittable,'Omittable','') & ' ' & choose(self.methodq.ParameterQ.ByAddress,'ByAddress',''))
         end
     end
     
@@ -166,7 +166,7 @@ mangler                                         DCL_System_Mangle
             str.Append(mangler.GetExportSymbol(self.MethodQ.ParameterQ.Type,self.MethodQ.ParameterQ.Omittable,self.MethodQ.ParameterQ.ByAddress) )
         end 
         str.Append(' @?')
-        dbg.Write(str.Get())
+        !dbg.write(str.Get())
         qField =  str.Get()
         ADD(q)
     end

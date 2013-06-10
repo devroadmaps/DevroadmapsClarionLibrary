@@ -50,12 +50,16 @@
 #!*****************************************************************************
 #EXTENSION(TestSupportIncludes,'Add global includes for test support'),APPLICATION,DESCRIPTION('[ClarionTest] Global Includes for Test Support')
 #DISPLAY
+#Prompt('Include the DCL library',check),%IncludeDevRoadmapsClarionLib,default(%true),At(10,,180)
 #PROMPT('Generate help comments',CHECK),%ShowHelpComments,Default(%False),At(10,,180)
 #DISPLAY('You can add the name of your Class .INC files below.  The INCLUDE directive will be added for you.'),AT(10,,180,24)
 #BOXED('Class .INC Files')
   #PROMPT('Class .INC File:',@S200),%TestClasses,MULTI('Class .INC File')
 #ENDBOXED
 #!**********
+#AT(%CustomGlobalDeclarations),where(%IncludeDevRoadmapsClarionLib)
+	#PROJECT('DevRoadmapsClarion.lib')
+#ENDAT
 #ATSTART
   #IF(VAREXISTS(%TestGroups) AND ITEMS(%TestGroups) = 0)
     #ADD(%TestGroups,'Default')

@@ -114,7 +114,7 @@ ExpFile                                     DCL_System_IO_AsciiFile
 		loop x = 1 to RECORDS(ExportsQ)
 			GET(exportsq,x)
 			ExpFile.Write(ExportsQ.Txt)
-			dbg.Write(ExportsQ.txt)
+			!dbg.write(ExportsQ.txt)
 		end
 	end
 	loop x = 1 to records(self.CustomExportStatementQ)

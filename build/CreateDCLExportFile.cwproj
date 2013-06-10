@@ -17,6 +17,8 @@
     <vid>full</vid>
     <check_stack>True</check_stack>
     <check_index>True</check_index>
+    <GenerateMap>True</GenerateMap>
+    <line_numbers>False</line_numbers>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>False</DebugSymbols>
