@@ -43,57 +43,71 @@
                                             END
 
 	include('DCL_System_ExpFileWriter.inc'),once
-	include('DCL_System_IO_AsciiFile.inc'),once
+    include('DCL_System_IO_AsciiFile.inc'),once
+    include('DCL_System_String.inc'),once
+
+MaxFilePathLength equate(FILE:MaxFilePath + FILE:MaxFileName + 1)
 
 ExpWriter                               DCL_System_ExpFileWriter
 ListOfIncludeFiles                      DCL_System_IO_AsciiFile
-IncludeFile                             cstring(500)
+TextFileName                            cstring(MaxFilePathLength)
+IncludeFile                             cstring(MaxFilePathLength)
+IniFileName                             cstring(MaxFilePathLength)
+OriginalDirectory                       cstring(MaxFilePathLength)
+WorkingDirectory                        cstring(MaxFilePathLength)
+str                                     DCL_System_String
+pos                                     long
+ExpFileName                             cstring(100)
 
+    CODE
+    
+    ! Save the current directory
+    OriginalDirectory = longpath()
+    
+    ExpFileName = command(1)
+    if ExpFileName = ''
+        message('You must specify the name of the DLL (without extension) for which you are creating an EXP file as the first command line parameter')
+        SetExitCode(99)
+        return
+    end
+    
+    
+    ! Set the working directory from the command line, defaulting to the current directory
+    WorkingDirectory = command(2)
+    if WorkingDirectory = '' then WorkingDirectory = longpath().
+    SetPath(WorkingDirectory)
 
-	CODE
-	if not ListOfIncludeFiles.OpenFile('ClassHeadersToExport.txt') = Level:Benign
-		message('Unable to open file: ' & ListOfIncludeFiles.Errors.GetLastError())
-		return 
-	end
-	
-				
-	loop
-		if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
-		ExpWriter.AddClassHeaderFile(clip(IncludeFile))
-	end
-	ListOfIncludeFiles.CloseFile()
-	
-	
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Clarion_TXAParser.inc')
-!	!ExpWriter.AddClassHeaderFile('..\libsrc\DCL_ClarionTest_TestProcedures.inc') ! DO NOT INCLUDE
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Data_Datafier.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Class.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ClassParser.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_FileLogger.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Logger.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Profiler.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Timer.inc') 
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Diagnostics_Tracer.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ErrorManager.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_ExpFileWriter.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_AsciiFile.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_CaptureStdOutput.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_Directory.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_File.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_IO_FileInfo.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Mangle.inc')
-!    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DirectoryWatcher.inc') ! DO NOT INCLUDE
-!    !ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Runtime_DLL.inc') ! DO NOT INCLUDE
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Stack.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StackNode.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_String.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_StringUtility.inc')
-!    ExpWriter.AddClassHeaderFile('..\libsrc\DCL_System_Threading_CriticalSection.inc')
-!	ExpWriter.AddClassHeaderFile('..\libsrc\DCL_Text_RTF.inc')
+    ! Look in the INI file for the text file containing the list of class headers to export
+    IniFileName = '.\' & ExpFileName & '_Exports.ini'
+    !message('using ini file ' & IniFileName)
+    TextFileName = GetIni('Settings','FileWithListOfClassHeadersToExport','ClassHeadersToExport.txt',IniFileName)
 
+    ! Write back the INI file just in case it doesn't yet exist
+    PutIni('Settings','FileWithListOfClassHeadersToExport',TextFileName,IniFileName)
 
-	ExpWriter.AddCustomExportStatement('  $gLogger @?') 
-	ExpWriter.AddCustomExportStatement('  $gDatafier @?') 
-	!ExpWriter.AddCustomExportStatement('  $DCL_SYSTEM_IO_ASCIIFILEMANAGER @?') 
+    ! Read in the header file names and add them to the EXP writer
+    if ListOfIncludeFiles.OpenFile(TextFileName) = Level:Benign
+        loop
+            if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
+            ExpWriter.AddClassHeaderFile(clip(IncludeFile))
+        end
+        ListOfIncludeFiles.CloseFile()
+    end
 
-	ExpWriter.WriteExpFile('DevRoadmapsClarion')	
+    ! Look in the INI file for the text file containing the list of custom export statements
+    TextFileName = GetIni('Settings','FileWithListOfCustomExports','CustomExports.txt',IniFileName)
+
+    ! Write back the INI file just in case it doesn't yet exist
+    PutIni('Settings','FileWithListOfCustomExports',TextFileName,IniFileName)
+
+    ! Read in any custom export statements and add them
+    if ListOfIncludeFiles.OpenFile(TextFileName) = Level:Benign
+        loop
+            if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
+            ExpWriter.AddCustomExportStatement(clip(IncludeFile))
+        end
+        ListOfIncludeFiles.CloseFile()
+    end
+
+    ExpWriter.WriteExpFile('DevRoadmapsClarion')	
+    Setpath(OriginalDirectory)

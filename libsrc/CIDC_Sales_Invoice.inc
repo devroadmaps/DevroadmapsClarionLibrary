@@ -44,6 +44,7 @@
 
 CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
 !Errors                                          &DCL_System_ErrorManager
+LineItemQ                                   &CIDC_Sales_LineItem_Queue
 Construct                                   Procedure()
 Destruct                                    Procedure()
 AddDetail                                   procedure,*CIDC_Sales_LineItem

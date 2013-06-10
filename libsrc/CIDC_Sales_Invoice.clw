@@ -48,18 +48,28 @@
 
 CIDC_Sales_Invoice.Construct            Procedure()
 	code
+	self.LineItemQ &= new CIDC_Sales_LineItem_Queue
 	!self.Errors &= new DCL_System_ErrorManager
 
 
 CIDC_Sales_Invoice.Destruct             Procedure()
+x                                           long
 	code
+	loop x = 1 to records(self.LineItemQ)
+		get(self.LineItemQ)
+		dispose(self.LineItemQ.LineItem)
+	end
+	free(self.LineItemQ)
+	dispose(self.LineItemQ)
 	!dispose(self.Errors)
 
 CIDC_Sales_Invoice.AddDetail            procedure!,*CIDC_Sales_LineItem
-LineItem                                    &CIDC_Sales_LineItem
+!LineItem                                    &CIDC_Sales_LineItem
 	code
-	LineItem &= new CIDC_Sales_LineItem
-	return LineItem
+	clear(self.LineItemQ)
+	self.LineItemQ.LineItem &= new CIDC_Sales_LineItem
+	add(self.LineItemQ)
+	return self.LineItemQ.LineItem
 	
 CIDC_Sales_Invoice.GetTotal             procedure!,real
 	code

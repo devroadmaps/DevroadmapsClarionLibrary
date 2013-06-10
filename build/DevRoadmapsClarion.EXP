@@ -219,5 +219,5 @@ EXPORTS
   INIT@F15DCL_SYSTEM_POOLl @?
   RELEASEITEMNUMBER@F15DCL_SYSTEM_POOLl @?
   SETSTOPONERROR@F15DCL_SYSTEM_POOLlOsb @?
-  $gLogger @?
-  $gDatafier @?
+  $DCL_GlobalLogger @?
+  $DCL_GlobalDatafier @?
