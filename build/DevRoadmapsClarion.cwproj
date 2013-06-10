@@ -42,7 +42,7 @@
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>
-    <PreBuildEvent>..\build\CreateDCLExportFile.exe ..\build</PreBuildEvent>
+    <PreBuildEvent>..\build\CreateExportFile.exe ..\build</PreBuildEvent>
     <PostBuildEvent>..\build\copyfiles.cmd</PostBuildEvent>
   </PropertyGroup>
 </Project>

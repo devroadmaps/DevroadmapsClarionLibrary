@@ -4,9 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CreateDCLExportFile</RootNamespace>
-    <AssemblyName>CreateDCLExportFile</AssemblyName>
-    <OutputName>CreateDCLExportFile</OutputName>
+    <RootNamespace>CreateExportFile</RootNamespace>
+    <AssemblyName>CreateExportFile</AssemblyName>
+    <OutputName>CreateExportFile</OutputName>
     <DefineConstants>_Compile_DCL_Class_Source_=&gt;1</DefineConstants>
     <stack_size>16384</stack_size>
     <CopyCore>True</CopyCore>
@@ -30,7 +30,7 @@
     <line_numbers>False</line_numbers>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CreateDCLExportFile.clw" />
+    <Compile Include="CreateExportFile.clw" />
     <None Include="DevRoadmapsClarion.EXP" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 # Clarion 2.1.0.2447
-Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "CreateDCLExportFile", "CreateDCLExportFile.cwproj", "{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}"
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "CreateExportFile", "CreateExportFile.cwproj", "{5AE64ABF-A0E3-4E37-BA48-3C84A7C4E7BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{0156918F-16D9-4885-89C2-C60B24F7E88E}"
 	ProjectSection(SolutionItems) = postProject
