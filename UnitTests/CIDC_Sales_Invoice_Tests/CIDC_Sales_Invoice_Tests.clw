@@ -45,13 +45,11 @@
    INCLUDE('TRIGGER.INC'),ONCE
    INCLUDE('WINEXT.INC'),ONCE
 include('CIDC_Sales_Invoice.inc'),once
-include('CIDC_Sales_TaxCodes_CA_MB.inc'),once
+include('Mock_TaxCodes_MB_CA.inc'),once
 include('DCL_System_Diagnostics_Logger.inc'),once
 
 ManitobaTaxCodes                        &CIDC_Sales_TaxCodes
 
-TaxCode:PST                             equate('P')
-TaxCode:GST                             equate('G')
 
    MAP
      MODULE('CIDC_SALES_INVOICE_TESTS_BC.CLW')

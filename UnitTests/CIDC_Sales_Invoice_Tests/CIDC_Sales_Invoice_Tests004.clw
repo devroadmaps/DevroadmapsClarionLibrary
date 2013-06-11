@@ -15,6 +15,6 @@ dbg                         DCL_System_Diagnostics_Logger
 
   CODE
     if ManitobaTaxCodes &= null
-        ManitobaTaxCodes &= new CIDC_Sales_TaxCodes_CA_MB
+        ManitobaTaxCodes &= new Mock_TaxCodes_MB_CA
     end
     return ManitobaTaxCodes

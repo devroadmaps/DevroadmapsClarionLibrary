@@ -23,13 +23,13 @@ LineItem                                    &CIDC_Sales_LineItem
     LineItem &= Invoice.AddDetail()
     LineItem.SetPrice(12.34)
     LineItem.SetQuantity(5)
-    LineItem.SetTaxCode(TaxCode:PST)
+    LineItem.SetTaxCode(TaxCodePST)
     LineItem.Description = 'Item 1'
     
     LineItem &= Invoice.AddDetail()
     LineItem.SetPrice(182.20)
     LineItem.SetQuantity(2)
-    LineItem.SetTaxCode(TaxCode:GST)
+    LineItem.SetTaxCode(TaxCodeGST)
     LineItem.Description = 'Item 2'
     
     AssertThat(Invoice.GetTotal(),IsEqualTo(448.64),'Wrong invoice total')

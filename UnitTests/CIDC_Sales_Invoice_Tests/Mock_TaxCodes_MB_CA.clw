@@ -4,7 +4,6 @@
 !---------------------------------------------------------------------------------------------!
 !region
 !
-!
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met:
 !
@@ -37,10 +36,18 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-    include('CIDC_Sales_TaxCodes.inc'),once
-
-
-CIDC_Sales_TaxCodes_CA_MB                 Class(CIDC_Sales_TaxCodes),Type,Module('CIDC_Sales_TaxCodes_CA_MB.CLW'),Link('CIDC_Sales_TaxCodes_CA_MB.CLW')
-Construct                                       Procedure()
+                                            Member
+                                            Map
                                             End
+
+
+        include('Mock_TaxCodes_MB_CA.inc'),once
+    !include('DCL_System_Diagnostics_Logger.inc'),once
+
+!dbg                                     DCL_System_Diagnostics_Logger
+
+Mock_TaxCodes_MB_CA.Construct                     Procedure()
+    code
+    self.AddTaxCode(TaxCodeGST,5,'GST','Goods & Services Tax')
+    self.AddTaxCode(TaxCodePST,7,'PST','Provincial Sales Tax')
 
