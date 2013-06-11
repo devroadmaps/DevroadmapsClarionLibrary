@@ -50,6 +50,8 @@ include('DCL_System_Diagnostics_Logger.inc'),once
 
 ManitobaTaxCodes                        &CIDC_Sales_TaxCodes
 
+TaxCode:PST                             equate('P')
+TaxCode:GST                             equate('G')
 
    MAP
      MODULE('CIDC_SALES_INVOICE_TESTS_BC.CLW')
@@ -136,7 +138,7 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
     ClarionTest_ctpl.List.TestPriority       = 10
-    ClarionTest_ctpl.List.TestName       = 'CreateLineItem_GetTotal_Verify'
+    ClarionTest_ctpl.List.TestName       = 'CreateInvoice_AddItem_GetTotal_Verify'
     ClarionTest_ctpl.List.TestGroupName      = 'CurrentTests'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
@@ -148,7 +150,7 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     ADD(ClarionTest_ctpl.List)
         
     ClarionTest_ctpl.List.TestPriority       = 10
-    ClarionTest_ctpl.List.TestName       = 'CreateInvoice_AddItem_GetTotal_Verify'
+    ClarionTest_ctpl.List.TestName       = 'CreateLineItem_GetTotal_Verify'
     ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)

@@ -51,4 +51,6 @@ Destruct                                    Procedure()
 AddDetail                                   procedure,*CIDC_Sales_LineItem
 GetTotal                                    procedure,real
 Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-										End
+                                        End
+
+

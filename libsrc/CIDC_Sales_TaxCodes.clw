@@ -42,9 +42,9 @@
 
 
     include('CIDC_Sales_TaxCodes.inc'),once
-    !include('DCL_System_Diagnostics_Logger.inc'),once
+    include('DCL_System_Diagnostics_Logger.inc'),once
 
-!dbg                                     DCL_System_Diagnostics_Logger
+dbg                                     DCL_System_Diagnostics_Logger
 
 CIDC_Sales_TaxCodes.Construct           Procedure()
     code
@@ -70,8 +70,13 @@ CIDC_Sales_TaxCodes.GetTaxAmount        procedure(string taxCode, real itemValue
 TaxRate                                     decimal(5,2)
     code
     if self.GetTaxRate(taxCode,TaxRate) = Level:Benign
-        !taxAmount = (TaxRate / 100) * itemValue
+        dbg.write('got tax rate: ' & TaxRate)
+        dbg.write('value: '& itemValue)
+        taxAmount = (TaxRate / 100) * itemValue
+        dbg.write('tax amount: ' & taxAmount)
         return Level:Benign
+    else
+        dbg.write('Could not get a tax rate for code ' & taxCode)
     end
     taxAmount = 0
     return level:fatal

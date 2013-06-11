@@ -19,8 +19,8 @@ LineItem                                    CIDC_Sales_LineItem
   BeginUnitTest('CreateLineItem_GetTax_Verify')
     LineItem.TaxCodes &= GetTaxCodesObject()
     LineItem.SetPrice(12.34)
-	LineItem.SetQuantity(5)
-	AssertThat(LineItem.GetTotal(),IsEqualTo(61.70),'Wrong invoice total')
+    LineItem.SetTaxCode(TaxCode:PST)
+	AssertThat(LineItem.GetTax(),IsEqualTo(0.86),'Wrong invoice total')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

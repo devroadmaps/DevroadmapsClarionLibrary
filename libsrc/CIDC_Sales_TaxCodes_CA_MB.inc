@@ -43,3 +43,4 @@
 CIDC_Sales_TaxCodes_CA_MB                 Class(CIDC_Sales_TaxCodes),Type,Module('CIDC_Sales_TaxCodes_CA_MB.CLW'),Link('CIDC_Sales_TaxCodes_CA_MB.CLW')
 Construct                                       Procedure()
                                             End
+

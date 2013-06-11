@@ -18,11 +18,8 @@ log                                 DCL_System_Diagnostics_Logger
   addr = address(UnitTestResult)
   BeginUnitTest('CreateLineItem_GetTotal_Verify')
     LineItem.TaxCodes &= GetTaxCodesObject()
-    log.write('before setprice')
     LineItem.SetPrice(12.34)
-    log.write('before setquantity')
     LineItem.SetQuantity(5)
-    log.write('before gettotal')
 	AssertThat(LineItem.GetTotal(),IsEqualTo(61.70),'Wrong invoice total')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE

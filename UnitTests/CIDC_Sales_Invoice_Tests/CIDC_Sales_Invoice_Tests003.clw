@@ -12,20 +12,27 @@
 !!! </summary>
 SetValueAndTaxCode_GetTaxAmount_Verify PROCEDURE  (*long addr) ! Declare Procedure
 
-Value                                       decimal(9,2)
-TaxAmount                                   decimal(9,2)
-TaxRate                                     decimal(5,2)
-
-TaxCodes                                    &CIDC_Sales_TaxCodes
+Invoice                                     CIDC_Sales_Invoice
+LineItem                                    &CIDC_Sales_LineItem
 
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('SetValueAndTaxCode_GetTaxAmount_Verify')
-    TaxCodes &= GetTaxCodesObject()
-    AssertThat(TaxCodes.GetTaxRate('P',TaxRate),IsEqualTo(Level:Benign),'Failure getting PST rate')
-    AssertThat(TaxRate,IsEqualTo(7),'Wrong PST rate')
-    AssertThat(TaxCodes.GetTaxRate('G',TaxRate),IsEqualTo(Level:Benign),'Failure getting GST rate')
-    AssertThat(TaxRate,IsEqualTo(5),'Wrong GST rate')
+    Invoice.Init(GetTaxCodesObject())
+    
+    LineItem &= Invoice.AddDetail()
+    LineItem.SetPrice(12.34)
+    LineItem.SetQuantity(5)
+    LineItem.SetTaxCode(TaxCode:PST)
+    LineItem.Description = 'Item 1'
+    
+    LineItem &= Invoice.AddDetail()
+    LineItem.SetPrice(182.20)
+    LineItem.SetQuantity(2)
+    LineItem.SetTaxCode(TaxCode:GST)
+    LineItem.Description = 'Item 2'
+    
+    AssertThat(Invoice.GetTotal(),IsEqualTo(448.64),'Wrong invoice total')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

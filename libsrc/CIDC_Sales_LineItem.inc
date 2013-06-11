@@ -43,8 +43,9 @@
 
 CIDC_Sales_LineItem                     Class,Type,Module('CIDC_Sales_LineItem.CLW'),Link('CIDC_Sales_LineItem.CLW')
 !Errors                                          &DCL_System_ErrorManager
-Quantity                                    long
+Description                                 cstring(500)
 Price                                       decimal(11,2)
+Quantity                                    long
 TaxCode                                     string(1)
 TaxCodes                                    &CIDC_Sales_TaxCodes
 Construct                                   Procedure()
@@ -56,7 +57,7 @@ GetTotal                                    procedure,real
 !SetDiscountPercent                          procedure(real discountPercent)
 SetPrice                                    procedure(real price)
 SetQuantity                                 procedure(long quantity)
-SetTaxCode                                  procedure(string taxCode),long
+SetTaxCode                                  procedure(string taxCode),long,proc
 										End
 
 CIDC_Sales_LineItem_Queue               queue,type

@@ -60,13 +60,15 @@ CIDC_Sales_LineItem.GetExtended         procedure!,real
 result                                      decimal(11,2)
     code
     result = self.Quantity * self.Price
+    dbg.write('Extended: ' & result & ' - ' & self.description)
     return result
     
 CIDC_Sales_LineItem.GetTax              procedure!,real
 result                                      decimal(11,2)
     code
     if self.TaxCodes &= null then halt(,'Line item does not have a TaxCodes object').
-    self.TaxCodes.GetTaxAmount(self.TaxCode,self.Price,result)
+    self.TaxCodes.GetTaxAmount(self.TaxCode,self.GetExtended(),result)
+    dbg.write('Tax: ' & result & ' - ' & self.description)
     return result
     
     
