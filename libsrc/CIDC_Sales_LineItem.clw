@@ -42,25 +42,54 @@
 
 
 	include('CIDC_Sales_LineItem.inc'),once
-	!include('DCL_System_Diagnostics_Logger.inc'),once
+	include('DCL_System_Diagnostics_Logger.inc'),once
 
-!dbg                                     DCL_System_Diagnostics_Logger
+dbg                                     DCL_System_Diagnostics_Logger
 
 CIDC_Sales_LineItem.Construct           Procedure()
 	code
-	!self.Errors &= new DCL_System_ErrorManager
+    !self.Errors &= new DCL_System_ErrorManager
+    self.Quantity = 1
 
 
 CIDC_Sales_LineItem.Destruct            Procedure()
 	code
 	!dispose(self.Errors)
 
+CIDC_Sales_LineItem.GetExtended         procedure!,real
+result                                      decimal(11,2)
+    code
+    result = self.Quantity * self.Price
+    return result
+    
+CIDC_Sales_LineItem.GetTax              procedure!,real
+result                                      decimal(11,2)
+    code
+    if self.TaxCodes &= null then halt(,'Line item does not have a TaxCodes object').
+    self.TaxCodes.GetTaxAmount(self.TaxCode,self.Price,result)
+    return result
+    
+    
+CIDC_Sales_LineItem.GetTotal            procedure!,real
+    code
+    return self.GetExtended() + self.GetTax()
+
 CIDC_Sales_LineItem.SetPrice            procedure(real price)
-	code
+    code
+    self.Price = price
 	
 CIDC_Sales_LineItem.SetQuantity         procedure(long quantity)
-	code
+    code
+    self.Quantity = quantity
 	
+CIDC_Sales_LineItem.SetTaxCode          procedure(string taxCode)
+    code
+    if self.TaxCodes &= null then halt(,'Line item does not have a TaxCodes object').
+    if self.TaxCodes.Validate(taxCode) = Level:Benign
+        self.TaxCode = taxCode
+        return Level:Benign
+    end
+    return level:fatal
 
 
 

@@ -4,7 +4,6 @@
 !---------------------------------------------------------------------------------------------!
 !region
 !
-!
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met:
 !
@@ -37,18 +36,64 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
-	include('CIDC_Sales_LineItem.inc'),once
+                                        Member
+                                        Map
+                                        End
 
 
+    include('CIDC_Sales_TaxCodes.inc'),once
+    !include('DCL_System_Diagnostics_Logger.inc'),once
 
-CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
-!Errors                                          &DCL_System_ErrorManager
-LineItemQ                                   &CIDC_Sales_LineItem_Queue
-TaxCodes                                    &CIDC_Sales_TaxCodes
-Construct                                   Procedure()
-Destruct                                    Procedure()
-AddDetail                                   procedure,*CIDC_Sales_LineItem
-GetTotal                                    procedure,real
-Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-										End
+!dbg                                     DCL_System_Diagnostics_Logger
+
+CIDC_Sales_TaxCodes.Construct           Procedure()
+    code
+    self.TaxCodeQ &= new CIDC_Sales_TaxCodes_TaxQueue
+    !self.Errors &= new DCL_System_ErrorManager
+
+CIDC_Sales_TaxCodes.Destruct            Procedure()
+    code
+    !dispose(self.Errors)
+    free(self.TaxCodeQ)
+    dispose(self.TaxCodeQ)
+
+CIDC_Sales_TaxCodes.AddTaxCode          procedure(string taxCode, real taxRate, string abbreviation, string description)
+    code
+    clear(self.TaxCodeQ)
+    self.TaxCodeQ.taxCode = taxCode
+    self.TaxCodeQ.TaxRate = taxRate
+    self.TaxCodeQ.abbreviation = abbreviation
+    self.TaxCodeQ.description = description
+    add(self.TaxCodeQ,self.TaxCodeQ.taxCode)
+    
+CIDC_Sales_TaxCodes.GetTaxAmount        procedure(string taxCode, real itemValue,*? taxAmount)!,long
+TaxRate                                     decimal(5,2)
+    code
+    if self.GetTaxRate(taxCode,TaxRate) = Level:Benign
+        !taxAmount = (TaxRate / 100) * itemValue
+        return Level:Benign
+    end
+    taxAmount = 0
+    return level:fatal
+
+CIDC_Sales_TaxCodes.GetTaxRate          procedure(string taxCode, *? taxRate)!,long
+    code
+    clear(self.TaxCodeQ)
+    self.TaxCodeQ.TaxCode = taxCode
+    get(self.TaxCodeQ,self.TaxCodeQ.taxCode)
+    if not errorcode()
+        taxRate = self.TaxCodeQ.TaxRate
+        return Level:Benign
+    end
+    return level:fatal
+    
+    
+CIDC_Sales_TaxCodes.Validate            procedure(string taxCode)!,long
+TaxRate                                     decimal(5,2)
+    code
+    ! TaxRate is a throwaway value to avoid creating another
+    ! method that gets the taxcodeq record.
+    return self.GetTaxRate(taxCode,taxRate)
+
+    
+                  

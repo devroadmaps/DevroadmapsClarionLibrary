@@ -2033,7 +2033,13 @@ EXPORTS
 ;End of initialisation functions
 
 ;Start of Exported Procedures
+  GETTAXCODESOBJECT@F                                     @?
+  CURRENTTESTS@F                                          @?
+  CREATELINEITEM_GETEXTENDED_VERIFY                       @?
+  CREATELINEITEM_GETTOTAL_VERIFY                          @?
   CREATEINVOICE_ADDITEM_GETTOTAL_VERIFY                   @?
+  CREATELINEITEM_GETTAX_VERIFY                            @?
+  SETVALUEANDTAXCODE_GETTAXAMOUNT_VERIFY                  @?
 ;End of Exported Procedures
 
   CLARIONTEST_GETLISTOFTESTPROCEDURES  @?

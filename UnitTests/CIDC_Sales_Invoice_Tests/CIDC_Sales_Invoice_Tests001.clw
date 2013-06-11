@@ -18,7 +18,8 @@ LineItem                                    &CIDC_Sales_LineItem
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('CreateInvoice_AddItem_GetTotal_Verify')
-	LineItem &= Invoice.AddDetail()
+    Invoice.Init(GetTaxCodesObject())
+    LineItem &= Invoice.AddDetail()
 	LineItem.SetPrice(12.34)
 	LineItem.SetQuantity(5)
 	AssertThat(Invoice.GetTotal(),IsEqualTo(61.70),'Wrong invoice total')

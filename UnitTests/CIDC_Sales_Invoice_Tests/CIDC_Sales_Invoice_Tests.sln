@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{43B5
 		..\..\libsrc\CIDC_Sales_Invoice.inc = ..\..\libsrc\CIDC_Sales_Invoice.inc
 		..\..\libsrc\CIDC_Sales_LineItem.clw = ..\..\libsrc\CIDC_Sales_LineItem.clw
 		..\..\libsrc\CIDC_Sales_LineItem.inc = ..\..\libsrc\CIDC_Sales_LineItem.inc
+		..\..\libsrc\CIDC_Sales_TaxCodes.clw = ..\..\libsrc\CIDC_Sales_TaxCodes.clw
+		..\..\libsrc\CIDC_Sales_TaxCodes.inc = ..\..\libsrc\CIDC_Sales_TaxCodes.inc
+		..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.clw = ..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.clw
+		..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.inc = ..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.inc
 	EndProjectSection
 EndProject
 Global

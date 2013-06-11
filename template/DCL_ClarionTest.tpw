@@ -1,4 +1,5 @@
 #!*****************************************************************************
+#!#EXTENSION(GlobalSetupProcedure,'Call this procedure before every unit test'),Procedure,DESCRIPTION('[ClarionTest] Call this procedure before every unit test')
 #!*****************************************************************************
 #EXTENSION(TestSupport,'Support Testing Protocol'),PROCEDURE,DESCRIPTION('[ClarionTest] Support testing protocol')
 #PREPARE

@@ -38,14 +38,25 @@
 !endregion
 
 	!include('DCL_System_ErrorManager.inc'),once
+    include('CIDC_Sales_TaxCodes.inc'),once
 
 
 CIDC_Sales_LineItem                     Class,Type,Module('CIDC_Sales_LineItem.CLW'),Link('CIDC_Sales_LineItem.CLW')
 !Errors                                          &DCL_System_ErrorManager
+Quantity                                    long
+Price                                       decimal(11,2)
+TaxCode                                     string(1)
+TaxCodes                                    &CIDC_Sales_TaxCodes
 Construct                                   Procedure()
 Destruct                                    Procedure()
+GetExtended                                 procedure,real
+GetTax                                      procedure,real
+GetTotal                                    procedure,real
+!SetDiscountAmount                           procedure(real discountPercent)
+!SetDiscountPercent                          procedure(real discountPercent)
 SetPrice                                    procedure(real price)
 SetQuantity                                 procedure(long quantity)
+SetTaxCode                                  procedure(string taxCode),long
 										End
 
 CIDC_Sales_LineItem_Queue               queue,type

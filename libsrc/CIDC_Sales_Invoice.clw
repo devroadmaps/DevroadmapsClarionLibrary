@@ -56,7 +56,7 @@ CIDC_Sales_Invoice.Destruct             Procedure()
 x                                           long
 	code
 	loop x = 1 to records(self.LineItemQ)
-		get(self.LineItemQ)
+		get(self.LineItemQ,x)
 		dispose(self.LineItemQ.LineItem)
 	end
 	free(self.LineItemQ)
@@ -67,14 +67,27 @@ CIDC_Sales_Invoice.AddDetail            procedure!,*CIDC_Sales_LineItem
 !LineItem                                    &CIDC_Sales_LineItem
 	code
 	clear(self.LineItemQ)
-	self.LineItemQ.LineItem &= new CIDC_Sales_LineItem
+    self.LineItemQ.LineItem &= new CIDC_Sales_LineItem
+    if not self.TaxCodes &= null
+        self.LineItemQ.LineItem.TaxCodes &= self.TaxCodes
+    end
 	add(self.LineItemQ)
 	return self.LineItemQ.LineItem
 	
 CIDC_Sales_Invoice.GetTotal             procedure!,real
-	code
-	return 0
+Result                                      decimal(11,2)
+x                                           long
 
+    code
+    loop x = 1 to records(self.LineItemQ)
+        get(self.LineItemQ,x)
+        Result += self.LineItemQ.LineItem.GetTotal()
+    end
+	return result
+
+CIDC_Sales_Invoice.Init                 procedure(*CIDC_Sales_TaxCodes TaxCodes)
+    code
+    self.TaxCodes &= TaxCodes
 
 
 

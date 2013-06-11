@@ -45,7 +45,7 @@
     include('DCL_ClarionTest_TestResult.inc'),once
     include('DCL_System_Diagnostics_logger.inc'),once
 
-logger                                  DCL_System_Diagnostics_Logger
+!logger                                  DCL_System_Diagnostics_Logger
 UnitTestResult                          DCL_ClarionTest_TestResult
 UnitTestType                            long
 UnitTestVariableType                    long

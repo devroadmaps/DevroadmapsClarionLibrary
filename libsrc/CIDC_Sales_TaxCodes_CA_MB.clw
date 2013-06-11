@@ -4,7 +4,6 @@
 !---------------------------------------------------------------------------------------------!
 !region
 !
-!
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met:
 !
@@ -37,18 +36,19 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
-	include('CIDC_Sales_LineItem.inc'),once
+                                            Member
+                                            Map
+                                            End
 
 
+        include('CIDC_Sales_TaxCodes_CA_MB.inc'),once
+        !include('DCL_System_Diagnostics_Logger.inc'),once
 
-CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
-!Errors                                          &DCL_System_ErrorManager
-LineItemQ                                   &CIDC_Sales_LineItem_Queue
-TaxCodes                                    &CIDC_Sales_TaxCodes
-Construct                                   Procedure()
-Destruct                                    Procedure()
-AddDetail                                   procedure,*CIDC_Sales_LineItem
-GetTotal                                    procedure,real
-Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-										End
+!dbg                                     DCL_System_Diagnostics_Logger
+
+CIDC_Sales_TaxCodes_CA_MB.Construct                     Procedure()
+    code
+    self.AddTaxCode('G',5,'GST','Goods & Services Tax')
+    self.AddTaxCode('P',7,'PST','Provincial Sales Tax')
+
+

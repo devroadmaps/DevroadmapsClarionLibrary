@@ -37,18 +37,27 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
-	include('CIDC_Sales_LineItem.inc'),once
+    !include('DCL_System_ErrorManager.inc'),once
 
+CIDC_Sales_TaxCodes_TaxQueue            queue,type
+TaxCode                                     string(1)
+TaxRate                                     decimal(5,2)
+Abbreviation                                cstring(10)
+Description                                 cstring(100)
+                                        end
 
-
-CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
+CIDC_Sales_TaxCodes                     Class,Type,Module('CIDC_Sales_TaxCodes.CLW'),Link('CIDC_Sales_TaxCodes.CLW')
 !Errors                                          &DCL_System_ErrorManager
-LineItemQ                                   &CIDC_Sales_LineItem_Queue
-TaxCodes                                    &CIDC_Sales_TaxCodes
+TaxCodeQ                                    &CIDC_Sales_TaxCodes_TaxQueue
 Construct                                   Procedure()
 Destruct                                    Procedure()
-AddDetail                                   procedure,*CIDC_Sales_LineItem
-GetTotal                                    procedure,real
-Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-										End
+AddTaxCode                                  procedure(string taxCode, real rate, string abbreviation, string description)
+GetTaxAmount                                procedure(string taxCode, real itemValue,*? taxAmount),long,proc
+GetTaxRate                                  procedure(string taxCode, *? taxRate),long
+Validate                                    procedure(string taxCode),long
+                                        End
+
+
+
+
+

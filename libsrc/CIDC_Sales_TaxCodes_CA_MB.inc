@@ -37,18 +37,9 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
-	include('CIDC_Sales_LineItem.inc'),once
+    include('CIDC_Sales_TaxCodes.inc'),once
 
 
-
-CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
-!Errors                                          &DCL_System_ErrorManager
-LineItemQ                                   &CIDC_Sales_LineItem_Queue
-TaxCodes                                    &CIDC_Sales_TaxCodes
-Construct                                   Procedure()
-Destruct                                    Procedure()
-AddDetail                                   procedure,*CIDC_Sales_LineItem
-GetTotal                                    procedure,real
-Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-										End
+CIDC_Sales_TaxCodes_CA_MB                 Class(CIDC_Sales_TaxCodes),Type,Module('CIDC_Sales_TaxCodes_CA_MB.CLW'),Link('CIDC_Sales_TaxCodes_CA_MB.CLW')
+Construct                                       Procedure()
+                                            End

@@ -27,11 +27,28 @@
   </PropertyGroup>
   <ItemGroup>
     <FileDriver Include="ASCII" />
-    <Library Include="DevRoadmapsClarion.lib" />
     <Compile Include="CIDC_Sales_Invoice_Tests.clw">
       <Generated>true</Generated>
     </Compile>
     <Compile Include="CIDC_Sales_Invoice_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests003.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests004.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests005.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests006.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_Invoice_Tests007.clw">
       <Generated>true</Generated>
     </Compile>
     <Compile Include="CIDC_SALES_INVOICE_TESTS_BC.CLW">
@@ -40,6 +57,7 @@
     <Compile Include="CIDC_Sales_Invoice_Tests_BC0.CLW">
       <Generated>true</Generated>
     </Compile>
+    <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
 </Project>
