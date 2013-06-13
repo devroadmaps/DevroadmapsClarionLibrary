@@ -41,13 +41,13 @@
                                             End
 
 
-        include('Mock_TaxCodes_MB_CA.inc'),once
+    include('Mock_TaxList_MB_CA.inc'),once
     !include('DCL_System_Diagnostics_Logger.inc'),once
 
 !dbg                                     DCL_System_Diagnostics_Logger
 
-Mock_TaxCodes_MB_CA.Construct                     Procedure()
+Mock_TaxList_MB_CA.Construct                Procedure()
     code
-    self.AddTaxCode(TaxCodeGST,5,'GST','Goods & Services Tax')
-    self.AddTaxCode(TaxCodePST,7,'PST','Provincial Sales Tax')
+    self.AddTax(TaxCodeGST,5,'GST','Goods & Services Tax')
+    self.AddTax(TaxCodePST,7,'PST','Provincial Sales Tax')
 

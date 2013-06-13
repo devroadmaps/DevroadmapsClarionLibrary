@@ -37,32 +37,28 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
+    include('CIDC_Sales_Types.inc'),once
     include('CIDC_Sales_TaxCodes.inc'),once
 
-
-CIDC_Sales_LineItem                     Class,Type,Module('CIDC_Sales_LineItem.CLW'),Link('CIDC_Sales_LineItem.CLW')
-!Errors                                          &DCL_System_ErrorManager
-Description                                 cstring(500)
-Price                                       decimal(11,2)
-Quantity                                    long
-TaxCode                                     string(1)
-TaxCodes                                    &CIDC_Sales_TaxCodes
-Construct                                   Procedure()
-Destruct                                    Procedure()
-GetExtended                                 procedure,real
-GetTax                                      procedure,real
-GetTotal                                    procedure,real
+CIDC_Sales_LineItem                         Class,Type,Module('CIDC_Sales_LineItem.CLW'),Link('CIDC_Sales_LineItem.CLW'),thread
+Description                                     cstring(500)
+Price                                           like(CIDC_Sales_Type_ItemValue)
+Quantity                                        long
+TaxCodesUsed                                    &CIDC_Sales_TaxCodes
+TaxRate                                         like(CIDC_Sales_Type_TaxRate)
+Construct                                       Procedure()
+Destruct                                        Procedure()
+AddTaxCode                                      procedure(string taxCode)
+GetExtended                                     procedure,real
+GetTotal                                        procedure,real
 !SetDiscountAmount                           procedure(real discountPercent)
 !SetDiscountPercent                          procedure(real discountPercent)
-SetPrice                                    procedure(real price)
-SetQuantity                                 procedure(long quantity)
-SetTaxCode                                  procedure(string taxCode),long,proc
-										End
+SetPrice                                        procedure(real price)
+SetQuantity                                     procedure(long quantity)
+SetTaxCode                                      procedure(string taxCode)
+                                            End
 
-CIDC_Sales_LineItem_Queue               queue,type
-LineNumber                                  long
-LineItem                                    &CIDC_Sales_LineItem
-										end
-
-
+CIDC_Sales_LineItem_Queue                   queue,type
+LineNumber                                      long
+LineItem                                        &CIDC_Sales_LineItem
+                                            end

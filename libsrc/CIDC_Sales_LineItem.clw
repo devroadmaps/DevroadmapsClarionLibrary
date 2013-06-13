@@ -36,63 +36,48 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-										Member
-										Map
-										End
+                                            Member
+                                            Map
+                                            End
 
+    include('CIDC_Sales_LineItem.inc'),once
+    include('DCL_System_Diagnostics_Logger.inc'),once
 
-	include('CIDC_Sales_LineItem.inc'),once
-	include('DCL_System_Diagnostics_Logger.inc'),once
+dbg                                         DCL_System_Diagnostics_Logger
 
-dbg                                     DCL_System_Diagnostics_Logger
-
-CIDC_Sales_LineItem.Construct           Procedure()
-	code
-    !self.Errors &= new DCL_System_ErrorManager
+CIDC_Sales_LineItem.Construct               Procedure()
+    code
     self.Quantity = 1
+    self.TaxCodesUsed &= new CIDC_Sales_TaxCodes
 
+CIDC_Sales_LineItem.Destruct                Procedure()
+    code
+    dispose(self.TaxCodesUsed)
+    
+CIDC_Sales_LineItem.AddTaxCode              procedure(string taxCode)
+    code
+    self.TaxCodesUsed.AddCode(taxCode)
 
-CIDC_Sales_LineItem.Destruct            Procedure()
-	code
-	!dispose(self.Errors)
-
-CIDC_Sales_LineItem.GetExtended         procedure!,real
-result                                      decimal(11,2)
+CIDC_Sales_LineItem.GetExtended             procedure!,real
+result                                          decimal(11,2)
     code
     result = self.Quantity * self.Price
     dbg.write('Extended: ' & result & ' - ' & self.description)
     return result
     
-CIDC_Sales_LineItem.GetTax              procedure!,real
-result                                      decimal(11,2)
+CIDC_Sales_LineItem.GetTotal                procedure!,real
     code
-    if self.TaxCodes &= null then halt(,'Line item does not have a TaxCodes object').
-    self.TaxCodes.GetTaxAmount(self.TaxCode,self.GetExtended(),result)
-    dbg.write('Tax: ' & result & ' - ' & self.description)
-    return result
-    
-    
-CIDC_Sales_LineItem.GetTotal            procedure!,real
-    code
-    return self.GetExtended() + self.GetTax()
+    return self.GetExtended() !+ self.GetTax()
 
-CIDC_Sales_LineItem.SetPrice            procedure(real price)
+CIDC_Sales_LineItem.SetPrice                procedure(real price)
     code
     self.Price = price
 	
-CIDC_Sales_LineItem.SetQuantity         procedure(long quantity)
+CIDC_Sales_LineItem.SetQuantity             procedure(long quantity)
     code
     self.Quantity = quantity
 	
-CIDC_Sales_LineItem.SetTaxCode          procedure(string taxCode)
+CIDC_Sales_LineItem.SetTaxCode              procedure(string taxCode)
     code
-    if self.TaxCodes &= null then halt(,'Line item does not have a TaxCodes object').
-    if self.TaxCodes.Validate(taxCode) = Level:Benign
-        self.TaxCode = taxCode
-        return Level:Benign
-    end
-    return level:fatal
-
-
-
-
+    self.TaxCodesUsed.Reset()
+    self.TaxCodesUsed.AddCode(taxCode)

@@ -45,10 +45,10 @@
    INCLUDE('TRIGGER.INC'),ONCE
    INCLUDE('WINEXT.INC'),ONCE
 include('CIDC_Sales_Invoice.inc'),once
-include('Mock_TaxCodes_MB_CA.inc'),once
+include('Mock_TaxList_MB_CA.inc'),once
 include('DCL_System_Diagnostics_Logger.inc'),once
 
-ManitobaTaxCodes                        &CIDC_Sales_TaxCodes
+ManitobaTaxList                        &CIDC_Sales_TaxList
 
 
    MAP
@@ -67,16 +67,16 @@ CreateLineItem_GetTotal_Verify FUNCTION(*long addr),long,pascal   !
 SetValueAndTaxCode_GetTaxAmount_Verify FUNCTION(*long addr),long,pascal   !
      END
      MODULE('CIDC_SALES_INVOICE_TESTS004.CLW')
-GetTaxCodesObject      FUNCTION(),*CIDC_Sales_TaxCodes   !
+GetTaxListObject       FUNCTION(),*CIDC_Sales_TaxList   !
      END
      MODULE('CIDC_SALES_INVOICE_TESTS005.CLW')
 CreateLineItem_GetExtended_Verify FUNCTION(*long addr),long,pascal   !
      END
-     MODULE('CIDC_SALES_INVOICE_TESTS006.CLW')
-CreateLineItem_GetTax_Verify FUNCTION(*long addr),long,pascal   !
-     END
      MODULE('CIDC_SALES_INVOICE_TESTS007.CLW')
 CurrentTests           PROCEDURE   !
+     END
+     MODULE('CIDC_SALES_INVOICE_TESTS008.CLW')
+CreateInvoice_AddItemsAndMultipleTaxes_GetTotal_Verify FUNCTION(*long addr),long,pascal   !
      END
        include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
 ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr),LONG,PASCAL
@@ -136,7 +136,7 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
     ClarionTest_ctpl.List.TestPriority       = 10
-    ClarionTest_ctpl.List.TestName       = 'CreateInvoice_AddItem_GetTotal_Verify'
+    ClarionTest_ctpl.List.TestName       = 'CreateInvoice_AddItemsAndMultipleTaxes_GetTotal_Verify'
     ClarionTest_ctpl.List.TestGroupName      = 'CurrentTests'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
@@ -154,7 +154,7 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     ADD(ClarionTest_ctpl.List)
         
     ClarionTest_ctpl.List.TestPriority       = 10
-    ClarionTest_ctpl.List.TestName       = 'CreateLineItem_GetTax_Verify'
+    ClarionTest_ctpl.List.TestName       = 'CreateInvoice_AddItem_GetTotal_Verify'
     ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)

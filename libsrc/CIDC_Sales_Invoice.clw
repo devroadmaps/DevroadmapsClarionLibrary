@@ -40,54 +40,78 @@
                                             Map
                                             End
 
+    include('CIDC_Sales_Invoice.inc'),once
+    include('DCL_System_Diagnostics_Logger.inc'),once
 
-	include('CIDC_Sales_Invoice.inc'),once
-	!include('DCL_System_Diagnostics_Logger.inc'),once
+dbg                                     DCL_System_Diagnostics_Logger
 
-!dbg                                     DCL_System_Diagnostics_Logger
+CIDC_Sales_Invoice.Construct                Procedure()
+    code
+    self.LineItemQ &= new CIDC_Sales_LineItem_Queue
+    self.TaxCodesUsed &= new CIDC_Sales_TaxCodes
 
-CIDC_Sales_Invoice.Construct            Procedure()
-	code
-	self.LineItemQ &= new CIDC_Sales_LineItem_Queue
-	!self.Errors &= new DCL_System_ErrorManager
-
-
-CIDC_Sales_Invoice.Destruct             Procedure()
-x                                           long
-	code
-	loop x = 1 to records(self.LineItemQ)
-		get(self.LineItemQ,x)
-		dispose(self.LineItemQ.LineItem)
-	end
-	free(self.LineItemQ)
-	dispose(self.LineItemQ)
-	!dispose(self.Errors)
-
-CIDC_Sales_Invoice.AddDetail            procedure!,*CIDC_Sales_LineItem
-!LineItem                                    &CIDC_Sales_LineItem
-	code
-	clear(self.LineItemQ)
-    self.LineItemQ.LineItem &= new CIDC_Sales_LineItem
-    if not self.TaxCodes &= null
-        self.LineItemQ.LineItem.TaxCodes &= self.TaxCodes
-    end
-	add(self.LineItemQ)
-	return self.LineItemQ.LineItem
-	
-CIDC_Sales_Invoice.GetTotal             procedure!,real
-Result                                      decimal(11,2)
-x                                           long
-
+CIDC_Sales_Invoice.Destruct                 Procedure()
+x                                               long
     code
     loop x = 1 to records(self.LineItemQ)
         get(self.LineItemQ,x)
-        Result += self.LineItemQ.LineItem.GetTotal()
+        dispose(self.LineItemQ.LineItem)
     end
-	return result
+    free(self.LineItemQ)
+    dispose(self.LineItemQ)
+    dispose(self.TaxCodesUsed)
 
-CIDC_Sales_Invoice.Init                 procedure(*CIDC_Sales_TaxCodes TaxCodes)
+CIDC_Sales_Invoice.AddDetail                procedure!,*CIDC_Sales_LineItem
+LineItem                                        &CIDC_Sales_LineItem
     code
-    self.TaxCodes &= TaxCodes
+    clear(self.LineItemQ)
+    self.LineItemQ.LineItem &= new CIDC_Sales_LineItem
+    add(self.LineItemQ)
+    return self.LineItemQ.LineItem
+	
+CIDC_Sales_Invoice.Calculate                procedure
+x                                               long
+y                                               long
+LineItem                                        &CIDC_Sales_LineItem
+taxAmount                                       like(CIDC_Sales_Type_ItemValue)
+    code
+    self.Total = 0
+    self.PreTaxTotal = 0
+    self.TaxTotal = 0
+    self.TaxCodesUsed.Reset()
+    loop x = 1 to records(self.LineItemQ)
+        get(self.LineItemQ,x)
+        LineItem &= self.LineItemQ.LineItem
+        dbg.write('Item ' & LineItem.Description)
+        self.PreTaxTotal += LineItem.GetExtended()
+        ! Sum up the taxable amounts for each tax
+        loop y = 1 to LineItem.TaxCodesUsed.GetCount()
+            dbg.write('Tax code: ' & LineItem.TaxCodesUsed.GetCode(y) & ', extended ' & LineItem.GetExtended())
+            self.TaxCodesUsed.AddToTaxableAmount(LineItem.TaxCodesUsed.GetCode(y),LineItem.GetExtended())
+        end
+    end
+    ! Calculate the taxes payable for each tax code
+    dbg.write('Looping through invoice tax codes')
+    loop x = 1 to self.TaxCodesUsed.GetCount()
+        get(self.TaxCodesUsed.TaxCodeQ,x)
+        if self.TaxList.GetTaxAmount(self.TaxCodesUsed.TaxCodeQ.TaxCode,self.TaxCodesUsed.TaxCodeQ.TaxableTotal,taxAmount) = Level:Fatal
+            stop('Unable to calculate tax: there is no tax object for the tax code ' & self.TaxCodesUsed.TaxCodeQ.TaxCode)
+        end
+        dbg.write('Tax code: ' & self.TaxCodesUsed.TaxCodeQ.TaxCode & ', total ' & self.TaxCodesUsed.TaxCodeQ.TaxableTotal & ', tax ' & taxAmount)
+        self.TaxTotal += taxAmount
+    end
+    self.Total = self.PreTaxTotal + self.TaxTotal
+    
+CIDC_Sales_Invoice.GetTax                   procedure!,real
+    code
+    self.Calculate()
+    return self.TaxTotal
 
+CIDC_Sales_Invoice.GetTotal                 procedure!,real
+    code
+    self.Calculate()
+    return self.Total
 
-
+CIDC_Sales_Invoice.Init                     procedure(*CIDC_Sales_TaxList TaxList)
+    code
+    self.TaxList &= TaxList

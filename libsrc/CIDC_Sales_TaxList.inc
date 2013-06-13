@@ -4,6 +4,7 @@
 !---------------------------------------------------------------------------------------------!
 !region
 !
+!
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met:
 !
@@ -36,73 +37,15 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-                                            Member
-                                            Map
-                                            End
+    include('CIDC_Sales_Tax.inc'),once
 
-    include('CIDC_Sales_TaxCodes.inc'),once
-    include('DCL_System_Diagnostics_Logger.inc'),once
 
-dbg                                         DCL_System_Diagnostics_Logger
-
-CIDC_Sales_TaxCodes.Construct               Procedure()
-    code
-    self.TaxCodeQ &= new CIDC_Sales_TaxCodes_TaxCodeQueue
-
-CIDC_Sales_TaxCodes.Destruct                Procedure()
-    code
-    free(self.TaxCodeQ)
-    dispose(self.TaxCodeQ)
-    
-CIDC_Sales_TaxCodes.AddCode                 procedure(string taxCode)
-    code
-    clear(self.TaxCodeQ)
-    self.TaxCodeQ.TaxCode = taxCode
-    add(self.TaxCodeQ)
-    
-CIDC_Sales_TaxCodes.AddToTaxableAmount      procedure(string taxCode,real amount)
-    code
-    if not self.FindCode(taxCode) then self.AddCode(taxCode).
-    self.TaxCodeQ.TaxableTotal += amount
-    put(self.TaxCodeQ)
-    
-CIDC_Sales_TaxCodes.FindCode                procedure(string taxCode)!,bool
-    code
-    self.TaxCodeQ.TaxCode = taxCode
-    get(self.TaxCodeQ,self.TaxCodeQ.TaxCode)
-    if not errorcode() then return true.
-    return false
-
-CIDC_Sales_TaxCodes.GetCode                 procedure(long index)!,string
-    code
-    if index > records(self.TaxCodeQ) then return ''.
-    get(self.TaxCodeQ,index)
-    return self.TaxCodeQ.TaxCode
-
-CIDC_Sales_TaxCodes.GetCount                procedure!,long
-    code
-    return records(self.TaxCodeQ)
-    
-CIDC_Sales_TaxCodes.GetTax                  procedure(string taxCode)!,real
-    code
-    if self.FindCode(taxCode)
-        return self.TaxCodeQ.Tax
-    end
-    return 0
-CIDC_Sales_TaxCodes.GetTaxableTotal         procedure(string taxCode)!,real
-    code
-    if self.FindCode(taxCode)
-        return self.TaxCodeQ.TaxableTotal
-    end
-    return 0
-    
-CIDC_Sales_TaxCodes.RemoveCode              procedure(string taxCode)
-    code
-    if self.FindCode(taxCode)
-        delete(self.TaxCodeQ)
-    end
-    
-CIDC_Sales_TaxCodes.Reset                   procedure
-    code
-    free(self.TaxCodeQ)
-    
+CIDC_Sales_TaxList                          Class,Type,Module('CIDC_Sales_TaxList.CLW'),Link('CIDC_Sales_TaxList.CLW'),thread
+TaxQ                                            &CIDC_Sales_Tax_Queue
+Construct                                       Procedure()
+Destruct                                        Procedure()
+AddTax                                          procedure(string taxCode, real taxRate, <string abbreviation>,<string description>,long EffectiveDate=0)
+GetTax                                          procedure(string taxCode,long taxDate=0),*CIDC_Sales_Tax
+GetTaxAmount                                    procedure(string taxCode,real amount,*? taxAmount),long
+                                            end 
+                                                

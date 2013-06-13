@@ -18,12 +18,12 @@ LineItem                                    &CIDC_Sales_LineItem
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('SetValueAndTaxCode_GetTaxAmount_Verify')
-    Invoice.Init(GetTaxCodesObject())
+    Invoice.Init(GetTaxListObject())
     
     LineItem &= Invoice.AddDetail()
     LineItem.SetPrice(12.34)
     LineItem.SetQuantity(5)
-    LineItem.SetTaxCode(TaxCodePST)
+    LineItem.AddTaxCode(TaxCodePST)
     LineItem.Description = 'Item 1'
     
     LineItem &= Invoice.AddDetail()

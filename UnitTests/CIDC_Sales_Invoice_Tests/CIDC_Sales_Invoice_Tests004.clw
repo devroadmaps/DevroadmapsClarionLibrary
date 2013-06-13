@@ -10,11 +10,11 @@
 !!! <summary>
 !!! Generated from procedure template - Source
 !!! </summary>
-GetTaxCodesObject    PROCEDURE                             ! Declare Procedure
+GetTaxListObject     PROCEDURE                             ! Declare Procedure
 dbg                         DCL_System_Diagnostics_Logger
 
   CODE
-    if ManitobaTaxCodes &= null
-        ManitobaTaxCodes &= new Mock_TaxCodes_MB_CA
+    if ManitobaTaxList &= null
+        ManitobaTaxList &= new Mock_TaxList_MB_CA
     end
-    return ManitobaTaxCodes
+    return ManitobaTaxList

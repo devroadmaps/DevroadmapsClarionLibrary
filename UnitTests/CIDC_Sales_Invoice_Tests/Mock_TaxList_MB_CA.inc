@@ -39,13 +39,13 @@
 
     !include('DCL_System_ErrorManager.inc'),once
 
-    include('CIDC_Sales_TaxCodes.inc'),once
+    include('CIDC_Sales_TaxList.inc'),once
 
-Mock_TaxCodes_MB_CA                     Class(CIDC_Sales_TaxCodes),Type,Module('Mock_TaxCodes_MB_CA.CLW'),Link('Mock_TaxCodes_MB_CA.CLW')
-Construct                                   Procedure()
-                                        End
+Mock_TaxList_MB_CA                          Class(CIDC_Sales_TaxList),Type,Module('Mock_TaxList_MB_CA.CLW'),Link('Mock_TaxList_MB_CA.CLW')
+Construct                                       Procedure()
+                                            End
 
-TaxCodePST                              equate('P')
-TaxCodeGST                              equate('G')
+TaxCodePST                                  equate('P')
+TaxCodeGST                                  equate('G')
 
 

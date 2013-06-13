@@ -17,10 +17,11 @@ LineItem                                    CIDC_Sales_LineItem
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('CreateLineItem_GetTax_Verify')
-    LineItem.TaxCodes &= GetTaxCodesObject()
+    !LineItem.TaxCodes &= GetTaxCodesObject()
     LineItem.SetPrice(12.34)
     LineItem.SetTaxCode(TaxCodePST)
-	AssertThat(LineItem.GetTax(),IsEqualTo(0.86),'Wrong invoice total')
+    SetUnitTestFailed('No current capability to calculate tax on line item only')
+	!AssertThat(LineItem.GetTax(),IsEqualTo(0.86),'Wrong invoice total')
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
   RETURN 0

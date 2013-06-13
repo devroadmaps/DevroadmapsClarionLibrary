@@ -45,10 +45,10 @@
     <Compile Include="CIDC_Sales_Invoice_Tests005.clw">
       <Generated>true</Generated>
     </Compile>
-    <Compile Include="CIDC_Sales_Invoice_Tests006.clw">
+    <Compile Include="CIDC_Sales_Invoice_Tests007.clw">
       <Generated>true</Generated>
     </Compile>
-    <Compile Include="CIDC_Sales_Invoice_Tests007.clw">
+    <Compile Include="CIDC_Sales_Invoice_Tests008.clw">
       <Generated>true</Generated>
     </Compile>
     <Compile Include="CIDC_SALES_INVOICE_TESTS_BC.CLW">

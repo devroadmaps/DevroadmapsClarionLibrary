@@ -37,20 +37,23 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-	!include('DCL_System_ErrorManager.inc'),once
-	include('CIDC_Sales_LineItem.inc'),once
+    include('CIDC_Sales_LineItem.inc'),once
+    include('CIDC_Sales_TaxList.inc'),once
 
-
-
-CIDC_Sales_Invoice                      Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW')
-!Errors                                          &DCL_System_ErrorManager
-LineItemQ                                   &CIDC_Sales_LineItem_Queue
-TaxCodes                                    &CIDC_Sales_TaxCodes
-Construct                                   Procedure()
-Destruct                                    Procedure()
-AddDetail                                   procedure,*CIDC_Sales_LineItem
-GetTotal                                    procedure,real
-Init                                        procedure(*CIDC_Sales_TaxCodes TaxCodes)
-                                        End
+CIDC_Sales_Invoice                          Class,Type,Module('CIDC_Sales_Invoice.CLW'),Link('CIDC_Sales_Invoice.CLW'),thread
+PreTaxTotal                                     like(CIDC_Sales_Type_ItemValue),protected
+TaxTotal                                        like(CIDC_Sales_Type_ItemValue),protected
+Total                                           like(CIDC_Sales_Type_ItemValue),protected
+LineItemQ                                       &CIDC_Sales_LineItem_Queue
+TaxList                                         &CIDC_Sales_TaxList
+TaxCodesUsed                                    &CIDC_Sales_TaxCodes
+Construct                                       Procedure()
+Destruct                                        Procedure()
+AddDetail                                       procedure,*CIDC_Sales_LineItem
+Calculate                                       procedure
+GetTax                                          procedure,real
+GetTotal                                        procedure,real
+Init                                            procedure(*CIDC_Sales_TaxList TaxList)
+                                            End
 
 

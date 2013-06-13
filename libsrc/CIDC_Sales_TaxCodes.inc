@@ -37,27 +37,25 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-    !include('DCL_System_ErrorManager.inc'),once
+    include('CIDC_Sales_Types.inc'),once
 
-CIDC_Sales_TaxCodes_TaxQueue            queue,type
-TaxCode                                     string(1)
-TaxRate                                     decimal(5,2)
-Abbreviation                                cstring(10)
-Description                                 cstring(100)
-                                        end
+CIDC_Sales_TaxCodes_TaxCodeQueue            queue,type
+TaxCode                                         like(CIDC_Sales_Type_TaxCode)
+TaxableTotal                                    like(CIDC_Sales_Type_ItemValue)
+Tax                                             like(CIDC_Sales_Type_ItemValue)
+                                            end
 
-CIDC_Sales_TaxCodes                     Class,Type,Module('CIDC_Sales_TaxCodes.CLW'),Link('CIDC_Sales_TaxCodes.CLW')
-!Errors                                          &DCL_System_ErrorManager
-TaxCodeQ                                    &CIDC_Sales_TaxCodes_TaxQueue
-Construct                                   Procedure()
-Destruct                                    Procedure()
-AddTaxCode                                  procedure(string taxCode, real rate, string abbreviation, string description)
-GetTaxAmount                                procedure(string taxCode, real itemValue,*? taxAmount),long,proc
-GetTaxRate                                  procedure(string taxCode, *? taxRate),long
-Validate                                    procedure(string taxCode),long
-                                        End
-
-
-
-
-
+CIDC_Sales_TaxCodes                         Class,Type,Module('CIDC_Sales_TaxCodes.CLW'),Link('CIDC_Sales_TaxCodes.CLW'),thread
+TaxCodeQ                                        &CIDC_Sales_TaxCodes_TaxCodeQueue
+Construct                                       Procedure()
+Destruct                                        Procedure()
+AddCode                                         procedure(string taxCode)
+AddToTaxableAmount                              procedure(string taxCode,real amount)
+FindCode                                        procedure(string taxCode),bool
+GetCode                                         procedure(long index),string
+GetCount                                        procedure,long
+GetTax                                          procedure(string taxCode),real
+GetTaxableTotal                                 procedure(string taxCode),real
+RemoveCode                                      procedure(string taxCode)
+Reset                                           procedure
+                                            End

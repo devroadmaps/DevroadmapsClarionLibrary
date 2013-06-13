@@ -17,7 +17,7 @@ log                                 DCL_System_Diagnostics_Logger
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('CreateLineItem_GetTotal_Verify')
-    LineItem.TaxCodes &= GetTaxCodesObject()
+    !LineItem.TaxCodes &= GetTaxCodesObject()
     LineItem.SetPrice(12.34)
     LineItem.SetQuantity(5)
 	AssertThat(LineItem.GetTotal(),IsEqualTo(61.70),'Wrong invoice total')
