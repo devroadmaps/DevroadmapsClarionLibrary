@@ -346,7 +346,7 @@ Resizer.Init                            PROCEDURE(BYTE AppStrategy=AppStrategy:R
     PARENT.Init(AppStrategy,SetWindowMinSize,SetWindowMaxSize)
     SELF.SetParentDefaults()                                 ! Calculate default control parent-child relationships based upon their positions on the window
     SELF.SetStrategy(?Progress, Resize:FixLeft+Resize:FixTop, Resize:LockHeight+Resize:Resize) ! Override strategy for ?TestList1
-    SELF.SetStrategy(?TestList, Resize:FixLeft+Resize:FixTop, Resize:Resize) ! Override strategy for ?TestList1
+    SELF.SetStrategy(?TestList, Resize:LockXPos+Resize:LockYPos, Resize:ConstantRight+Resize:ConstantBottom) ! Override strategy for ?TestList1
     self.SetStrategy(?TestDllPathAndName:Prompt,Resize:FixLeft+Resize:FixTop,Resize:LockSize)
     self.SetStrategy(?TestDllPathAndName,Resize:FixLeft+Resize:FixTop,Resize:LockHeight+resize:resize)
     self.SetParentControl(?LookupTestDllPathAndName,?TestDllPathAndName)
