@@ -55,7 +55,7 @@ RunTestsOnDllChange                         bool
 ListOfDlls                                  DCL_System_IO_Directory
 
 
-Window                                      WINDOW('ClarionTest'),AT(,,600,300),CENTER,GRAY,IMM,SYSTEM,MAX, |
+Window                                      WINDOW('ClarionTest'),AT(,,600,170),CENTER,GRAY,IMM,SYSTEM,MAX, |
                                                 ICON('ClarionTest.ico'),FONT('Segoe UI',8,,FONT:regular),TIMER(100),RESIZE
                                                 TOOLBAR,AT(0,0,600,20),USE(?TOOLBAR1)
                                                     BUTTON('Select All'),AT(2,3,63),USE(?SelectAll),FLAT,TRN
@@ -66,11 +66,13 @@ Window                                      WINDOW('ClarionTest'),AT(,,600,300),
                                                     BUTTON('Run All'),AT(135,3,63,14),USE(?RunAllTests),FLAT,TRN
                                                 END
                                                 PROMPT('Test DLL:'),AT(8,6,35,12),USE(?TestDllPathAndName:Prompt),TRN
-                                                ENTRY(@s255),AT(42,4,533,12),USE(TestDllPathAndName),COLOR(COLOR:BTNFACE),READONLY
+                                                ENTRY(@s255),AT(42,4,533,12),USE(TestDllPathAndName),COLOR(COLOR:BTNFACE), |
+                                                    READONLY
                                                 BUTTON('...'),AT(579,3,12,12),USE(?LookupTestDllPathAndName)
                                                 PROGRESS,AT(3,20,595,8),USE(?Progress),RANGE(0,100)
-                                                LIST,AT(3,32,595,246),USE(?TestList),HVSCROLL,FONT(,10),MARK(testsq.Mark), |
-                                                    FROM(TestsQ),FORMAT('259L(2)|MYT(1)~Test~@s200@1020L(2)Y~Result~@s255@')
+                                                LIST,AT(3,32,595,116),USE(?TestList),HVSCROLL,FONT(,10),MARK(testsq.Mark), |
+                                                    FROM(TestsQ),FORMAT('259L(2)|MYT(1)~Test~@s200@1020L(2)Y~Result~' & |
+                                                    '@s255@')
                                             END
 
 
@@ -92,7 +94,7 @@ CurrentDllsChecksum                         real
     ProgramDirectory = longpath()
     open(window)
     Window{PROP:MinWidth} = 400
-    Window{PROP:MinHeight} = 300
+    Window{PROP:MinHeight} = 170
     !Resizer.Init(AppStrategy:Resize)
     Resizer.Init(AppStrategy:Spread)
     do PrepareProcedure
