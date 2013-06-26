@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<Template author="SoftVelocity" version="1.0">
+	<Config
+		  name        = "Class Methods"
+		  icon        = "CW.File.EmptyFile"
+		  category    = "Clarion"
+		  defaultname = "ClassName.clw"
+		  language    = "Clarion"/>
+	 
+	<Description>.CLW file containing the class's methods</Description>
+	
+	<Files>
+		<File name="${FullName}" language="Clarion">
+			<![CDATA[
+
+  
+${StandardHeader.Clarion}
+
+!------------------------------------------------------------------------------------
+! Change <ClassName> to the name of your class
+!------------------------------------------------------------------------------------
+						
+                                            Member()
+
+                                            Map
+                                            End
+						
+    include('<ClassName>.inc'),once
+						
+!------------------------------------------------------------------------------------
+! Implement your class methods here						
+!------------------------------------------------------------------------------------
+
+!<ClassName>.<MethodName>        procedure(<Parameters>)
+!  code
+!  ! do whatever
+
+]]>
+		</File>
+	</Files>
+	<AdditionalOptions/>
+</Template>
+
+

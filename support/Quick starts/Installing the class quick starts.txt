@@ -1,0 +1,8 @@
+Installing the class file quick starts:
+
+Copy the ClassHeader.xft and ClassMethods.xft files to:
+
+{Clarion root directory}\bin\Addins\BackendBindings\ClarionBinding\ClarionWin\Templates
+
+Restart the IDE and the Class Header and Class Methods quick starts will 
+appear in the quick starts window when you create a new file.

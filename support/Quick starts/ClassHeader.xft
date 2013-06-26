@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Template author="SoftVelocity" version="1.0">
+	<Config
+		  name        = "Class Header"
+		  icon        = "CW.File.EmptyFile"
+		  category    = "Clarion"
+		  defaultname = "ClassName.inc"
+		  language    = "Clarion"/>
+	 
+	<Description>.INC file containing the class definition</Description>
+	
+	<Files>
+		<File name="${FullName}" language="Clarion">
+			<![CDATA[
+
+  MEMBER()
+
+${StandardHeader.Clarion}
+
+!------------------------------------------------------------------------------------
+! Change <ClassName> to the name of your class
+!------------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------------
+! Use of the ,Type attribute is recommended, although it means you'll
+! have to instantiate the class before you can use it
+!------------------------------------------------------------------------------------
+  
+<ClassName>  			class,module('<ClassName>.clw)!,type
+! Add your methods here
+						end
+
+
+]]>
+		</File>
+	</Files>
+	<AdditionalOptions/>
+</Template>
+
+
