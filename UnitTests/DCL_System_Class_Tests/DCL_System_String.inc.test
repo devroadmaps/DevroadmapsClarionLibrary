@@ -41,7 +41,7 @@ Split                   PROCEDURE(STRING pSplitStr)
 Split                   PROCEDURE(Queue pSplitStrq)
 SubString               PROCEDURE(LONG pStart, LONG pStop),STRING
 Trim                    procedure()
-
+TestOfAProcedureWithAReallyLongMangledName procedure(VeryLongClassNamePurelyForDemonstrationPurposes obj1,VeryLongClassNamePurelyForDemonstrationPurposes obj2)
 						!Private Methods
 DisposeLines            PROCEDURE(),PRIVATE
 DisposeStr              PROCEDURE(),PRIVATE

@@ -42,7 +42,7 @@ Filename                                            cstring(FILE:maxfilepath + F
 												end
 
 DCL_System_ExpFileWriter_ExportStatementQueue   queue,type
-ExportStatement                                     cstring(100)
+ExportStatement                                     cstring(500)
 												end
 
 
@@ -56,5 +56,6 @@ AddClassHeaderFile                          procedure(string filename)
 AddCustomExportStatement                    procedure(string statement)
 WriteExpFile                                procedure(string appname,<string directoryname>)
 										End
+
 
 
