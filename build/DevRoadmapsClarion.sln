@@ -105,7 +105,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{B0C0381C
 		..\libsrc\DCL_BaseClass.inc = ..\libsrc\DCL_BaseClass.inc
 		..\libsrc\DCL_Windows_API_Functions.inc = ..\libsrc\DCL_Windows_API_Functions.inc
 		..\libsrc\DCL_Windows_API_Equates.inc = ..\libsrc\DCL_Windows_API_Equates.inc
-		ClassHeadersToExport.txt = ClassHeadersToExport.txt
+		DevRoadmapsClarion_ClassHeadersToExport.txt = DevRoadmapsClarion_ClassHeadersToExport.txt
+		DevRoadmapsClarion_CustomExports.txt = DevRoadmapsClarion_CustomExports.txt
+		DevRoadmapsClarion_Exports.ini = DevRoadmapsClarion_Exports.ini
 	EndProjectSection
 EndProject
 Global

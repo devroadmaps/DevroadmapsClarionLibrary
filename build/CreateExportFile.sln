@@ -24,6 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{0156
 		..\libsrc\DCL_System_Threading_ICriticalSection.inc = ..\libsrc\DCL_System_Threading_ICriticalSection.inc
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{7D941AD5-1EFC-489C-B5D1-FDF158FDDD8B}"
+	ProjectSection(SolutionItems) = postProject
+		DevRoadmapsClarion_Exports.ini = DevRoadmapsClarion_Exports.ini
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

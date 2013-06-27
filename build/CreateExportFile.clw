@@ -36,36 +36,38 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-  PROGRAM
+                                            PROGRAM
 
 
                                             MAP
                                             END
 
-	include('DCL_System_ExpFileWriter.inc'),once
+    include('DCL_System_ExpFileWriter.inc'),once
     include('DCL_System_IO_AsciiFile.inc'),once
     include('DCL_System_String.inc'),once
 
-MaxFilePathLength equate(FILE:MaxFilePath + FILE:MaxFileName + 1)
+MaxFilePathLength                           equate(FILE:MaxFilePath + FILE:MaxFileName + 1)
 
-ExpWriter                               DCL_System_ExpFileWriter
-ListOfIncludeFiles                      DCL_System_IO_AsciiFile
-TextFileName                            cstring(MaxFilePathLength)
-IncludeFile                             cstring(MaxFilePathLength)
-IniFileName                             cstring(MaxFilePathLength)
-OriginalDirectory                       cstring(MaxFilePathLength)
-WorkingDirectory                        cstring(MaxFilePathLength)
-str                                     DCL_System_String
-pos                                     long
-ExpFileName                             cstring(100)
+ExpWriter                                   DCL_System_ExpFileWriter
+AsciiFile                                   DCL_System_IO_AsciiFile
+FileWithListOfClassHeadersToExport          cstring(MaxFilePathLength)
+FileWithListOfCustomExports                 cstring(MaxFilePathLength)
+IncludeFile                                 cstring(MaxFilePathLength)
+IniFileName                                 cstring(MaxFilePathLength)
+OriginalDirectory                           cstring(MaxFilePathLength)
+WorkingDirectory                            cstring(MaxFilePathLength)
+str                                         DCL_System_String
+pos                                         long
+DllName                                     cstring(100)
+FileText                                    cstring(1000)
 
     CODE
     
     ! Save the current directory
     OriginalDirectory = longpath()
     
-    ExpFileName = command(1)
-    if ExpFileName = ''
+    DllName = command(1)
+    if DllName = ''
         message('You must specify the name of the DLL (without extension) for which you are creating an EXP file as the first command line parameter')
         SetExitCode(99)
         return
@@ -76,37 +78,48 @@ ExpFileName                             cstring(100)
     WorkingDirectory = command(2)
     if WorkingDirectory = '' then WorkingDirectory = longpath().
     SetPath(WorkingDirectory)
-
+    
     ! Look in the INI file for the text file containing the list of class headers to export
-    IniFileName = '.\' & ExpFileName & '_Exports.ini'
+    IniFileName = '.\' & DllName & '_Exports.ini'
     !message('using ini file ' & IniFileName)
-    TextFileName = GetIni('Settings','FileWithListOfClassHeadersToExport','ClassHeadersToExport.txt',IniFileName)
-
+    
+    FileWithListOfClassHeadersToExport = GetIni('Settings','FileWithListOfClassHeadersToExport','ClassHeadersToExport.txt',IniFileName)
     ! Write back the INI file just in case it doesn't yet exist
-    PutIni('Settings','FileWithListOfClassHeadersToExport',TextFileName,IniFileName)
+    PutIni('Settings','FileWithListOfClassHeadersToExport',FileWithListOfClassHeadersToExport,IniFileName)
+    
+    if not exists(FileWithListOfClassHeadersToExport)
+        message('Could not find the file with the list of class headers to export: ' & FileWithListOfClassHeadersToExport)
+        SetExitCode(99)
+        return
+    end
+    
+    FileWithListOfClassHeadersToExport = GetIni('Settings','FileWithListOfClassHeadersToExport',DllName & '_ClassHeadersToExport.txt',IniFileName)
+    ! Write back the INI file just in case it doesn't yet exist
+    PutIni('Settings','FileWithListOfClassHeadersToExport',FileWithListOfClassHeadersToExport,IniFileName)
+
 
     ! Read in the header file names and add them to the EXP writer
-    if ListOfIncludeFiles.OpenFile(TextFileName) = Level:Benign
+    if AsciiFile.OpenFile(FileWithListOfClassHeadersToExport) = Level:Benign
         loop
-            if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
-            ExpWriter.AddClassHeaderFile(clip(IncludeFile))
+            if AsciiFile.Read(FileText) <> Level:Benign then break.
+            ExpWriter.AddClassHeaderFile(clip(FileText))
         end
-        ListOfIncludeFiles.CloseFile()
+        AsciiFile.CloseFile()
     end
 
     ! Look in the INI file for the text file containing the list of custom export statements
-    TextFileName = GetIni('Settings','FileWithListOfCustomExports','CustomExports.txt',IniFileName)
+    FileWithListOfCustomExports = GetIni('Settings','FileWithListOfCustomExports',DllName & '_CustomExports.txt',IniFileName)
 
     ! Write back the INI file just in case it doesn't yet exist
-    PutIni('Settings','FileWithListOfCustomExports',TextFileName,IniFileName)
+    PutIni('Settings','FileWithListOfCustomExports',FileWithListOfCustomExports,IniFileName)
 
     ! Read in any custom export statements and add them
-    if ListOfIncludeFiles.OpenFile(TextFileName) = Level:Benign
+    if AsciiFile.OpenFile(FileWithListOfCustomExports) = Level:Benign
         loop
-            if ListOfIncludeFiles.Read(IncludeFile) <> Level:Benign then break.
-            ExpWriter.AddCustomExportStatement(clip(IncludeFile))
+            if AsciiFile.Read(FileText) <> Level:Benign then break.
+            ExpWriter.AddCustomExportStatement(clip(FileText))
         end
-        ListOfIncludeFiles.CloseFile()
+        AsciiFile.CloseFile()
     end
 
     ExpWriter.WriteExpFile('DevRoadmapsClarion')	
