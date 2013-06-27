@@ -122,5 +122,5 @@ FileText                                    cstring(1000)
         AsciiFile.CloseFile()
     end
 
-    ExpWriter.WriteExpFile('DevRoadmapsClarion')	
+    ExpWriter.WriteExpFile(DllName)	
     Setpath(OriginalDirectory)
