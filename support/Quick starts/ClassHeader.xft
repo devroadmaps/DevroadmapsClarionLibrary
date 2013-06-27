@@ -4,7 +4,7 @@
 		  name        = "Class Header"
 		  icon        = "CW.File.EmptyFile"
 		  category    = "Clarion"
-		  defaultname = "ClassName.inc"
+		  defaultname = "ClassName?.inc"
 		  language    = "Clarion"/>
 	 
 	<Description>.INC file containing the class definition</Description>
@@ -13,12 +13,10 @@
 		<File name="${FullName}" language="Clarion">
 			<![CDATA[
 
-  MEMBER()
-
 ${StandardHeader.Clarion}
 
 !------------------------------------------------------------------------------------
-! Change <ClassName> to the name of your class
+! Change ClassName? to the name of your class
 !------------------------------------------------------------------------------------
 
 !------------------------------------------------------------------------------------
@@ -26,8 +24,8 @@ ${StandardHeader.Clarion}
 ! have to instantiate the class before you can use it
 !------------------------------------------------------------------------------------
   
-<ClassName>  			class,module('<ClassName>.clw)!,type
-! Add your methods here
+ClassName?  			class,module('ClassName?.clw'),link('ClassName?',1),Thread!,Type
+!ExampleMethod              procedure
 						end
 
 
@@ -36,5 +34,3 @@ ${StandardHeader.Clarion}
 	</Files>
 	<AdditionalOptions/>
 </Template>
-
-

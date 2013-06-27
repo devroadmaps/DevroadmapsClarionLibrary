@@ -4,7 +4,7 @@
 		  name        = "Class Methods"
 		  icon        = "CW.File.EmptyFile"
 		  category    = "Clarion"
-		  defaultname = "ClassName.clw"
+		  defaultname = "ClassName?.clw"
 		  language    = "Clarion"/>
 	 
 	<Description>.CLW file containing the class's methods</Description>
@@ -17,7 +17,7 @@
 ${StandardHeader.Clarion}
 
 !------------------------------------------------------------------------------------
-! Change <ClassName> to the name of your class
+! Change ClassName? to the name of your class
 !------------------------------------------------------------------------------------
 						
                                             Member()
@@ -25,13 +25,13 @@ ${StandardHeader.Clarion}
                                             Map
                                             End
 						
-    include('<ClassName>.inc'),once
+    include('ClassName?.inc'),once
 						
 !------------------------------------------------------------------------------------
 ! Implement your class methods here						
 !------------------------------------------------------------------------------------
 
-!<ClassName>.<MethodName>        procedure(<Parameters>)
+!ClassName?.ExampleMethod        procedure
 !  code
 !  ! do whatever
 
@@ -40,5 +40,3 @@ ${StandardHeader.Clarion}
 	</Files>
 	<AdditionalOptions/>
 </Template>
-
-
