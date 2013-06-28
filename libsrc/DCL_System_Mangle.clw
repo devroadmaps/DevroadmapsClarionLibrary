@@ -65,6 +65,7 @@ PreventByAddressFlag                            bool
     case DataType
     of 'FILE'
         str.Append('Bf')
+        if byAddress then PreventByAddressFlag = true.
     of 'BLOB'
         str.Append('Bb')
     of 'KEY'
@@ -128,7 +129,7 @@ PreventByAddressFlag                            bool
         if byAddress and not PreventByAddressFlag 
             str.Prepend('R')
         end
-        if Omittable then str.Prepend('O') .
+        if Omittable and not PreventByAddressFlag then str.Prepend('O') .
     end
 
     return str.Get()
