@@ -95,7 +95,7 @@ initialised                                 byte(0)
 EventTime                                   long
 	CODE
 	Watcher &= pClass + 0 ! get a reference to the class
-	logger.write('WAITPROC - created')
+	!logger.write('WAITPROC - created')
 	if not Watcher.noNotifyOnStartup
 		! trigger one event immediately to catch any waiting files
 		notify(Watcher.NotifyCode, Watcher.MonitorThread, Watcher.NotifyParameter)
@@ -103,7 +103,7 @@ EventTime                                   long
 	loop
 		!if waitstruct.notifhandle has becomes signaled then send a message
 		if MT_waitForMultipleObjects(2,address(Watcher.WaitStruct.notifhandle),0,infinite)=Wait_object_0  then
-			logger.write('WAITPROC - dirchange received, ' & watcher.WaitStruct.hEvent & ' ' & watcher.WaitStruct.NotifHandle)
+			!logger.write('WAITPROC - dirchange received, ' & watcher.WaitStruct.hEvent & ' ' & watcher.WaitStruct.NotifHandle)
 !			EventTime = clock()
 !			logger.write('LastEventTime                : ' & LastEventTime)
 !			logger.write('EventTime                    : ' & eventtime)
@@ -118,11 +118,11 @@ EventTime                                   long
 				cycle
 			end
 		end
-		logger.write('WAITPROC - exit event received')
+		!logger.write('WAITPROC - exit event received')
 		break
 	end !sleep again if reset
 	clear(Watcher.waitThread)
-	logger.write('WAITPROC - exiting')
+	!logger.write('WAITPROC - exiting')
 	return
 	
 !-------------------------------------------------------------------------------
@@ -197,7 +197,7 @@ Targetdir                                           CSTRING(512)
 		SELF.Kill()
 		return return:fatal
 	end
-	logger.write('INIT - dir='&TargetDir)
+	!logger.write('INIT - dir='&TargetDir)
 
 	!create a thread to listen
 	SELF.waitThread = start(WaitProc,,address(self))
@@ -226,7 +226,7 @@ DCL_System_Runtime_DirectoryWatcher.Kill        Procedure()
 		MT_FindCloseChangeNotification(SELF.WaitStruct.NotifHandle)
 		clear(SELF.WaitStruct.Notifhandle)
 	end
-	logger.write('DCL_System_Runtime_DirectoryWatcher.reset - end')
+	!logger.write('DCL_System_Runtime_DirectoryWatcher.reset - end')
 	RETURN
 !-------------------------------------------------------------------------------
 DCL_System_Runtime_DirectoryWatcher.reset       Procedure()
@@ -234,14 +234,14 @@ DCL_System_Runtime_DirectoryWatcher.reset       Procedure()
 ! Only needed if AutoReset=false on init.
 ! This function sets up the wait again
 	code
-	logger.write('DCL_System_Runtime_DirectoryWatcher.reset - start')
+	!logger.write('DCL_System_Runtime_DirectoryWatcher.reset - start')
 	If SELF.waitThread then
-		logger.write('DCL_System_Runtime_DirectoryWatcher.reset - setting event')
+		!logger.write('DCL_System_Runtime_DirectoryWatcher.reset - setting event')
 		MT_SetEvent(SELF.WaitStruct.hevent)
 		MT_sleep(100)
 	end
 	If SELF.WaitStruct.NotifHandle then
-		logger.write('DCL_System_Runtime_DirectoryWatcher.reset - findind next')
+		!logger.write('DCL_System_Runtime_DirectoryWatcher.reset - findind next')
 		MT_FindNextchangeNotification(SELF.WaitStruct.Notifhandle)
 		SELF.waitThread = start(WaitProc,,address(self))
 		resume(SELF.waitThread)
@@ -256,7 +256,7 @@ notifyParam                                         long
 	if event() = event:notify
 		if notification(notifyCode, , notifyParam)
 			if notifyCode = self.NotifyCode
-				logger.write('TakeEvent notifycode ' & notifyCode & ', notifyparam '& notifyParam)
+				!logger.write('TakeEvent notifycode ' & notifyCode & ', notifyparam '& notifyParam)
 				self.DoTask()
 			end
 		end

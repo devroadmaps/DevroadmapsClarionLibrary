@@ -251,7 +251,7 @@ DCL_System_IO_AsciiFile.Read             PROCEDURE(*CSTRING TextLine)!, BYTE, PR
 
 
 DCL_System_IO_AsciiFile.Replace          procedure(string filename,*queue q,*cstring qfield)	
-txt                                         cstring(5000)
+txt                                         cstring(ASCII_IO_RECORD_SIZE)
 reccount                                    long
 replace                                     byte(true)
     code
