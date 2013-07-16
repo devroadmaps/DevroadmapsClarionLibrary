@@ -47,7 +47,7 @@
 
 dbg                                     DCL_System_Diagnostics_Logger
 
-ASCII_IO_RECORD_SIZE                    EQUATE(100000)
+ASCII_IO_RECORD_SIZE                    EQUATE(65520)
 
 !AsciiFilePoolInstance                       class(DCL_System_Pool)
 AsciiFilePoolType                       class(DCL_System_Pool),type
