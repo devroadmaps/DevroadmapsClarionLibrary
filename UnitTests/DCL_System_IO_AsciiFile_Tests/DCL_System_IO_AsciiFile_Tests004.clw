@@ -25,8 +25,8 @@ TestFile                        DCL_System_IO_AsciiFile
     !gdbg.write('test')
   addr = address(UnitTestResult)
   BeginUnitTest('CreateFile_Replace_Verify')
-	testfilename = longpath() & '\DCL_System_IO_AsciiFile_Tests\testdata'
-	if not exists(testfilename)
+    testfilename = GetTestDirectory() & '\testdata'
+    if not exists(testfilename)
 		CreateDirectory(testfilename)
 	end
 	AssertThat(exists(testfilename),IsEqualTo(true),'Directory does not exist: ' & testfilename)
@@ -39,7 +39,7 @@ TestFile                        DCL_System_IO_AsciiFile
         testq.txt = 'line ' & x
         add(testq)
 	end
-	testfile.Replace(testfilename,testq,testq.txt)
+	AssertThat(testfile.Replace(testfilename,testq,testq.txt),IsEqualTo(Level:Benign),'Replace method failed')
 	AssertThat(exists(testfilename),IsEqualTo(true),'Could not create ' & testfilename)
 	
 	testfile.openfile(testfilename)
@@ -83,8 +83,8 @@ dbg                                 DCL_System_Diagnostics_Logger
 	
 	!----- Set up testfile1 ---
 
-    testfilename1 = longpath() & '\DCL_System_IO_AsciiFile_Tests\testdata'
-	if not exists(testfilename1)
+    testfilename1 = GetTestDirectory() & '\testdata'
+    if not exists(testfilename1)
 		CreateDirectory(testfilename1)
 	end
 	AssertThat(exists(testfilename1),IsEqualTo(true),'Directory does not exist: ' & testfilename1)
@@ -98,8 +98,8 @@ dbg                                 DCL_System_Diagnostics_Logger
 	
 	!----- Set up testfile2 ---
 
-	testfilename2 = longpath() & '\DCL_System_IO_AsciiFile_Tests\testdata'
-	if not exists(testfilename2)
+    testfilename2 = GetTestDirectory() & '\testdata'
+    if not exists(testfilename2)
 		CreateDirectory(testfilename2)
 	end
 	AssertThat(exists(testfilename2),IsEqualTo(true),'Directory does not exist: ' & testfilename2)

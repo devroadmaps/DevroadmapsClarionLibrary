@@ -2037,6 +2037,8 @@ EXPORTS
   CREATETWOFILES_VERIFYCONTENTS                           @?
   CREATEFILE_VERIFYCONTENTS                               @?
   CREATEFILE_COMPAREAGAINSTQUEUE                          @?
+  READ50KTEXT_VERIFYLENGTH                                @?
+  GETTESTDIRECTORY@F                                      @?
   CREATEFILE_REPLACE_VERIFY                               @?
 ;End of Exported Procedures
 

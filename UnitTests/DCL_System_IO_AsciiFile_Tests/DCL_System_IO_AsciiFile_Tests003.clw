@@ -27,8 +27,8 @@ dbg                             DCL_System_Diagnostics_Logger
   BeginUnitTest('CreateFile_VerifyContents')
 	dbg.SetPrefix('***')
 
-    testfilename = longpath() & '\DCL_System_IO_AsciiFile_Tests\testdata'
-	if not exists(testfilename)
+    testfilename = GetTestDirectory() & '\testdata'
+    if not exists(testfilename)
 		CreateDirectory(testfilename)
 	end
 	AssertThat(exists(testfilename),IsEqualTo(true),'Directory does not exist: ' & testfilename)
@@ -77,7 +77,7 @@ txt                                 cstring(500)
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('CreateFile_CompareAgainstQueue')
-	testfilename = longpath() & '\testdata'
+	testfilename = GetTestDirectory() & '\testdata'
 	if not exists(testfilename)
 		CreateDirectory(testfilename)
 	end
@@ -109,7 +109,7 @@ txt                                 cstring(500)
 		testq.txt = 'line ' & x - 1
 		add(testq)
 	end
-	testfile.replace(testfilename,testq,testq.txt)
+	AssertThat(testfile.replace(testfilename,testq,testq.txt),IsEqualTo(level:benign),'Replace method failed')
 	
 
 	testfile.openfile(testfilename)

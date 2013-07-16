@@ -66,6 +66,12 @@ CreateFile_CompareAgainstQueue FUNCTION(*long addr),long,pascal   !
 CreateFile_Replace_Verify FUNCTION(*long addr),long,pascal   !
 CreateTwoFiles_VerifyContents FUNCTION(*long addr),long,pascal   !
      END
+     MODULE('DCL_SYSTEM_IO_ASCIIFILE_TESTS005.CLW')
+Read50KText_VerifyLength FUNCTION(*long addr),long,pascal   !
+     END
+     MODULE('DCL_SYSTEM_IO_ASCIIFILE_TESTS006.CLW')
+GetTestDirectory       FUNCTION(),string   !
+     END
        include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
      	include('cwutil.inc'),once
 ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr),LONG,PASCAL
@@ -138,6 +144,12 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
         
     ClarionTest_ctpl.List.TestPriority       = 10
     ClarionTest_ctpl.List.TestName       = 'CreateFile_CompareAgainstQueue'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'Read50KText_VerifyLength'
     ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)

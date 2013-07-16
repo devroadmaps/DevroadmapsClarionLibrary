@@ -37,6 +37,12 @@
     <Compile Include="DCL_System_IO_AsciiFile_Tests004.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="DCL_System_IO_AsciiFile_Tests005.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_IO_AsciiFile_Tests006.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="DCL_SYSTEM_IO_ASCIIFILE_TESTS_BC.CLW">
       <Generated>true</Generated>
     </Compile>
