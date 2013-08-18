@@ -95,7 +95,7 @@ lpszProgressTitle                           LONG
 										END
 
 
-dbg                                     DCL_System_Diagnostics_Logger
+!dbg                                     DCL_System_Diagnostics_Logger
 
 SHFileOp                                LIKE(SHFILEOPgroup)
 Source                                  CSTRING(256)
@@ -105,7 +105,7 @@ Destination                             CSTRING(256)
 DCL_System_IO_Directory.Construct       procedure
 	code
 	self.useRmDir = true
-	dbg.SetPrefix('DCL_System_IO_Directory')
+	!dbg.SetPrefix('DCL_System_IO_Directory')
 	self.FilesQ &= new DCL_System_IO_DirectoryFilesQueue
 	
 DCL_System_IO_Directory.Destruct        procedure
@@ -154,9 +154,9 @@ x                                                   long
 !		dispose(self.FilesQ.DCL_System_IO_FileInfo)
 !	END
 	free(self.FilesQ)
-	dbg.Write('Looking in path ' & self.Path & self.Filter)
+	!dbg.Write('Looking in path ' & self.Path & self.Filter)
 	DIRECTORY(self.FilesQ,self.Path & self.Filter, ff_:Normal)  
-	dbg.Write(records(self.FilesQ) & ' directory items found')
+	!dbg.Write(records(self.FilesQ) & ' directory items found')
 !	loop x = 1 to records(Files)
 !		get(Files,x)
 !		if (self.MaxDaysOld > 0)
@@ -209,7 +209,7 @@ stdout                                      DCL_System_IO_CaptureStdOutput
 	ELSE
 		!dbg.SetPrefix('DCL_System_IO_Directory.RemoveDirectory')
 		if OnlyIfEmpty
-			dbg.write('calling Clarion RemoveDirectory function')
+			!dbg.write('calling Clarion RemoveDirectory function')
 			RemoveDirectory(self.Path)
 		ELSE
 			dirname = clip(self.Path) & '<0><0>' ! Needed for Win7 and maybe Vista
@@ -217,9 +217,9 @@ stdout                                      DCL_System_IO_CaptureStdOutput
 			shfop.wFunc  = FO_DELETE
 			shfop.pFROM  = ADDRESS(dirname)
 			shfop.fFlags = FOF_NOCONFIRMATION + FOF_NOCONFIRMMKDIR
-			dbg.write('calling SHFileOperation to delete ' & self.Path)
+			!dbg.write('calling SHFileOperation to delete ' & self.Path)
 			err = SHFileOperation(ADDRESS(shfop))
-			dbg.write('return: ' & err)
+			!dbg.write('return: ' & err)
 		end
 	END
 	
@@ -234,7 +234,7 @@ DCL_System_IO_Directory.SetFilter       procedure(string filter)
 	CODE
 	self.RefreshNeeded = true
 	self.filter = filter
-	dbg.Write('Filter: ' & self.filter)
+	!dbg.Write('Filter: ' & self.filter)
 
 DCL_System_IO_Directory.SetMaxDaysOld   procedure(long maxDays)
 	CODE

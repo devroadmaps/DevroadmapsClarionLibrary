@@ -82,22 +82,22 @@ taxAmount                                       like(CIDC_Sales_Type_ItemValue)
     loop x = 1 to records(self.LineItemQ)
         get(self.LineItemQ,x)
         LineItem &= self.LineItemQ.LineItem
-        dbg.write('Item ' & LineItem.Description)
+        !dbg.write('Item ' & LineItem.Description)
         self.PreTaxTotal += LineItem.GetExtended()
         ! Sum up the taxable amounts for each tax
         loop y = 1 to LineItem.TaxCodesUsed.GetCount()
-            dbg.write('Tax code: ' & LineItem.TaxCodesUsed.GetCode(y) & ', extended ' & LineItem.GetExtended())
+            !dbg.write('Tax code: ' & LineItem.TaxCodesUsed.GetCode(y) & ', extended ' & LineItem.GetExtended())
             self.TaxCodesUsed.AddToTaxableAmount(LineItem.TaxCodesUsed.GetCode(y),LineItem.GetExtended())
         end
     end
     ! Calculate the taxes payable for each tax code
-    dbg.write('Looping through invoice tax codes')
+    !dbg.write('Looping through invoice tax codes')
     loop x = 1 to self.TaxCodesUsed.GetCount()
         get(self.TaxCodesUsed.TaxCodeQ,x)
         if self.TaxList.GetTaxAmount(self.TaxCodesUsed.TaxCodeQ.TaxCode,self.TaxCodesUsed.TaxCodeQ.TaxableTotal,taxAmount) = Level:Fatal
             stop('Unable to calculate tax: there is no tax object for the tax code ' & self.TaxCodesUsed.TaxCodeQ.TaxCode)
         end
-        dbg.write('Tax code: ' & self.TaxCodesUsed.TaxCodeQ.TaxCode & ', total ' & self.TaxCodesUsed.TaxCodeQ.TaxableTotal & ', tax ' & taxAmount)
+        !dbg.write('Tax code: ' & self.TaxCodesUsed.TaxCodeQ.TaxCode & ', total ' & self.TaxCodesUsed.TaxCodeQ.TaxableTotal & ', tax ' & taxAmount)
         self.TaxTotal += taxAmount
     end
     self.Total = self.PreTaxTotal + self.TaxTotal

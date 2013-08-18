@@ -8,6 +8,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{6C5D
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{88DE862D-6993-4740-96D1-67199F80F662}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_Windows_API_Equates.inc = ..\libsrc\DCL_Windows_API_Equates.inc
+		..\libsrc\DCL_Windows_API_Functions.inc = ..\libsrc\DCL_Windows_API_Functions.inc
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3B4D0D90-E85F-4B2A-A8CE-0B822C93BCC4}"
+	ProjectSection(SolutionItems) = postProject
+		..\libsrc\DCL_UI_BackgroundProgressDisplay.clw = ..\libsrc\DCL_UI_BackgroundProgressDisplay.clw
+		..\libsrc\DCL_UI_BackgroundProgressDisplay.inc = ..\libsrc\DCL_UI_BackgroundProgressDisplay.inc
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClarionTest", "ClarionTest", "{B657FC8D-6553-4B17-B75E-8E97D7CDFACC}"
 	ProjectSection(SolutionItems) = postProject
 		..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc = ..\libsrc\DCL_ClarionTest_GlobalCodeAndData.inc
@@ -130,5 +142,7 @@ Global
 		{4110A792-BA03-4571-BD4A-1E7A8ACBF83C} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 		{302FF6AC-02FD-4FAE-8E9C-950E764C7AE8} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 		{B657FC8D-6553-4B17-B75E-8E97D7CDFACC} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{3B4D0D90-E85F-4B2A-A8CE-0B822C93BCC4} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
+		{88DE862D-6993-4740-96D1-67199F80F662} = {6C5D5C8D-78AD-4C49-BEE2-A0A30D6D6E53}
 	EndGlobalSection
 EndGlobal

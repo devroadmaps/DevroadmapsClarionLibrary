@@ -289,13 +289,13 @@ cPath                                       cstring(File:maxfilepath),auto
 		else
 			SELF.IgnoreDllHandle=false
 			cpath=clip(pDllPath)
-			logger.write('Calling LoadLibary for ' & cpath)
+		 !logger.write('Calling LoadLibary for ' & cpath)
 			SELF.DllHandle=loadlibrary(cpath)
 			if ~SELF.DllHandle then
 				SELF.TakeError('LoadLibrary failed for: ' & cpath)
 				return return:fatal
 			end
-			logger.write('Loaded library, got handle ' & self.dllhandle & ' for dll ' & cpath)
+		 !logger.write('Loaded library, got handle ' & self.dllhandle & ' for dll ' & cpath)
 		end
 		log.write('DLL initialized')
 		self.Initialized = true
@@ -313,10 +313,10 @@ DCL_System_Runtime_Dll.Kill             Procedure()
 	Code
 	log.write('calling DCL_System_Runtime_Dll.Kill for DLL ' & FilenameVariable)
 	if self.Initialized
-		logger.write('DCL_System_Runtime_Dll.Kill')
+	 !logger.write('DCL_System_Runtime_Dll.Kill')
 		if ~SELF.addressQ &= NULL then free(SELF.AddressQ).
 		if SELF.DllHandle and ~SELF.IgnoreDllHandle 
-			logger.write('Calling FreeLibrary')
+		 !logger.write('Calling FreeLibrary')
 			freelibrary(SELF.DllHandle)
 			clear(SELF.DllHandle)
 		END
@@ -362,9 +362,9 @@ DCL_System_Runtime_Dll.GetAddress       Procedure(string procname)
 cProcName                                   cstring(80),auto
 lpaddress                                   long,auto
 	code
-	logger.write('DCL_System_Runtime_Dll.GetAddress receives ' & procname)
+ !logger.write('DCL_System_Runtime_Dll.GetAddress receives ' & procname)
 	if ~SELF.DllHandle and ~SELF.IgnoreDllHandle then
-		logger.write('Get Address called before a dll is loaded!!!')
+	 !logger.write('Get Address called before a dll is loaded!!!')
 		SELF.TakeError('Get Address called before a dll is loaded!!!')
 		Return SELF.eProcFail
 	end
@@ -372,26 +372,26 @@ lpaddress                                   long,auto
 	SELF.AddressQ.procname=procname
 	get(SELF.AddressQ, SELF.AddressQ.Procname)
 	if ~Errorcode() then
-		logger.write('Using address from addressq')
+	 !logger.write('Using address from addressq')
 		return SELF.AddressQ.lpAddress
 	end
 
 	!exit now if no dll loaded - the next block of code
 	!  requires an DllHandle.
 	if SELF.IgnoreDllHandle 
-		logger.write('Exiting, self.IgnoreDllHandle set to true (this is a fail)')
+	 !logger.write('Exiting, self.IgnoreDllHandle set to true (this is a fail)')
 		return SELF.eProcFail
 	end
 
 	cProcName=clip(procname)
 	lpAddress=GetProcAddress(SELF.DllHandle,cProcName)
-	logger.write('lpAddress ' & lpaddress)
+ !logger.write('lpAddress ' & lpaddress)
 	if lpAddress then
 		SELF.AddressQ.procname=procname
 		SELF.AddressQ.lpAddress=lpaddress
 		add(SELF.AddressQ,SELF.Addressq.procname)
 	else
-		logger.write('GetProcAddress failed for ' & cProcName & ' using handle ' & self.DllHandle & ', error ' & getlasterror())
+	 !logger.write('GetProcAddress failed for ' & cProcName & ' using handle ' & self.DllHandle & ', error ' & getlasterror())
 		SELF.TakeError('get adress failed for ' & cProcName)
 		Return SELF.eProcFail
 	end
@@ -400,7 +400,7 @@ lpaddress                                   long,auto
 DCL_System_Runtime_Dll.call             procedure(string procname, <long p1>,<long p2>,<long p3>,<long p4>,<long p5>,<long p6>,<long p7>,<long p8>,<long p9>,<long p10>)
 lpaddress                                   long,auto
 	code
-	logger.write('Calling procedure ' & procname)
+ !logger.write('Calling procedure ' & procname)
 	lpaddress=SELF.GetAddress(procname)
 	if ~lpaddress then Return SELF.eProcFail.
 	if omitted(3) then return callA_p0(lpaddress,0,0,0).  !p0
@@ -417,7 +417,7 @@ lpaddress                                   long,auto
 
 DCL_System_Runtime_Dll.callbyAddress    procedure(long lpAddress, <long p1>,<long p2>,<long p3>,<long p4>,<long p5>,<long p6>,<long p7>,<long p8>,<long p9>,<long p10>)
 	code
-	logger.write('Calling procedure by address')
+ !logger.write('Calling procedure by address')
 	if omitted(3) then return callA_p0(lpaddress,0,0,0).  !p0
 	if omitted(4) then return callA_p1(lpaddress,0,0,0,p1). !p1
 	if omitted(5) then return callA_p2(lpaddress,0,0,0,p2,p1). !p2
@@ -507,7 +507,7 @@ lpaddress                                   long,auto
 	code
 	lpaddress=SELF.GetAddress(procname)
 	if ~lpaddress then Return SELF.eProcFail.
-	logger.write('ccalling procedure ' & procname)
+ !logger.write('ccalling procedure ' & procname)
 	if omitted(3) then return callA_p0(lpaddress,0,0,0).  !p0
 	if omitted(4) then return fixstack(CallA_p1(lpaddress,0,0,0,p1),4,0,0). !p1
 	if omitted(5) then return fixstack(CallA_p2(lpaddress,0,0,0,p2,p1),8,0,0). !p2
@@ -517,7 +517,7 @@ lpaddress                                   long,auto
 
 DCL_System_Runtime_Dll.ccallbyAddress   procedure(long lpAddress, <long p1>,<long p2>,<long p3>,<long p4>,<long p5>)
 	code
-	logger.write('ccalling procedure by address')
+ !logger.write('ccalling procedure by address')
 	if omitted(3) then return callA_p0(lpaddress,0,0,0).  !p0
 	if omitted(4) then return fixstack(CallA_p1(lpaddress,0,0,0,p1),4,0,0). !p1
 	if omitted(5) then return fixstack(CallA_p2(lpaddress,0,0,0,p2,p1),8,0,0). !p2

@@ -60,12 +60,12 @@ DCL_ClarionTest_TestRunner.Destruct     procedure
 
 DCL_ClarionTest_TestRunner.Init         procedure(string dllname)
 	CODE
-	logger.write('calling DCL_ClarionTest_TestRunner.Init')
+ !logger.write('calling DCL_ClarionTest_TestRunner.Init')
 	if self.dllmgr &= NULL
-		logger.write('Creating DLLMgr')
+	 !logger.write('Creating DLLMgr')
 		self.DllMgr &= new DCL_System_Runtime_Dll
 	ELSE
-		logger.write('DLLMgr already exsists')
+	 !logger.write('DLLMgr already exsists')
 	end
 	self.DllName = dllname
 	self.DllMgr.Init(self.dllname)
@@ -73,13 +73,13 @@ DCL_ClarionTest_TestRunner.Init         procedure(string dllname)
 	
 DCL_ClarionTest_TestRunner.Kill         procedure
 	CODE
-	logger.write('calling DCL_ClarionTest_TestRunner.Kill')
+ !logger.write('calling DCL_ClarionTest_TestRunner.Kill')
 	if ~self.dllmgr &= NULL 
-		logger.write('Disposing of DLLMgr')
+	 !logger.write('Disposing of DLLMgr')
 		self.DllMgr.kill()
 		dispose(self.DllMgr) 
 	ELSE 
-		logger.write('DLLMgr is already null')		
+	 !logger.write('DLLMgr is already null')		
 	end
 	
 	
@@ -95,7 +95,7 @@ lptr                                                long
 !utr                                                 &DCL_ClarionTest_TestResult
 DllInitialized                                      byte
 	CODE
-	logger.write('DCL_ClarionTest_TestRunner.GetTestProcedures')
+ !logger.write('DCL_ClarionTest_TestRunner.GetTestProcedures')
 	clear(q)
 	! Close the DLL so the list of exported procedures can be extracted
 	! But save the current state so it can be restored
@@ -103,7 +103,7 @@ DllInitialized                                      byte
 	if DllInitialized = true
 		self.DllMgr.kill()
 	end
-	logger.write('Calling self.DllMgr.GetExportedProcedures with dllname ' & self.DllName)
+ !logger.write('Calling self.DllMgr.GetExportedProcedures with dllname ' & self.DllName)
 	if self.DllMgr.GetExportedProcedures(self.Dllname,procsq) = Level:Benign
 		free(self.Procedures)
 		! Look for the CLARIONTEST_GETLISTOFTESTPROCEDURES procedure
@@ -112,7 +112,7 @@ DllInitialized                                      byte
 			!logger.Write('>' & upper(left(clip(procsq.ProcName))) & '<<')
 			if upper(sub(left(procsq.procname),1,len(GetListproc))) = GetListProc
 				! Get the list of procedures from that method
-				logger.write('************** found ' & GetListProc & ' *************')
+			 !logger.write('************** found ' & GetListProc & ' *************')
 				Found_GetListOfTestProcedures = TRUE
 				BREAK
 			END
@@ -120,44 +120,44 @@ DllInitialized                                      byte
 !				clear(self.Procedures)
 !				self.Procedures.testname = procsq.ProcName
 !				add(self.Procedures)
-!				logger.write('DCL_ClarionTest_TestRunner.GetTestProcedures added test procedure ' & q)
+!			 !logger.write('DCL_ClarionTest_TestRunner.GetTestProcedures added test procedure ' & q)
 !			end				
 		end
 		if Found_GetListOfTestProcedures
-			logger.write('Found_GetListOfTestProcedures = true')
+		 !logger.write('Found_GetListOfTestProcedures = true')
 			if self.DllMgr.Init(self.DllName) = Level:Benign
-				logger.write('calling ' & GetListProc & ' with address(lptr) ' & address(lptr))
+			 !logger.write('calling ' & GetListProc & ' with address(lptr) ' & address(lptr))
 				r# = self.DllMgr.Call(GetListProc,address(lptr))
-				logger.write('return value: ' & r#)
+			 !logger.write('return value: ' & r#)
 			end
-			logger.write('lptr ' & lptr)
+		 !logger.write('lptr ' & lptr)
 			TestProcedures &= (lptr)
 			!utr &= (lptr)
-			logger.write('ref address now ' & address(TestProcedures))
+		 !logger.write('ref address now ' & address(TestProcedures))
 			if ~TestProcedures &= null 
-				logger.write('TestProcedures is not null')
+			 !logger.write('TestProcedures is not null')
 				!logger.write('TestProcedures.Names: ' & TestProcedures.Names[1])
-				logger.write(records(TestProcedures.List) & ' records found')
+			 !logger.write(records(TestProcedures.List) & ' records found')
 				free(q)
 				loop x = 1 to records(TestProcedures.List)
-					logger.write('record ' & x)
-					logger.write('Group: ' & clip(TestProcedures.List.TestGroupName) & ', priority: ' & TestProcedures.List.TestPriority & ', Test: ' & clip(TestProcedures.list.TestName))
+				 !logger.write('record ' & x)
+				 !logger.write('Group: ' & clip(TestProcedures.List.TestGroupName) & ', priority: ' & TestProcedures.List.TestPriority & ', Test: ' & clip(TestProcedures.list.TestName))
 					get(TestProcedures.List,x)
 					self.Procedures.testname = TestProcedures.List.testname
 					self.Procedures.TestPriority = TestProcedures.List.TestPriority
 					self.Procedures.TestGroupName = TestProcedures.list.TestGroupName
 					self.Procedures.TestGroupPriority = TestProcedures.List.TestGroupPriority
 					add(self.Procedures,self.Procedures.TestGroupPriority,self.Procedures.TestGroupName,self.Procedures.TestPriority,self.Procedures.TestPriority)
-					logger.write('Added test procedure to self.procedures: ' & self.Procedures.testname)
+				 !logger.write('Added test procedure to self.procedures: ' & self.Procedures.testname)
 				END
 				loop x = 1 to records(self.Procedures)
 					get(self.Procedures,x)
-					logger.write('record ' & x)
-					logger.write('Group: ' & clip(self.Procedures.TestGroupName) & ', priority: ' & self.Procedures.TestPriority & ', Test: ' & clip(self.Procedures.TestName))
+				 !logger.write('record ' & x)
+				 !logger.write('Group: ' & clip(self.Procedures.TestGroupName) & ', priority: ' & self.Procedures.TestPriority & ', Test: ' & clip(self.Procedures.TestName))
 				END
 					
 			ELSE
-				logger.write('TestProcedures is null')
+			 !logger.write('TestProcedures is null')
 			end
 			self.DllMgr.Kill()
 		end
@@ -170,7 +170,7 @@ DllInitialized                                      byte
 		q.TestGroupName = self.Procedures.TestGroupName
 		q.TestGroupPriority = self.Procedures.TestGroupPriority
 		add(q)
-		logger.write('Added procedure ' & q)
+	 !logger.write('Added procedure ' & q)
 	END
 	self.DllMgr.Kill()
 !	if DllInitialized = true and self.DllMgr.IsInitialized() = FALSE
@@ -197,7 +197,7 @@ lptr                                        long
 	if self.DllMgr.IsInitialized() = false
 		return self.GetFailedTest('The DLL was not initialized')
 	end
-	logger.write('DCL_ClarionTest_TestRunner.RunTest: ' & records(self.Procedures) & ' records in self.procedures')
+ !logger.write('DCL_ClarionTest_TestRunner.RunTest: ' & records(self.Procedures) & ' records in self.procedures')
 	get(self.Procedures,index)
 	if errorcode()
 		return self.GetFailedTest('Could not find the requested test (index ' & index & ') ' & error())

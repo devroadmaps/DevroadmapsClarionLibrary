@@ -22,3 +22,4 @@
 ..\libsrc\DCL_System_Threading_CriticalSection.inc
 ..\libsrc\DCL_Text_RTF.inc
 ..\libsrc\DCL_System_Pool.inc
+..\libsrc\DCL_UI_BackgroundProgressDisplay.inc

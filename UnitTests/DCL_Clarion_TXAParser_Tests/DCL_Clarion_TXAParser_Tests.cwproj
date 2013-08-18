@@ -43,7 +43,4 @@
     <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>..\ClarionTest.exe DCL_Clarion_TXAParser_Tests.dll /run</PostBuildEvent>
-  </PropertyGroup>
 </Project>

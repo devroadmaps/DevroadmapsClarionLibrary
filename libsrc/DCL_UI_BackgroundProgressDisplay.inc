@@ -4,6 +4,7 @@
 !---------------------------------------------------------------------------------------------!
 !region
 !
+!
 ! Redistribution and use in source and binary forms, with or without
 ! modification, are permitted provided that the following conditions are met:
 !
@@ -36,48 +37,31 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-                                            Member
-                                            Map
+    include('DCL_IncludeInAllClassHeaderFiles.inc'),once
+    include('DCL_System_Threading_CriticalSection.inc'),once
+
+    !include('DCL_System_ErrorManager.inc'),once
+
+
+DCL_UI_BackgroundProgressDisplay            Class,Type,Module('DCL_UI_BackgroundProgressDisplay.CLW'),Link('DCL_UI_BackgroundProgressDisplay.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
+CriticalSection                                 &DCL_System_Threading_CriticalSection
+NotifyCode                                      long
+NotifyEvent                                     long
+ProgressControlFEQ                              long
+ProgressControlValue                            long,Protected
+StringControlFEQ                                long
+StringControlValue                              &string,Protected
+UIThread                                        long,private
+!Errors                                          &DCL_System_ErrorManager
+Construct                                       Procedure()
+Destruct                                        Procedure()
+DisposeStringControlText                        procedure,private
+Enable                                          procedure
+SetStringControlFEQ                             procedure(long StringControlFEQ)
+SetStringControlValue                           procedure(string StringControlValue)
+SetProgressControlFEQ                           procedure(long ProgressBarControlFEQ,<long rangeLow>,<long rangeHigh>)
+SetProgressControlValue                         procedure(long ProgressControlValue)
+TakeEvent                                       procedure
                                             End
 
-    include('CIDC_Sales_LineItem.inc'),once
-    include('DCL_System_Diagnostics_Logger.inc'),once
 
-dbg                                         DCL_System_Diagnostics_Logger
-
-CIDC_Sales_LineItem.Construct               Procedure()
-    code
-    self.Quantity = 1
-    self.TaxCodesUsed &= new CIDC_Sales_TaxCodes
-
-CIDC_Sales_LineItem.Destruct                Procedure()
-    code
-    dispose(self.TaxCodesUsed)
-    
-CIDC_Sales_LineItem.AddTaxCode              procedure(string taxCode)
-    code
-    self.TaxCodesUsed.AddCode(taxCode)
-
-CIDC_Sales_LineItem.GetExtended             procedure!,real
-result                                          decimal(11,2)
-    code
-    result = self.Quantity * self.Price
-    !dbg.write('Extended: ' & result & ' - ' & self.description)
-    return result
-    
-CIDC_Sales_LineItem.GetTotal                procedure!,real
-    code
-    return self.GetExtended() !+ self.GetTax()
-
-CIDC_Sales_LineItem.SetPrice                procedure(real price)
-    code
-    self.Price = price
-	
-CIDC_Sales_LineItem.SetQuantity             procedure(long quantity)
-    code
-    self.Quantity = quantity
-	
-CIDC_Sales_LineItem.SetTaxCode              procedure(string taxCode)
-    code
-    self.TaxCodesUsed.Reset()
-    self.TaxCodesUsed.AddCode(taxCode)

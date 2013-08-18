@@ -74,7 +74,8 @@
 	include'DCL_System_StringUtility.inc'),once
 	include'DCL_System_Threading_CriticalSection.inc'),once
 	include'DCL_System_Threading_ICriticalSection.inc'),once
-	include'DCL_Text_RTF.inc'),once
+    include'DCL_Text_RTF.inc'),once
+    include('DCL_UI_BackgroundProgressDisplay.inc'),once
 
 
 !   comment

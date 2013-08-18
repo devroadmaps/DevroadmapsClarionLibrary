@@ -98,7 +98,7 @@
 												DCL_API_SendMessage(UNSIGNED hwnd1, UNSIGNED uMsg, SIGNED wParam, LONG lParam),LONG,PASCAL,PROC,NAME('SendMessage')
 												DCL_API_SetEnvironmentVariableA(*CSTRING,*CSTRING),DCL_API_BOOL,PASCAL,RAW,NAME('SetEnvironmentVariableA')
 												DCL_API_SetFilePointer(UNSIGNED, LONG, LONG, ULONG),ULONG,PROC,PASCAL,RAW,Name('SetFilePointer')
-												DCL_API_SetFileTime(unsigned,*DCL_API_FILETIMEType,*DCL_API_FILETIMEType,*DCL_API_FILETIMEType),DCL_API_BOOL,PASCAL,RAW,NAME('SetFileTime')
+												DCL_API_SetFileTime(unsigned,*DCL_API_FILETIMEType,*DCL_API_FILETIMEType,*DCL_API_FILETIMEType),DCL_API_BOOL,PASCAL,RAW,NAME('SetFileTime'),proc
 												DCL_API_SetFocus(UNSIGNED),UNSIGNED,PASCAL      ! Returns last window with focus,NAME('SetFocus')
 												DCL_API_SetForegroundWindow(UNSIGNED),DCL_API_BOOL,PASCAL,NAME('SetForegroundWindow')
 												DCL_API_SetHandleInformation( DCL_API_HANDLE, DCL_API_DWORD, DCL_API_DWORD),ULONG,PROC,PASCAL,RAW,NAME('SetHandleInformation')
@@ -112,7 +112,7 @@
 												DCL_API_SizeofResource(LONG, LONG),ULONG,PASCAL,NAME('SizeofResource')
 												DCL_API_Sleep(ULONG),PASCAL,NAME('Sleep')
 												DCL_API_sndPlaySound(*LPCSTR,UNSIGNED),DCL_API_BOOL,PROC,pascal,raw,NAME('sndPlaySoundA')
-												DCL_API_SystemTimeToFileTime(*DCL_API_SYSTEMTIME lpSystemTime, *DCL_API_FILETIMEType),DCL_API_BOOL,PASCAL,RAW,NAME('SystemTimeToFileTime')
+												DCL_API_SystemTimeToFileTime(*DCL_API_SYSTEMTIME lpSystemTime, *DCL_API_FILETIMEType),DCL_API_BOOL,PASCAL,RAW,NAME('SystemTimeToFileTime'),proc
 												DCL_API_UnhookWindowsHookEx(Long),DCL_API_Bool,Raw,Pascal,NAME('UnhookWindowsHookEx')
 												DCL_API_vsCallWinProc(LONG,UNSIGNED,UNSIGNED,UNSIGNED,LONG),LONG,PASCAL,NAME('CallWindowProcA')
 												DCL_API_WaitForMultipleObjects(LONG,LONG,LONG,LONG),RAW,LONG,PASCAL,PROC, NAME('WaitForMultipleObjects')

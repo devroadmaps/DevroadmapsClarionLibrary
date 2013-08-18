@@ -105,12 +105,12 @@ EventTime                                   long
 		if MT_waitForMultipleObjects(2,address(Watcher.WaitStruct.notifhandle),0,infinite)=Wait_object_0  then
 			!logger.write('WAITPROC - dirchange received, ' & watcher.WaitStruct.hEvent & ' ' & watcher.WaitStruct.NotifHandle)
 !			EventTime = clock()
-!			logger.write('LastEventTime                : ' & LastEventTime)
-!			logger.write('EventTime                    : ' & eventtime)
-!			logger.write('LastEventTime + DiscardWindow: ' & (LastEventTime + Watcher.DiscardEventsWindow))
+!		 !logger.write('LastEventTime                : ' & LastEventTime)
+!		 !logger.write('EventTime                    : ' & eventtime)
+!		 !logger.write('LastEventTime + DiscardWindow: ' & (LastEventTime + Watcher.DiscardEventsWindow))
 !			if LastEventTime = 0 or EventTime < LastEventTime or EventTime > (LastEventTime + Watcher.DiscardEventsWindow)
 !				LastEventTime = EventTime
-!				logger.write('calling Notify')
+!			 !logger.write('calling Notify')
 			notify(Watcher.NotifyCode, Watcher.MonitorThread, Watcher.NotifyParameter)
 !			end
 			if Watcher.autoreset then
