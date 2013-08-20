@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "CIDC_Sales_UI_Invoice_Tests", "CIDC_Sales_UI_Invoice_Tests.cwproj", "{F02E2A3A-D442-4CE1-A43B-77FF02667A77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		CIDC_Sales_UI_Invoice_Tests.app = CIDC_Sales_UI_Invoice_Tests.app
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{9F6FC2FF-E275-43A8-8332-00E24ED70C96}"
+	ProjectSection(SolutionItems) = postProject
+		..\..\libsrc\CIDC_Sales_Invoice.clw = ..\..\libsrc\CIDC_Sales_Invoice.clw
+		..\..\libsrc\CIDC_Sales_Invoice.inc = ..\..\libsrc\CIDC_Sales_Invoice.inc
+		..\..\libsrc\CIDC_Sales_LineItem.clw = ..\..\libsrc\CIDC_Sales_LineItem.clw
+		..\..\libsrc\CIDC_Sales_LineItem.inc = ..\..\libsrc\CIDC_Sales_LineItem.inc
+		..\..\libsrc\CIDC_Sales_Tax.clw = ..\..\libsrc\CIDC_Sales_Tax.clw
+		..\..\libsrc\CIDC_Sales_Tax.inc = ..\..\libsrc\CIDC_Sales_Tax.inc
+		..\..\libsrc\CIDC_Sales_TaxCodes.clw = ..\..\libsrc\CIDC_Sales_TaxCodes.clw
+		..\..\libsrc\CIDC_Sales_TaxCodes.inc = ..\..\libsrc\CIDC_Sales_TaxCodes.inc
+		..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.clw = ..\..\libsrc\CIDC_Sales_TaxCodes_CA_MB.clw
+		..\..\libsrc\CIDC_Sales_TaxList.clw = ..\..\libsrc\CIDC_Sales_TaxList.clw
+		..\..\libsrc\CIDC_Sales_TaxList.inc = ..\..\libsrc\CIDC_Sales_TaxList.inc
+		..\..\libsrc\CIDC_Sales_Types.inc = ..\..\libsrc\CIDC_Sales_Types.inc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F02E2A3A-D442-4CE1-A43B-77FF02667A77}.Debug|Win32.Build.0 = Debug|Win32
+		{F02E2A3A-D442-4CE1-A43B-77FF02667A77}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F02E2A3A-D442-4CE1-A43B-77FF02667A77}.Release|Win32.Build.0 = Release|Win32
+		{F02E2A3A-D442-4CE1-A43B-77FF02667A77}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

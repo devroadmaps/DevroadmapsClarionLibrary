@@ -1,0 +1,44 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F02E2A3A-D442-4CE1-A43B-77FF02667A77}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CIDC_Sales_UI_Invoice_Tests</RootNamespace>
+    <AssemblyName>CIDC_Sales_UI_Invoice_Tests</AssemblyName>
+    <OutputName>CIDC_Sales_UI_Invoice_Tests</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <Library Include="DevRoadmapsClarion.lib" />
+    <Compile Include="CIDC_Sales_UI_Invoice_Tests.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_UI_Invoice_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_SALES_UI_INVOICE_TESTS_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="CIDC_Sales_UI_Invoice_Tests_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>
