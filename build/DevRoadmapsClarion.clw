@@ -47,35 +47,36 @@
     
     
     
-	include'DCL_ClarionTest_TestResult.inc'),once
-	include'DCL_ClarionTest_TestRunner.inc'),once
-	include'DCL_Clarion_TXAParser.inc'),once
-	include'DCL_Data_Datafier.inc'),once
-	include'DCL_System_Class.inc'),once
-	include'DCL_System_ClassParser.inc'),once
-	include'DCL_System_Diagnostics_FileLogger.inc'),once
-	include'DCL_System_Diagnostics_Logger.inc'),once
-	include'DCL_System_Diagnostics_Profiler.inc'),once
-	include'DCL_System_Diagnostics_Timer.inc'),once
-	include'DCL_System_Diagnostics_Tracer.inc'),once
-	include'DCL_System_ErrorManager.inc'),once
-	include'DCL_System_ExpFileWriter.inc'),once
-	include'DCL_System_IO_AsciiFile.inc'),once
-	include'DCL_System_IO_CaptureStdOutput.inc'),once
-	include'DCL_System_IO_Directory.inc'),once
-	include'DCL_System_IO_File.inc'),once
-	include'DCL_System_IO_FileInfo.inc'),once
-	include'DCL_System_Mangle.inc'),once
-	include'DCL_System_Runtime_DirectoryWatcher.inc'),once
-	include'DCL_System_Runtime_DLL.inc'),once
-	include'DCL_System_Stack.inc'),once
-	include'DCL_System_StackNode.inc'),once
-	include'DCL_System_String.inc'),once
-	include'DCL_System_StringUtility.inc'),once
-	include'DCL_System_Threading_CriticalSection.inc'),once
-	include'DCL_System_Threading_ICriticalSection.inc'),once
-    include'DCL_Text_RTF.inc'),once
+	include('DCL_ClarionTest_TestResult.inc'),once
+	include('DCL_ClarionTest_TestRunner.inc'),once
+	include('DCL_Clarion_TXAParser.inc'),once
+	include('DCL_Data_Datafier.inc'),once
+	include('DCL_System_Class.inc'),once
+	include('DCL_System_ClassParser.inc'),once
+	include('DCL_System_Diagnostics_FileLogger.inc'),once
+	include('DCL_System_Diagnostics_Logger.inc'),once
+	include('DCL_System_Diagnostics_Profiler.inc'),once
+	include('DCL_System_Diagnostics_Timer.inc'),once
+	include('DCL_System_Diagnostics_Tracer.inc'),once
+	include('DCL_System_ErrorManager.inc'),once
+	include('DCL_System_ExpFileWriter.inc'),once
+	include('DCL_System_IO_AsciiFile.inc'),once
+	include('DCL_System_IO_CaptureStdOutput.inc'),once
+	include('DCL_System_IO_Directory.inc'),once
+	include('DCL_System_IO_File.inc'),once
+	include('DCL_System_IO_FileInfo.inc'),once
+	include('DCL_System_Mangle.inc'),once
+	include('DCL_System_Runtime_DirectoryWatcher.inc'),once
+	include('DCL_System_Runtime_DLL.inc'),once
+	include('DCL_System_Stack.inc'),once
+	include('DCL_System_StackNode.inc'),once
+	include('DCL_System_String.inc'),once
+	include('DCL_System_StringUtility.inc'),once
+	include('DCL_System_Threading_CriticalSection.inc'),once
+	include('DCL_System_Threading_ICriticalSection.inc'),once
+    include('DCL_Text_RTF.inc'),once
     include('DCL_UI_BackgroundProgressDisplay.inc'),once
+    include('DCL_System_StringCollection.inc'),once
 
 
 !   comment

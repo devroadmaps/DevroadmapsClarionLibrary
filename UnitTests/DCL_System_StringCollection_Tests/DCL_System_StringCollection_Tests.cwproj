@@ -1,0 +1,60 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{83CB0DA7-A17E-4E2F-8A24-BD2F15DA9D13}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DCL_System_StringCollection_Tests</RootNamespace>
+    <AssemblyName>DCL_System_StringCollection_Tests</AssemblyName>
+    <OutputName>DCL_System_StringCollection_Tests</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <Model>Dll</Model>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+    <stack_size>16384</stack_size>
+    <CopyCore>True</CopyCore>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+    <GenerateMap>True</GenerateMap>
+    <line_numbers>False</line_numbers>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="ASCII" />
+    <Compile Include="DCL_System_StringCollection_Tests.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests003.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_SYSTEM_STRINGCOLLECTION_TESTS_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Library Include="DevRoadmapsClarion.lib" />
+    <Library Include="DevRoadmapsClarion.lib" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy DCL_System_StringCollection_Tests.dll .. /y</PostBuildEvent>
+  </PropertyGroup>
+</Project>
