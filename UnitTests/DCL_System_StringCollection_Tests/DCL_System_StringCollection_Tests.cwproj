@@ -44,13 +44,18 @@
     <Compile Include="DCL_System_StringCollection_Tests003.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests004.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="DCL_System_StringCollection_Tests005.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="DCL_SYSTEM_STRINGCOLLECTION_TESTS_BC.CLW">
       <Generated>true</Generated>
     </Compile>
     <Compile Include="DCL_System_StringCollection_Tests_BC0.CLW">
       <Generated>true</Generated>
     </Compile>
-    <Library Include="DevRoadmapsClarion.lib" />
     <Library Include="DevRoadmapsClarion.lib" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />

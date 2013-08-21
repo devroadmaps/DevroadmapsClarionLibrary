@@ -61,6 +61,12 @@ AddTwoStringsToCollection_CaseInsensitive_VerifyCountIsOne FUNCTION(*long addr),
      MODULE('DCL_SYSTEM_STRINGCOLLECTION_TESTS003.CLW')
 AddTwoStringsToCollection_CaseSensitive_VerifyCountIsTwo FUNCTION(*long addr),long,pascal   !
      END
+     MODULE('DCL_SYSTEM_STRINGCOLLECTION_TESTS004.CLW')
+AddTwoStringsToCollection_RemoveOne_VerifyCount FUNCTION(*long addr),long,pascal   !
+     END
+     MODULE('DCL_SYSTEM_STRINGCOLLECTION_TESTS005.CLW')
+AddFiveStringsToCollection_GetOne_Verify FUNCTION(*long addr),long,pascal   !
+     END
        include('DCL_ClarionTest_GlobalCodeAndData.inc','GlobalMap'),once
 ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr),LONG,PASCAL
     ! Declare functions defined in this DLL
@@ -119,7 +125,19 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
     ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'AddTwoStringsToCollection_RemoveOne_VerifyCount'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 10
     ClarionTest_ctpl.List.TestName       = 'AddTwoStringsToCollection_CaseSensitive_VerifyCountIsTwo'
+    ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
+    ADD(ClarionTest_ctpl.List)
+        
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'AddFiveStringsToCollection_GetOne_Verify'
     ClarionTest_ctpl.List.TestGroupName      = '_000_Default'
     ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)

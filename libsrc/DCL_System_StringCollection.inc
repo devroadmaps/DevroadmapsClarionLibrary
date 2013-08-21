@@ -56,10 +56,9 @@ StringQ                                         &DCL_System_StringCollection_Str
 Construct                                       Procedure()
 Destruct                                        Procedure()
 Add                                             procedure(string text)
-!ClearAll                                        procedure
-!ClearEntry                                      procedure,protected
 Contains                                        procedure(string text),bool
 GetCount                                        procedure,long
+GetString                                       procedure(long index),string
 Remove                                          procedure(string text)
 RemoveAll                                       procedure
                                             End

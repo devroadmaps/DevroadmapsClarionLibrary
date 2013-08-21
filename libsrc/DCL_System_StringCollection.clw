@@ -88,6 +88,12 @@ DCL_System_StringCollection.GetCount        procedure!,long
     code
     return records(self.StringQ)
     
+DCL_System_StringCollection.GetString       procedure(long index)!,string
+    code
+    get(self.stringq,index)
+    if ~errorcode() then return self.stringq.Text.
+    return ''
+    
 DCL_System_StringCollection.Remove          procedure(string text)
     code
     if self.Contains(text)
