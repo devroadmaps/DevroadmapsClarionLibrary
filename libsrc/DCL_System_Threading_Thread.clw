@@ -36,41 +36,61 @@
 !---------------------------------------------------------------------------------------------!
 !endregion
 
-                                        Member
+                                            Member
 
-                                        Map
-DemonstrationWorkerProcedure                procedure(string address)
-                                            module('')
-sleep                                           procedure(long milliseconds),pascal
-                                            end
+                                            Map
+DemonstrationWorkerProcedure                    procedure(string address)
+                                                module('')
+sleep                                               procedure(long milliseconds),pascal
+                                                end
 
-                                        End
-
-
+                                            End
 
     Include('DCL_System_Threading_Thread.inc'),Once
     !include('DCL_System_Diagnostics_Logger.inc'),once
 
 !dbg                                     DCL_System_Diagnostics_Logger
 
-DCL_System_Threading_Thread.Construct   Procedure()
+DCL_System_Threading_Thread.Construct       Procedure()
     code
-    !self.Errors &= new DCL_System_ErrorManager
     self.StopRequest = false
-    self.Running = false
+    self.PauseRequest = false
+    self.ThreadIsPaused = false
+    self.ThreadIsRunning = false
 
 
-DCL_System_Threading_Thread.Destruct    Procedure()
+DCL_System_Threading_Thread.Destruct        Procedure()
     code
-    !dispose(self.Errors)
     
-DCL_System_Threading_Thread.Start       procedure
+    
+DCL_System_Threading_Thread.Pause           procedure
     code
-    if ~self.running
+    self.PauseRequest = TRUE
+    
+DCL_System_Threading_Thread.Paused          procedure!,bool
+    code
+    return self.ThreadIsPaused
+    
+DCL_System_Threading_Thread.PauseRequested  procedure!,bool
+    code
+    return self.PauseRequest
+    
+DCL_System_Threading_Thread.Resume          procedure
+    code
+    self.ThreadIsPaused = false
+    self.PauseRequest = false
+
+DCL_System_Threading_Thread.Sleep           procedure(long microseconds)
+    code
+    sleep(microseconds)   
+
+DCL_System_Threading_Thread.Start           procedure
+    code
+    if ~self.ThreadIsRunning
         self.StartWorkerProcedure()
     end
 
-DCL_System_Threading_Thread.StartWorkerProcedure        procedure!,virtual
+DCL_System_Threading_Thread.StartWorkerProcedure    procedure!,virtual
     code
     ! To use this class you will typically create a derived class somewhere in your
     ! application code, probably in the procedure that launches your worker
@@ -81,26 +101,38 @@ DCL_System_Threading_Thread.StartWorkerProcedure        procedure!,virtual
     start(DemonstrationWorkerProcedure,25000,address(self))
     
 
-DCL_System_Threading_Thread.Stop        procedure
+DCL_System_Threading_Thread.Stop            procedure
     code
     self.StopRequest = true
+    self.ThreadIsPaused = false
 
-DCL_System_Threading_Thread.Stopped     procedure!,bool
+DCL_System_Threading_Thread.Stopped         procedure!,bool
     code
-    return choose(self.running=false,true,false)
+    return choose(self.ThreadIsRunning=false,true,false)
     
-DCL_System_Threading_Thread.StopRequested       procedure!,bool
+DCL_System_Threading_Thread.StopRequested   procedure!,bool
     code
     return self.StopRequest
-
-DCL_System_Threading_Thread.WorkerProcedureHasEnded     procedure
-    code
-    self.Running = FALSE
-    self.StopRequest = false
     
-DCL_System_Threading_Thread.WorkerProcedureHasStarted   procedure
+DCL_System_Threading_Thread.WaitForResume   procedure(long delayInMilliseconds=100)
     code
-    self.running = true
+    self.ThreadIsPaused = TRUE
+    self.PauseRequest = false
+    loop 
+        if self.ThreadIsPaused = false then break.
+        sleep(delayInMilliseconds)
+    end
+    self.ThreadIsPaused = FALSE
+    self.PauseRequest = false
+
+DCL_System_Threading_Thread.WorkerProcedureHasEnded procedure
+    code
+    self.ThreadIsRunning = FALSE
+    self.StopRequest = false
+
+DCL_System_Threading_Thread.WorkerProcedureHasStarted       procedure
+    code
+    self.ThreadIsRunning = true
     self.StopRequest = false
 
 !---------------------------------------------------------------------------------------------
@@ -108,8 +140,8 @@ DCL_System_Threading_Thread.WorkerProcedureHasStarted   procedure
 ! changes here - instead, create your own procedure using the following example. 
 ! Then derive the class and implement just the StartWorkerMethod to call your procedure.
 !---------------------------------------------------------------------------------------------
-DemonstrationWorkerProcedure            procedure(string address)
-Thread                                      &DCL_System_Threading_Thread
+DemonstrationWorkerProcedure                procedure(string address)
+Thread                                          &DCL_System_Threading_Thread
     code
     Thread &= (address)
     if Thread &= NULL
