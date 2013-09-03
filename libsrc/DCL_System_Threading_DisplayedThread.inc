@@ -42,10 +42,10 @@
     Include('DCL_UI_BackgroundProgressDisplay.inc'),Once
 
 
-DCL_System_Threading_DisplayedThread    Class(DCL_System_Threading_Thread),Type,Module('DCL_System_Threading_DisplayedThread.CLW'),Link('DCL_System_Threading_DisplayedThread.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
-UI                                          &DCL_UI_BackgroundProgressDisplay
-Construct                                   Procedure()
-Destruct                                    Procedure()
-                                        End
+DCL_System_Threading_DisplayedThread        Class(DCL_System_Threading_Thread),Type,Module('DCL_System_Threading_DisplayedThread.CLW'),Link('DCL_System_Threading_DisplayedThread.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
+UI                                              &DCL_UI_BackgroundProgressDisplay
+Construct                                       Procedure()
+Destruct                                        Procedure()
+                                            End
 
 

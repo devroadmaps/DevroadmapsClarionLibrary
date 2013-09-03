@@ -49,12 +49,11 @@
 
 !dbg                                     DCL_System_Diagnostics_Logger
 
-DCL_System_Threading_DisplayedThread.Construct                     Procedure()
+DCL_System_Threading_DisplayedThread.Construct      Procedure()
     code
     self.UI &= new DCL_UI_BackgroundProgressDisplay
 
-
-DCL_System_Threading_DisplayedThread.Destruct                      Procedure()
+DCL_System_Threading_DisplayedThread.Destruct       Procedure()
     code
     dispose(self.UI)
 

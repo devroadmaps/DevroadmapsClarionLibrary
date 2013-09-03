@@ -43,19 +43,26 @@
 
 
 
-DCL_System_Threading_Thread             Class,Type,Module('DCL_System_Threading_Thread.CLW'),Link('DCL_System_Threading_Thread.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
-!Errors                                          &DCL_System_ErrorManager
-Running                                     byte,private
-StopRequest                                 byte,private
-Construct                                   Procedure()
-Destruct                                    Procedure()
-Start                                       procedure
-StartWorkerProcedure                        procedure,virtual
-Stop                                        procedure
-Stopped                                     procedure,bool
-StopRequested                               procedure,bool
-WorkerProcedureHasEnded                     procedure
-WorkerProcedureHasStarted                   procedure
-                                        End
+DCL_System_Threading_Thread                 Class,Type,Module('DCL_System_Threading_Thread.CLW'),Link('DCL_System_Threading_Thread.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
+ThreadIsPaused                                       byte,protected
+ThreadIsRunning                                         byte,private
+PauseRequest                                    byte,private
+StopRequest                                     byte,private
+Construct                                       Procedure()
+Destruct                                        Procedure()
+Pause                                           procedure
+Paused                                          procedure,bool
+PauseRequested                                  procedure,bool
+Resume                                          procedure
+Sleep                                           procedure(long microseconds)
+Start                                           procedure
+StartWorkerProcedure                            procedure,virtual
+Stop                                            procedure
+Stopped                                         procedure,bool
+StopRequested                                   procedure,bool
+WaitForResume                                   procedure(long delayInMilliseconds=100)
+WorkerProcedureHasEnded                         procedure
+WorkerProcedureHasStarted                       procedure
+                                            End
 
 
