@@ -82,6 +82,9 @@ DCL_UI_BackgroundProgressDisplay.Enable     procedure
     self.UIThread = thread()
     register(event:notify,address(self.TakeEvent),address(self))
     
+DCL_UI_BackgroundProgressDisplay.PostToUIThread     procedure(long event=event:user)
+    code
+    post(event,,self.UIThread)
 
 DCL_UI_BackgroundProgressDisplay.SetListControl     procedure(long ListControlFEQ,*Queue q,*? qField)
     code

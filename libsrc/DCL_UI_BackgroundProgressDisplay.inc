@@ -63,6 +63,7 @@ Destruct                                        Procedure()
 AddListValue                                    procedure(string s)
 DisposeStringControlText                        procedure,private
 Enable                                          procedure
+PostToUIThread                                  procedure(long event=event:user)
 SetListControl                                  procedure(long ListControlFEQ,*Queue q,*? qField)
 SetStringControlFEQ                             procedure(long StringControlFEQ)
 SetStringControlValue                           procedure(string StringControlValue)
