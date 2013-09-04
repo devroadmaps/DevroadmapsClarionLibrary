@@ -49,6 +49,7 @@ NotifyCode                                      long
 NotifyEvent                                     long
 ProgressControlFEQ                              long
 ProgressControlValue                            long,Protected
+ProgressControlPreviousValue                    long,Protected
 StringControlFEQ                                long
 StringControlValue                              &string,Protected
 UIThread                                        long,private
@@ -61,7 +62,7 @@ SetStringControlFEQ                             procedure(long StringControlFEQ)
 SetStringControlValue                           procedure(string StringControlValue)
 SetProgressControlFEQ                           procedure(long ProgressBarControlFEQ,<long rangeLow>,<long rangeHigh>)
 SetProgressControlValue                         procedure(long ProgressControlValue)
-TakeEvent                                       procedure
+TakeEvent                                       procedure,byte
                                             End
 
 

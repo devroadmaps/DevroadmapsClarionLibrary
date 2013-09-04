@@ -51,13 +51,14 @@ DCL_UI_BackgroundProgressDisplay.Construct  Procedure()
     !self.Errors &= new DCL_System_ErrorManager
     self.CriticalSection &= new DCL_System_Threading_CriticalSection
     self.NotifyCode = 9867 ! Some random number unlikely to be used by anyone else
+    clear(self.ProgressControlPreviousValue,-1)
 
 DCL_UI_BackgroundProgressDisplay.Destruct   Procedure()
     code
     !dispose(self.Errors)
     dispose(self.CriticalSection)
     self.DisposeStringControlText()
-
+    
         
 DCL_UI_BackgroundProgressDisplay.DisposeStringControlText   procedure
     code
@@ -69,6 +70,7 @@ DCL_UI_BackgroundProgressDisplay.Enable     procedure
     code
     self.UIThread = thread()
     register(event:notify,address(self.TakeEvent),address(self))
+    
 
 DCL_UI_BackgroundProgressDisplay.SetStringControlFEQ        procedure(long StringControlFEQ)
     code
@@ -105,9 +107,10 @@ DCL_UI_BackgroundProgressDisplay.TakeEvent  procedure
     code
     if NOTIFICATION(self.notifyCode)
         self.CriticalSection.Wait()
-        if self.ProgressControlFEQ <> 0 
+        if self.ProgressControlFEQ <> 0  and self.ProgressControlValue <> self.ProgressControlPreviousValue
             self.ProgressControlFEQ{Prop:Progress} = self.ProgressControlValue
             display(self.ProgressControlFEQ)
+            self.ProgressControlPreviousValue = self.ProgressControlValue
         end
         if self.StringControlFEQ <> 0
             self.StringControlFEQ{prop:text} = self.StringControlValue
@@ -115,6 +118,7 @@ DCL_UI_BackgroundProgressDisplay.TakeEvent  procedure
         end
         self.CriticalSection.Release()    
     end
+    return Level:Benign
     
 
     
