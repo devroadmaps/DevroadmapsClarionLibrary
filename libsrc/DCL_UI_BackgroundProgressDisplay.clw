@@ -52,6 +52,7 @@ DCL_UI_BackgroundProgressDisplay.Construct  Procedure()
     self.CriticalSection &= new DCL_System_Threading_CriticalSection
     self.NotifyCode = 9867 ! Some random number unlikely to be used by anyone else
     clear(self.ProgressControlPreviousValue,-1)
+    self.ListQueueLastRecordCount = 0
 
 DCL_UI_BackgroundProgressDisplay.Destruct   Procedure()
     code
@@ -59,7 +60,17 @@ DCL_UI_BackgroundProgressDisplay.Destruct   Procedure()
     dispose(self.CriticalSection)
     self.DisposeStringControlText()
     
-        
+DCL_UI_BackgroundProgressDisplay.AddListValue       procedure(string s)
+    code
+    self.CriticalSection.Wait()
+    if not self.ListQueue &= null and not self.ListQueueField &= NULL
+        clear(self.ListQueue)
+        self.ListQueueField  = s
+        add(self.ListQueue)
+    end
+    notify(self.notifyCode,self.UIthread)
+    self.CriticalSection.Release()
+    
 DCL_UI_BackgroundProgressDisplay.DisposeStringControlText   procedure
     code
     if not self.StringControlValue &= null
@@ -72,6 +83,12 @@ DCL_UI_BackgroundProgressDisplay.Enable     procedure
     register(event:notify,address(self.TakeEvent),address(self))
     
 
+DCL_UI_BackgroundProgressDisplay.SetListControl     procedure(long ListControlFEQ,*Queue q,*? qField)
+    code
+    self.ListControlFEQ = ListControlFEQ
+    self.ListQueue &= q
+    self.ListQueueField &= qField
+    
 DCL_UI_BackgroundProgressDisplay.SetStringControlFEQ        procedure(long StringControlFEQ)
     code
     self.StringControlFEQ = StringControlFEQ
@@ -115,6 +132,11 @@ DCL_UI_BackgroundProgressDisplay.TakeEvent  procedure
         if self.StringControlFEQ <> 0
             self.StringControlFEQ{prop:text} = self.StringControlValue
             display(self.StringControlFEQ)
+        end
+        if self.ListControlFEQ <> 0 and records(self.ListQueue) <> self.ListQueueLastRecordCount
+            ! Issuing a select to go to the last record messes up the event handling.
+            !select(self.ListControlFEQ,records(self.ListQueue))
+            self.ListQueueLastRecordCount = records(self.ListQueue)
         end
         self.CriticalSection.Release()    
     end

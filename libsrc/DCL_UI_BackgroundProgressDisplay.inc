@@ -45,6 +45,10 @@
 
 DCL_UI_BackgroundProgressDisplay            Class,Type,Module('DCL_UI_BackgroundProgressDisplay.CLW'),Link('DCL_UI_BackgroundProgressDisplay.CLW',_DCL_Classes_LinkMode_),Dll(_DCL_Classes_DllMode_)
 CriticalSection                                 &DCL_System_Threading_CriticalSection
+ListControlFEQ                                  long
+ListQueue                                       &queue,protected
+ListQueueField                                  any,protected
+ListQueueLastRecordCount                        long,protected
 NotifyCode                                      long
 NotifyEvent                                     long
 ProgressControlFEQ                              long
@@ -56,8 +60,10 @@ UIThread                                        long,private
 !Errors                                          &DCL_System_ErrorManager
 Construct                                       Procedure()
 Destruct                                        Procedure()
+AddListValue                                    procedure(string s)
 DisposeStringControlText                        procedure,private
 Enable                                          procedure
+SetListControl                                  procedure(long ListControlFEQ,*Queue q,*? qField)
 SetStringControlFEQ                             procedure(long StringControlFEQ)
 SetStringControlValue                           procedure(string StringControlValue)
 SetProgressControlFEQ                           procedure(long ProgressBarControlFEQ,<long rangeLow>,<long rangeHigh>)
