@@ -1,0 +1,1 @@
+..\clariontest DCL_System_String_Tests.dll CIS=TC

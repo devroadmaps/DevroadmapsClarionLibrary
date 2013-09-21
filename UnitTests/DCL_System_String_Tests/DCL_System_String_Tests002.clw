@@ -43,7 +43,7 @@ ProcedureReturn   ROUTINE
 !!! </summary>
 PrependString_Verify PROCEDURE  (*long addr)               ! Declare Procedure
 FilesOpened          LONG                                  !
-str	DCL_System_String
+str                         DCL_System_String
 
   CODE
   addr = address(UnitTestResult)
@@ -211,7 +211,8 @@ s                                                               string(100)
   CODE
   addr = address(UnitTestResult)
   BeginUnitTest('SplitStringWithMultipleDelimiters_VerifyCountAndValues')
-	str.Assign('abc;defg, hi j')
+    SetUnitTestFailed('forced test failure')
+    str.Assign('abc;defg, hi j')
 	q.s = ' '
 	add(q)
 	q.s = ';'

@@ -79,6 +79,7 @@ DCL_System_Threading_Thread.Resume          procedure
     code
     self.ThreadIsPaused = false
     self.PauseRequest = false
+    self.StopRequest = false ! So a resume can be used to cancel a stop
 
 DCL_System_Threading_Thread.Sleep           procedure(long microseconds)
     code

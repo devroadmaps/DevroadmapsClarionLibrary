@@ -67,8 +67,8 @@ DCL_UI_BackgroundProgressDisplay.AddListValue       procedure(string s)
         clear(self.ListQueue)
         self.ListQueueField  = s
         add(self.ListQueue)
+        notify(self.notifyCode,self.UIthread)
     end
-    notify(self.notifyCode,self.UIthread)
     self.CriticalSection.Release()
     
 DCL_UI_BackgroundProgressDisplay.DisposeStringControlText   procedure
@@ -136,7 +136,7 @@ DCL_UI_BackgroundProgressDisplay.TakeEvent  procedure
             self.StringControlFEQ{prop:text} = self.StringControlValue
             display(self.StringControlFEQ)
         end
-        if self.ListControlFEQ <> 0 and records(self.ListQueue) <> self.ListQueueLastRecordCount
+        if self.ListControlFEQ <> 0 and not self.ListQueue &= null and records(self.ListQueue) <> self.ListQueueLastRecordCount
             ! Issuing a select to go to the last record messes up the event handling.
             !select(self.ListControlFEQ,records(self.ListQueue))
             self.ListQueueLastRecordCount = records(self.ListQueue)

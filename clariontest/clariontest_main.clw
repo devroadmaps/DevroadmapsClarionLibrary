@@ -14,6 +14,7 @@ Init                                            PROCEDURE(BYTE AppStrategy=AppSt
 DirectoryWatcher                            class(DCL_System_Runtime_DirectoryWatcher)
 DoTask                                          procedure,VIRTUAL
                                             end
+StdOut                                      DCL_System_IO_StdOut
 
                                             itemize(1),pre(Style)
 Default                                         equate
@@ -88,9 +89,26 @@ CurrentTestIndex                            long
 DelayBeforeAutorun                          long(90)
 PreviousDllsChecksum                        REAL
 CurrentDllsChecksum                         real
-
+ShowUI                                      bool
 
     CODE
+    if command('CIS') = 'TC' 
+        ! Called as a command line utility
+        ShowUI = false
+        RunAllTests = true
+        do PrepareProcedure
+        if exists(TestDllPathAndName)
+            StdOut.Write('##teamcity[testSuiteStarted name=<39>' & TestDllName & '<39>]]')
+            do LoadTests
+            do RunTests
+            StdOut.Write('##teamcity[testSuiteFinished name=<39>' & TestDllName & '<39>]]')
+        else
+            StdOut.Write('##teamcity[testFailed message=<39>DLL not found<39> details=<39>' & TestDllPathAndName & '<39>]]')
+        end
+        !message('done')
+        return
+    end
+    ShowUI = true        
     ProgramDirectory = longpath()
     open(window)
     Window{PROP:MinWidth} = 400
@@ -298,16 +316,21 @@ RunTests                                ROUTINE
         if ~errorcode()
 !		!dbg.write('Got record ' & TestsQ.qPointer & ', test ' & ProceduresQ.TestName)
 !		!dbg.write('Running test ' & ProceduresQ.TestName)
+            if not ShowUI
+                StdOut.Write('##teamcity[testStarted name=<39>' & clip(TestsQ.GroupOrTestName) & '<39>]]')
+            end
             TestResult &= TestRunner.RunTestByName(TestsQ.GroupOrTestName)
             CurrentTestIndex += 1
-            ?Progress{PROP:Progress} = CurrentTestIndex
-            display(?Progress)			
+            if ShowUI
+                ?Progress{PROP:Progress} = CurrentTestIndex
+                display(?Progress)			
+            end
             !ProceduresQ.TestResultStyle = Style:Failed
             if TestResult &= null
                 TestsQ.TestDescription = 'Failed: TestResult object was null'
                 TestsQ.TestStatus = dcl_ClarionTest_Status_Fail
                 FailedTestCount += 1
-            ELSE
+            else                
                 TestsQ.TestStatus = TestResult.Status
                 if TestResult.Status = DCL_ClarionTest_Status_Pass
                     TestsQ.TestResult = 'Passed ' & TestResult.Description
@@ -317,10 +340,17 @@ RunTests                                ROUTINE
                 else
                     TestsQ.TestResult = 'Failed: ' & TestResult.Message
                     TestsQ.TestResultStyle = Style:Failed
-                    FailedTestCount += 1
+                    FailedTestCount += 1 
+                        
                 END
             END
-            PUT(TestsQ)
+            PUT(TestsQ)  
+            if not ShowUI
+                IF TestsQ.TestResultStyle = Style:Failed  
+                    StdOut.Write('##teamcity[testFailed name=<39>' & clip(TestsQ.GroupOrTestName) & '<39> message=<39>' & clip(TestResult.Message) & '<39> details=<39>' & clip(TestResult.Message) & '<39>]]')
+                end  
+                StdOut.Write('##teamcity[testFinished name=<39>' & clip(TestsQ.GroupOrTestName) & '<39>]]')
+            end
             IF TestsQ.TestResultStyle = Style:Failed |
                 AND FirstFailedTest = 0
                 FirstFailedTest = x
@@ -328,19 +358,24 @@ RunTests                                ROUTINE
         END
     END
     TestRunner.Kill()
-    display()
-    setcursor()
-    0{prop:text} = 'ClarionTest - ' & FailedTestCount & ' failed tests'
-    if FailedTestCount > 0
-        beep(BEEP:SystemHand)
-        if FailedTestCount = 1
-            0{prop:text} = 'ClarionTest - 1 failed test'
+    if ShowUI
+        display()
+        setcursor()
+        0{prop:text} = 'ClarionTest - ' & FailedTestCount & ' failed tests'
+        if FailedTestCount > 0
+            beep(BEEP:SystemHand)
+            if FailedTestCount = 1
+                0{prop:text} = 'ClarionTest - 1 failed test'
+            end
+            ?TestList{PROP:Selected} = FirstFailedTest
+        else
+            beep(BEEP:SystemExclamation)
         end
-        ?TestList{PROP:Selected} = FirstFailedTest
+        0{prop:text} = 0{prop:text} & ' at ' & format(clock(),@t6)
     else
-        beep(BEEP:SystemExclamation)
+        !message('done')
     end
-    0{prop:text} = 0{prop:text} & ' at ' & format(clock(),@t6)
+    
 	
 
 Resizer.Init                            PROCEDURE(BYTE AppStrategy=AppStrategy:Resize,BYTE SetWindowMinSize=False,BYTE SetWindowMaxSize=False)
