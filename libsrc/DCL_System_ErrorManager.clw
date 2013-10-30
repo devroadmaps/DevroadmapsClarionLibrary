@@ -64,7 +64,7 @@ x                                           long
     
 DCL_System_ErrorManager.Construct        PROCEDURE
     CODE
-    self.errorsq &= new ErrorsQueue
+    self.errorsq &= new DCL_System_ErrorManager_ErrorsQueue
     
 DCL_System_ErrorManager.Destruct         procedure 
     code
