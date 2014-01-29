@@ -39,13 +39,7 @@
     <Compile Include="DCL_CallA.a" />
   </ItemGroup>
   <ItemGroup>
-    <FileDriver Include="ASCII" />
-    <FileDriver Include="BASIC" />
-    <FileDriver Include="Btrieve" />
-    <FileDriver Include="Clarion" />
     <FileDriver Include="DOS" />
-    <FileDriver Include="ODBC" />
-    <FileDriver Include="TOPSPEED" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
   <PropertyGroup>
