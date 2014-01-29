@@ -1,15 +1,5 @@
                                         MEMBER('ClarionTest.clw')
-
-!Region Logger
-Logger                                  CLASS(DCL_System_Diagnostics_Logger)
-Construct                                 PROCEDURE
-                                        END
-                                        
-Logger.Construct  PROCEDURE
-   CODE
-   SELF.Prefix = '`'
-!EndRegion Logger
-   
+  
 Main                                    PROCEDURE 
 
 !Region Data Directly used by the Window
