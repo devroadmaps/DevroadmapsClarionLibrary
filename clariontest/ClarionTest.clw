@@ -30,9 +30,9 @@ Settings                                    INIClass                            
     CODE
     Settings.Init(LongPath() & '\ClarionTest.INI', NVD_INI)                ! Configure INIManager to use INI file
     Main()
-    Settings.Kill                                              ! Destroy INI manager
+    Settings.Kill()                                              ! Destroy INI manager
 
-
+!Region Remmed
 
 
 !!
@@ -281,3 +281,5 @@ Settings                                    INIClass                            
 !    CODE
 !    DctKill()
 !
+
+!EndRegion Remmed

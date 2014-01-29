@@ -80,7 +80,7 @@ SetUnitTestStatus                       procedure(long status,string stdMessage,
 BeginUnitTest                           procedure(string testName)
     CODE
     clear(UnitTestResult)
-    UnitTestResult.Status = DCL_ClarionTest_Status_Pass
+    UnitTestResult.Status        = DCL_ClarionTest_Status_Pass
     UnitTestResult.ProcedureName = testName
 	
 AssertThat                              procedure(string testResult,byte b,<string userMessage>,<string successMessage>)
@@ -123,11 +123,12 @@ singlequote                                 equate('''')
     return true
 
 IsEqualTo                               procedure(string s)
+!MG: By Clipping the string, you're (probably) adding a limitation 
     CODE
-    UnitTestType = DCL_ClarionTest_UnitTestTypes:IsEqualTo
-    UnitTestVariableType = DCL_ClarionTest_UnitTestVariableTypes:StringType
+    UnitTestType            = DCL_ClarionTest_UnitTestTypes:IsEqualTo
+    UnitTestVariableType    = DCL_ClarionTest_UnitTestVariableTypes:StringType
     UnitTestExpectedString &= new string(len(clip(s)))
-    UnitTestExpectedString = s
+    UnitTestExpectedString  = s
     !logger.write('IsEqualTo created new string(' & len(clip(s)) & '), value ''' & UnitTestExpectedString & '''')
     return true
 	

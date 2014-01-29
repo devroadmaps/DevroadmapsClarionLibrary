@@ -1,14 +1,9 @@
-
-
-										MEMBER('ClarionTest.clw')                               ! This is a MEMBER module
-
+	MEMBER('ClarionTest.clw')
 	include('DCL_System_IO_Directory.inc'),once
 
-
-
-Settings                                PROCEDURE 
-
-DirectoryListing                            DCL_System_IO_Directory
+Settings          PROCEDURE 
+DirectoryListing  DCL_System_IO_Directory
+!Region Remmed
 !DirectoryQ                                  DCL_System_IO_DirectoryQueue
 
 
@@ -64,8 +59,12 @@ DirectoryListing                            DCL_System_IO_Directory
 !Feq                                             LONG
 !OldColor                                        LONG
 !											END
+!EndRegion Remmed
 
 	CODE
+!Region Remmed
+
+	
 !	GlobalResponse = ThisWindow.Run()                        ! Opens the window and starts an Accept Loop
 !
 !!---------------------------------------------------------------------------
@@ -234,3 +233,4 @@ DirectoryListing                            DCL_System_IO_Directory
 !!!!! <summary>
 !!!!! Generated from procedure template - Window
 !!!!! </summary>
+!EndRegion Remmed
