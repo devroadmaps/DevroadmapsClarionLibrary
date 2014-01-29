@@ -388,7 +388,7 @@ lpaddress                                       long,auto
         add(SELF.AddressQ,SELF.Addressq.procname)
     else
         !logger.write('GetProcAddress failed for ' & cProcName & ' using handle ' & self.DllHandle & ', error ' & getlasterror())
-        SELF.TakeError('get adress failed for ' & cProcName)
+        SELF.TakeError('get address failed for ' & cProcName)
         Return SELF.eProcFail
     end
     return lpaddress
