@@ -5,6 +5,25 @@ EXPORTS
   $VCRREQUEST                                             @?
 
 ;Start of SoftVelocity ABC library exports
+  VMT$ANYASCIIFILECLASS                                   @?
+  TYPE$ANYASCIIFILECLASS                                  @?
+  CLOSEFILE@F17ANYASCIIFILECLASS                          @?
+  CREATEFILE@F17ANYASCIIFILECLASSsbl                      @?
+  DESTRUCT@F17ANYASCIIFILECLASS                           @?
+  GETNAME@F17ANYASCIIFILECLASS                            @?
+  GETREADPOSITION@F17ANYASCIIFILECLASS                    @?
+  GETWRITEPOSITION@F17ANYASCIIFILECLASS                   @?
+  INITFILE@F17ANYASCIIFILECLASSOsbUcl                     @?
+  ISOPEN@F17ANYASCIIFILECLASS                             @?
+  OPENFILE@F17ANYASCIIFILECLASSsbl                        @?
+  OPENORCREATEFILE@F17ANYASCIIFILECLASSsbl                @?
+  READ@F17ANYASCIIFILECLASSRscOUl                         @?
+  READ@F17ANYASCIIFILECLASSRspOUl                         @?
+  READ@F17ANYASCIIFILECLASSRsbOUl                         @?
+  REPLACE@F17ANYASCIIFILECLASSsb                          @?
+  SETAUTOFLUSH@F17ANYASCIIFILECLASSUc                     @?
+  SETREADPOSITION@F17ANYASCIIFILECLASSUl                  @?
+  WRITE@F17ANYASCIIFILECLASSsb                            @?
   VMT$ASCIIFILECLASS                                      @?
   TYPE$ASCIIFILECLASS                                     @?
   FORMATLINE@F14ASCIIFILECLASSRsb                         @?
@@ -2032,6 +2051,12 @@ EXPORTS
   LOAD_@_IFILTER_@_CFILTERLIST@F7IFILTERsb                @?
   SAVE_@_IFILTER_@_CFILTERLIST@F7IFILTERsb                @?
   SAVEAS_@_IFILTER_@_CFILTERLIST@F7IFILTERsb              @?
+  VMT$CCICSTRINGFACTORY                                   @?
+  TYPE$CCICSTRINGFACTORY                                  @?
+  C@F17CCICSTRINGFACTORYsb                                @?
+  CONSTRUCT@F17CCICSTRINGFACTORY                          @?
+  DESTRUCT@F17CCICSTRINGFACTORY                           @?
+  GETCSTRING@F17CCICSTRINGFACTORYsb                       @?
   FUZZYMATCH@Fsbsb                                        @?
   GETFIELDVALUE@Fsasa                                     @?
   GETFILEFIELD@Fsasa                                      @?

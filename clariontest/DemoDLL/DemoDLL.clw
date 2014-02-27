@@ -18,9 +18,11 @@
    INCLUDE('ABUTIL.INC'),ONCE
    INCLUDE('ABWINDOW.INC'),ONCE
    INCLUDE('ABWMFPAR.INC'),ONCE
+   INCLUDE('ANYASCII.INC'),ONCE
    INCLUDE('CSIDLFOLDER.INC'),ONCE
    INCLUDE('ERRORS.CLW'),ONCE
    INCLUDE('KEYCODES.CLW'),ONCE
+   INCLUDE('NETCRIT.INC'),ONCE
    INCLUDE('SPECIALFOLDER.INC'),ONCE
    INCLUDE('ABBREAK.INC'),ONCE
    INCLUDE('ABCPTHD.INC'),ONCE
@@ -36,6 +38,7 @@
    INCLUDE('ABRPPSEL.INC'),ONCE
    INCLUDE('ABRULE.INC'),ONCE
    INCLUDE('ABVCRFRM.INC'),ONCE
+   INCLUDE('CCICS.INC'),ONCE
    INCLUDE('CFILTBASE.INC'),ONCE
    INCLUDE('CFILTERLIST.INC'),ONCE
    INCLUDE('CWSYNCHC.INC'),ONCE
@@ -52,16 +55,15 @@ DctKill     PROCEDURE                                      ! Kills the dictionar
      END
 !--- Application Global and Exported Procedure Definitions --------------------------------------------
      MODULE('ANOTHERTESTGROUP.CLW')
-_001_CompareTwoStrings_Verify FUNCTION(*long addr),long,pascal   !
-_002_CompareTruetoFalse_DeliberateTestFailure FUNCTION(*long addr),long,pascal   !
+CompareTwoStrings_Verify FUNCTION(*long addr),long,pascal   !
+CompareTruetoFalse_DeliberateTestFailure FUNCTION(*long addr),long,pascal   !
      END
      MODULE('MYTESTGROUP.CLW')
-_002_CompareTwoIntegers_Verify FUNCTION(*long addr),long,pascal   !
-_001_CompareTwoGroups_Verify FUNCTION(*long addr),long,pascal   !This test will compare two groups of numbers, and verify that they match.  
-_001_Group1            PROCEDURE   !
-_002_Group2            PROCEDURE   !
-_003_CompareTwsoStrings FUNCTION(*long addr),long,pascal   !
-_003_AnotherGroup      PROCEDURE   !
+CompareTwoIntegers_Verify FUNCTION(*long addr),long,pascal   !
+CompareTwoGroups_Verify FUNCTION(*long addr),long,pascal   !This test will compare two groups of numbers, and verify that they match.  
+Group1                 PROCEDURE   !
+Group2                 PROCEDURE   !
+CompareTwoStrings      FUNCTION(*long addr),long,pascal   !
      END
      MODULE('DEMODLL001.CLW')
 CompareEmptyString     FUNCTION(*long addr),long,pascal   !
@@ -127,34 +129,34 @@ ClarionTest_GetListOfTestProcedures PROCEDURE(*LONG Addr)
     CODE
     Addr = ADDRESS(ClarionTest_ctpl)
     FREE(ClarionTest_ctpl.List)
-    ClarionTest_ctpl.List.TestPriority       = 3
-    ClarionTest_ctpl.List.TestName       = '_003_CompareTwsoStrings'
-    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
-    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareTwoStrings'
+    ClarionTest_ctpl.List.TestGroupName      = 'Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.TestPriority       = 2
-    ClarionTest_ctpl.List.TestName       = '_002_CompareTruetoFalse_DeliberateTestFailure'
-    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
-    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareTruetoFalse_DeliberateTestFailure'
+    ClarionTest_ctpl.List.TestGroupName      = 'Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.TestPriority       = 1
-    ClarionTest_ctpl.List.TestName       = '_001_CompareTwoGroups_Verify'
-    ClarionTest_ctpl.List.TestGroupName      = '_001_Group1'
-    ClarionTest_ctpl.List.TestGroupPriority = 1
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareTwoGroups_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'Group1'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.TestPriority       = 2
-    ClarionTest_ctpl.List.TestName       = '_002_CompareTwoIntegers_Verify'
-    ClarionTest_ctpl.List.TestGroupName      = '_002_Group2'
-    ClarionTest_ctpl.List.TestGroupPriority = 2
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareTwoStrings_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'Group2'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
-    ClarionTest_ctpl.List.TestPriority       = 1
-    ClarionTest_ctpl.List.TestName       = '_001_CompareTwoStrings_Verify'
-    ClarionTest_ctpl.List.TestGroupName      = '_002_Group2'
-    ClarionTest_ctpl.List.TestGroupPriority = 2
+    ClarionTest_ctpl.List.TestPriority       = 10
+    ClarionTest_ctpl.List.TestName       = 'CompareTwoIntegers_Verify'
+    ClarionTest_ctpl.List.TestGroupName      = 'Group2'
+    ClarionTest_ctpl.List.TestGroupPriority = 0
     ADD(ClarionTest_ctpl.List)
         
     ClarionTest_ctpl.List.TestPriority       = 10

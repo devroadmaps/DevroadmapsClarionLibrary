@@ -1,5 +1,5 @@
  <Configuration Version="1.00">
-  <Settings PATHTOSAVECLASS="e:\dev-Clarion\DevroadmapsClarionLibrary\libsrc" RECENTOPEN="C:\Users\Dave\AppData\Roaming\SoftVelocity\Clarion\8.0\RecentOpen.xml" DEFAULTSOLUTIONFOLDER="Classes" TEXTEDITOR="" OPENTEXTEDITORAFTERCREATE="1" USEADVANCEDMODE="0">
+  <Settings PATHTOSAVECLASS="E:\Clarion.Installs\Clarion8\LibSrc\win" RECENTOPEN="C:\Users\Dave\AppData\Roaming\SoftVelocity\Clarion\8.0\RecentOpen.xml" DEFAULTSOLUTIONFOLDER="Classes" TEXTEDITOR="" OPENTEXTEDITORAFTERCREATE="" USEADVANCEDMODE="0">
   </Settings>
  </Configuration>
  <Solutions Version="1.00">
@@ -14,5 +14,11 @@
   <ClassSkeletons MQS_CLASSDESCRIPTION="DCL Base Class" MQS_CLASSINC="E:\dev-Clarion\DevroadmapsClarionLibrary\libsrc\DCL_BaseClass.inc">
   </ClassSkeletons>
   <ClassSkeletons MQS_CLASSDESCRIPTION="DCL Base Class - Always Compile (not included in DCL DLL)" MQS_CLASSINC="E:\dev-Clarion\DevroadmapsClarionLibrary\libsrc\DCL_BaseClass_AlwaysCompile.inc">
+  </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="System_XML base class (SV)" MQS_CLASSINC="E:\Clarion.Installs\Clarion8\accessory\bin\ClarionLive! Class Creator\System_XML_BaseClass.inc">
+  </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="SV system base class" MQS_CLASSINC="E:\Clarion.Installs\Clarion8\accessory\bin\ClarionLive! Class Creator\System_BaseClass.inc">
+  </ClassSkeletons>
+  <ClassSkeletons MQS_CLASSDESCRIPTION="SV internet base class" MQS_CLASSINC="E:\Clarion.Installs\Clarion8\accessory\bin\ClarionLive! Class Creator\System_NET_BaseClass.inc">
   </ClassSkeletons>
  </ClassSkeletons>

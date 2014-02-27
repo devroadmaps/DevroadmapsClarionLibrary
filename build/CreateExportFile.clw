@@ -45,6 +45,9 @@
     include('DCL_System_ExpFileWriter.inc'),once
     include('DCL_System_IO_AsciiFile.inc'),once
     include('DCL_System_String.inc'),once
+    include('DCL_System_Diagnostics_Logger.inc'),once
+
+dbg                 DCL_System_Diagnostics_Logger
 
 MaxFilePathLength                           equate(FILE:MaxFilePath + FILE:MaxFileName + 1)
 
@@ -102,9 +105,12 @@ FileText                                    cstring(1000)
     if AsciiFile.OpenFile(FileWithListOfClassHeadersToExport) = Level:Benign
         loop
             if AsciiFile.Read(FileText) <> Level:Benign then break.
+            dbg.write('Adding class header file ' & filetext)
             ExpWriter.AddClassHeaderFile(clip(FileText))
         end
         AsciiFile.CloseFile()
+    else
+        dbg.write('Unable to open ' & FileWithListOfClassHeadersToExport)
     end
 
     ! Look in the INI file for the text file containing the list of custom export statements
@@ -121,6 +127,6 @@ FileText                                    cstring(1000)
         end
         AsciiFile.CloseFile()
     end
-
+    dbg.write('Calling ExpWriter')
     ExpWriter.WriteExpFile(DllName)	
     Setpath(OriginalDirectory)

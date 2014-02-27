@@ -5,6 +5,25 @@ EXPORTS
   $VCRREQUEST                                             @?
 
 ;Start of SoftVelocity ABC library exports
+  VMT$ANYASCIIFILECLASS                                   @?
+  TYPE$ANYASCIIFILECLASS                                  @?
+  CLOSEFILE@F17ANYASCIIFILECLASS                          @?
+  CREATEFILE@F17ANYASCIIFILECLASSsbl                      @?
+  DESTRUCT@F17ANYASCIIFILECLASS                           @?
+  GETNAME@F17ANYASCIIFILECLASS                            @?
+  GETREADPOSITION@F17ANYASCIIFILECLASS                    @?
+  GETWRITEPOSITION@F17ANYASCIIFILECLASS                   @?
+  INITFILE@F17ANYASCIIFILECLASSOsbUcl                     @?
+  ISOPEN@F17ANYASCIIFILECLASS                             @?
+  OPENFILE@F17ANYASCIIFILECLASSsbl                        @?
+  OPENORCREATEFILE@F17ANYASCIIFILECLASSsbl                @?
+  READ@F17ANYASCIIFILECLASSRscOUl                         @?
+  READ@F17ANYASCIIFILECLASSRspOUl                         @?
+  READ@F17ANYASCIIFILECLASSRsbOUl                         @?
+  REPLACE@F17ANYASCIIFILECLASSsb                          @?
+  SETAUTOFLUSH@F17ANYASCIIFILECLASSUc                     @?
+  SETREADPOSITION@F17ANYASCIIFILECLASSUl                  @?
+  WRITE@F17ANYASCIIFILECLASSsb                            @?
   VMT$ASCIIFILECLASS                                      @?
   TYPE$ASCIIFILECLASS                                     @?
   FORMATLINE@F14ASCIIFILECLASSRsb                         @?
@@ -1983,6 +2002,18 @@ EXPORTS
   SETRESULTQUEUE_@_IREPORTGENERATOR_@_XMLREPORTGENERATOR@F16IREPORTGENERATOR15OUTPUTFILEQUEUE @?
   SUPPORTRESULTQUEUE_@_IREPORTGENERATOR_@_XMLREPORTGENERATOR@F16IREPORTGENERATOR @?
   WHOAMI_@_IREPORTGENERATOR_@_XMLREPORTGENERATOR@F16IREPORTGENERATOR @?
+  VMT$_NETCRITICALSECTION                                 @?
+  TYPE$_NETCRITICALSECTION                                @?
+  CONSTRUCT@F19_NETCRITICALSECTION                        @?
+  DESTRUCT@F19_NETCRITICALSECTION                         @?
+  LOG@F19_NETCRITICALSECTIONsb                            @?
+  RELEASE@F19_NETCRITICALSECTIONl                         @?
+  WAIT@F19_NETCRITICALSECTIONl                            @?
+  VMT$_NETCRITICALSECTIONCHECK                            @?
+  TYPE$_NETCRITICALSECTIONCHECK                           @?
+  CONSTRUCT@F24_NETCRITICALSECTIONCHECK                   @?
+  DESTRUCT@F24_NETCRITICALSECTIONCHECK                    @?
+  LOG@F24_NETCRITICALSECTIONCHECKsb                       @?
   VMT$CFILTERBASE                                         @?
   TYPE$CFILTERBASE                                        @?
   CONSTRUCT@F11CFILTERBASE                                @?
@@ -2020,6 +2051,12 @@ EXPORTS
   LOAD_@_IFILTER_@_CFILTERLIST@F7IFILTERsb                @?
   SAVE_@_IFILTER_@_CFILTERLIST@F7IFILTERsb                @?
   SAVEAS_@_IFILTER_@_CFILTERLIST@F7IFILTERsb              @?
+  VMT$CCICSTRINGFACTORY                                   @?
+  TYPE$CCICSTRINGFACTORY                                  @?
+  C@F17CCICSTRINGFACTORYsb                                @?
+  CONSTRUCT@F17CCICSTRINGFACTORY                          @?
+  DESTRUCT@F17CCICSTRINGFACTORY                           @?
+  GETCSTRING@F17CCICSTRINGFACTORYsb                       @?
   FUZZYMATCH@Fsbsb                                        @?
   GETFIELDVALUE@Fsasa                                     @?
   GETFILEFIELD@Fsasa                                      @?
@@ -2034,14 +2071,13 @@ EXPORTS
 
 ;Start of Exported Procedures
   COMPAREEMPTYSTRING                                      @?
-  _003_ANOTHERGROUP@F                                     @?
-  _002_COMPARETWOINTEGERS_VERIFY                          @?
-  _002_COMPARETRUETOFALSE_DELIBERATETESTFAILURE           @?
-  _001_GROUP1@F                                           @?
-  _001_COMPARETWOSTRINGS_VERIFY                           @?
-  _001_COMPARETWOGROUPS_VERIFY                            @?
-  _003_COMPARETWSOSTRINGS                                 @?
-  _002_GROUP2@F                                           @?
+  COMPARETWOINTEGERS_VERIFY                               @?
+  COMPARETRUETOFALSE_DELIBERATETESTFAILURE                @?
+  GROUP1@F                                                @?
+  COMPARETWOSTRINGS_VERIFY                                @?
+  COMPARETWOGROUPS_VERIFY                                 @?
+  COMPARETWOSTRINGS                                       @?
+  GROUP2@F                                                @?
 ;End of Exported Procedures
 
   CLARIONTEST_GETLISTOFTESTPROCEDURES  @?

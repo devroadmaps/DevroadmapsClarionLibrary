@@ -88,11 +88,14 @@ y                                           long
 str                                         DCL_System_String
 !FileMgr                                     DCL_System_IO_AsciiFileManager
 ExpFile                                     DCL_System_IO_AsciiFile
-	code
+    code
+    dbg.write('DCL_System_ExpFileWriter.WriteExpFile')
+    dbg.write(RECORDS(self.classheaderq) & ' class header records')
 	loop x = 1 to RECORDS(self.classheaderq)
 		GET(self.classheaderq,x)
 		parser.Reset()
-		parser.Parse(self.ClassHeaderQ.Filename)
+        parser.Parse(self.ClassHeaderQ.Filename)
+        dbg.write('parser found ' & parser.ClassCount() & ' classes')
 		loop y = 1 to parser.ClassCount()
 			cls &= parser.GetClass(y)
 			if not cls &= null

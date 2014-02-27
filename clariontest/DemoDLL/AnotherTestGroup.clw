@@ -10,12 +10,12 @@
 !!! <summary>
 !!! Generated from procedure template - TestProcedure
 !!! </summary>
-_001_CompareTwoStrings_Verify PROCEDURE  (*long addr)      ! Declare Procedure
+CompareTwoStrings_Verify PROCEDURE  (*long addr)           ! Declare Procedure
 FilesOpened          LONG                                  !
 
   CODE
   addr = address(UnitTestResult)
-  BeginUnitTest('_001_CompareTwoStrings_Verify')
+  BeginUnitTest('CompareTwoStrings_Verify')
 
 	AssertThat('ad',IsEqualTo('ad'))!,,'This is a custom "success" message')
 	
@@ -25,13 +25,13 @@ ProcedureReturn   ROUTINE
 !!! <summary>
 !!! Generated from procedure template - TestProcedure
 !!! </summary>
-_002_CompareTruetoFalse_DeliberateTestFailure PROCEDURE  (*long addr) ! Declare Procedure
+CompareTruetoFalse_DeliberateTestFailure PROCEDURE  (*long addr) ! Declare Procedure
 FilesOpened          LONG                                  !
 !TestResult  &TestResultT
 
   CODE
   addr = address(UnitTestResult)
-  BeginUnitTest('_002_CompareTruetoFalse_DeliberateTestFailure')
+  BeginUnitTest('CompareTruetoFalse_DeliberateTestFailure')
     AssertThat(true,IsEqualTo(false))
   DO ProcedureReturn ! dgh
 ProcedureReturn   ROUTINE
