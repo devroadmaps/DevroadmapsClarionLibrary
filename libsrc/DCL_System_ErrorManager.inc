@@ -41,7 +41,7 @@ Error                                           cstring(500)
                                             end
 
 
-DCL_System_ErrorManager                     class,type,module('DCL_System_ErrorManager.clw'),link('DCL_System_ErrorManager.clw',_DCL_System_Classes_LinkMode_),DLL(_DCL_System_Classes_DllMode_)
+DCL_System_ErrorManager                     class,type,module('DCL_System_ErrorManager.clw'),link('DCL_System_ErrorManager.clw',_DCL_Classes_LinkMode_),DLL(_DCL_Classes_DllMode_)
 ErrorsQ                                         &DCL_System_ErrorManager_ErrorsQueue
 AddError                                        procedure(string error)
 AddError                                        procedure(long errorcode, string error)
