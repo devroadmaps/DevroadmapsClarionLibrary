@@ -2,37 +2,43 @@
 
     include('DCL_clariontest_testrunner.inc'),once
     include('DCL_clariontest_testresult.inc'),once
+    
     Include('DCL_System_Runtime_DirectoryWatcher.inc'),once
     include('DCL_System_Diagnostics_Logger.inc'),once
     include('DCL_System_String.inc'),once
     include('DCL_System_IO_Directory.inc'),once
     Include('DCL_System_IO_StdOut.inc'),Once
+    
     INCLUDE('ABUTIL.INC'),ONCE
 
 
-                                            MAP
-                                                module('ClarionTest_Main.clw')
-                                                    main()
-                                                end
-                                                module('ClarionTest_About.clw')
-                                                    About()
-                                                end
-                                                Module('ClarionTest_Settings.clw')
-                                                    Settings()
-                                                end
-                                                MODULE('')
-                                                    SLEEP(LONG),PASCAL
-                                                END
-                                            end
+    MAP
+        module('ClarionTest_Main.clw')
+            main()
+        end
+        module('ClarionTest_About.clw')
+            About()
+        end
+        Module('ClarionTest_Settings.clw')
+            Settings()
+        end
+        MODULE('')
+            SLEEP(LONG),PASCAL
+        END
+    end
 
-Settings                                    INIClass                              ! Global non-volatile storage manager
+Settings  INIClass                              ! Global non-volatile storage manager
+Logger    DCL_System_Diagnostics_Logger
 
     CODE
     Settings.Init(LongPath() & '\ClarionTest.INI', NVD_INI)                ! Configure INIManager to use INI file
+    Logger.SetPrefix( settings.TryFetch('Logger','Prefix') )
+
     Main()
-    Settings.Kill                                              ! Destroy INI manager
+    
+    Settings.Kill()
 
-
+!Region Remmed
 
 
 !!
@@ -281,3 +287,5 @@ Settings                                    INIClass                            
 !    CODE
 !    DctKill()
 !
+
+!EndRegion Remmed
